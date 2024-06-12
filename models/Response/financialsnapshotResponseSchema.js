@@ -1,0 +1,35 @@
+const mongoose = require('mongoose');
+
+const financialSnapshotResponseSchema = new mongoose.Schema({
+  financialSnapshot: { type: String, default: '' },
+  fundingAsk: { type: String, default: '' },
+  revenueChart: { type: String, default: '' },
+  costChartValue: { type: String, default: '' },
+  useOfFunds: { type: String, default: '' },
+  revenue2019: { type: Number, default: 0 },
+  revenue2020: { type: Number, default: 0 },
+  revenue2021: { type: Number, default: 0 },
+  revenue2022: { type: Number, default: 0 },
+  revenue2023: { type: Number, default: 0 },
+  revenue2024: { type: Number, default: 0 },
+  revenue2025: { type: Number, default: 0 },
+  revenue2026: { type: Number, default: 0 },
+  revenue2027: { type: Number, default: 0 },
+  revenue2028: { type: Number, default: 0 },
+  cost2019: { type: Number, default: 0 },
+  cost2020: { type: Number, default: 0 },
+  cost2021: { type: Number, default: 0 },
+  cost2022: { type: Number, default: 0 },
+  cost2023: { type: Number, default: 0 },
+  cost2024: { type: Number, default: 0 },
+  cost2025: { type: Number, default: 0 },
+  cost2026: { type: Number, default: 0 },
+  cost2027: { type: Number, default: 0 },
+  cost2028: { type: Number, default: 0 },
+  productDevelopment: { type: String, default: '' },
+  marketingSales: { type: String, default: '' },
+  capex: { type: String, default: '' },
+  businessOperations: { type: String, default: '' },
+  teamSalaries: { type: String, default: '' }
+});
+module.exports = financialSnapshotResponseSchema;

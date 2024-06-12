@@ -1,0 +1,37 @@
+const sectionToUrlMap = {
+  about:
+    "https://script.google.com/macros/s/AKfycbyfeFscKJp7WA8p1m8J95zbpFB0_tasXMbzhkl0UrB0DivEnrQ3CZIBgVkIbnUrUrYbyA/exec",
+  companyDetails:
+    "https://script.google.com/macros/s/AKfycbwirTe_AsS4U6c2nRGtep84ASAonzzA5raR1ler4HxQPCCrqfVKxrcO9p47WZrvSrIE4Q/exec",
+  problemDescription:
+    "https://script.google.com/macros/s/AKfycbzVH2627iD2S8Cu47QTO-kAls8YtfMqbNOV6olscGlqKiPuRY4ez4NEX6TyQjgbf9qj/exec",
+  solutionDescription:
+    "https://script.google.com/macros/s/AKfycbztrsdcm41Y-EqQYIlABXqq8dH6jZgo5t_cHgj5c_EBwZBE8S-qF2tMIEz349WaLFw/exec",
+  market:
+    "https://script.google.com/macros/s/AKfycbzZObrbFnMPidAlLnz1PRTMTyskGdzQ3dYXA_FwpwOhbqFc4Cop0WfFoqjjZaFIUYY/exec",
+  product:
+    "https://script.google.com/macros/s/AKfycbwHz7aIxcXlb4_BQ2hHrDFCbtDBgxxaWaWb2r7wW4_StOdvvsELkmclrPDdepbjZQ_C/exec",
+  productScreen:
+    "https://script.google.com/macros/s/AKfycbwBcViC6S4kXpknKzNSS2aQ3FW1C5EuOC3FFlJfaQN1rwr1plmqilzdmT7mpDlL4i9ztg/exec",
+  businessModel:
+    "https://script.google.com/macros/s/AKfycbyVrCMqQ6dgkaxg_E939XHKtFayCKQsrvyK-sXOgU8QCQnrIY6vR7U-rt3OtbPZAksH7g/exec",
+  goToMarket:
+    "https://script.google.com/macros/s/AKfycbx5kfP8VV7TtQuHMvSI3FjBzG3O9SwQ0ZPviPp32WwsBxQ08ytaHNOZ91AaDDzKWfYK/exec",
+  trackRecord:
+    "https://script.google.com/macros/s/AKfycbyF-aItv4QPX0_glXXAspZ0g2miKzDRf5etNm9wHAqyPSKT3KazbT-5Laypk3WBlCd7/exec",
+  caseStudies:
+    "https://script.google.com/macros/s/AKfycbwM2cbTz6DDUXB8GPS2jUOsQaTJ6tNxRiMm5QvO0x0HvtaRH7c7gtKTfkuUHbq9NhUZ/exec",
+  testimonials:
+    "https://script.google.com/macros/s/AKfycbwHT0YYA0uv6zlg5k-GLyzrkLCP1rkm7PGxoVnbOqQ4M-c-lJDYXjfzUj-I9LGp_mgt7g/exec",
+  competitors:
+    "https://script.google.com/macros/s/AKfycbxjWoa3fF0iW3V1eumfJ2OYj1YAgQ76IyxEdjygSMIRtHeuNvGdOCgAddd7AoUv9zpXIg/exec",
+  competitiveDiff:
+    "https://script.google.com/macros/s/AKfycbwPtxb_4niQ3fniUa1aE7a0f6Uh-cKH9oD81nEfzF1J70xJvCmdhqvVWbsTqLYA1VW77A/exec",
+  teamMembers:
+    "https://script.google.com/macros/s/AKfycbymDAkI6uE5f8bvW-Ow95DObocM7_3GoKkvLigqEl7y_6d_1cANOVkyPO_PltSr9Abl/exec",
+  financialInfo:
+    "https://script.google.com/macros/s/AKfycbyz4w2krmhoRwXQ3udgqxhqkn3ABVznVkxU3rr4DkA0BbqqOXpOnBAm77ENoYJmLaIE/exec",
+  contactInfo:
+    "https://script.google.com/macros/s/AKfycbxYO0wi5ebHTZTHqB6z2Z-CUKB4nfdGv9toiCuZht_K16FCwyuEZNNV13IuDwbBRCEk/exec",
+};
+module.exports = sectionToUrlMap;

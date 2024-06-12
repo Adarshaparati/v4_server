@@ -1,0 +1,37 @@
+const sectionToUrlMap1 = {
+    about:
+      "https://script.google.com/macros/s/AKfycbztsb9n32H0XJGDZonaHTqwMzAYUjvkGSHSdDsnP4V9RLBHiPuKwvXi9bg0bCfwRvlvQg/exec",
+    companyDetails:
+      "https://script.google.com/macros/s/AKfycbw0SSNnrqBUqrXNB8dr2GH4ScCbz3RTctYRt10iE6xbLN1_ef9sMkhksMkgEnpAptn2kA/exec",
+    problemDescription:
+      "https://script.google.com/macros/s/AKfycbydRTB0q6nUI5guAjwbA0DrQo97cewI-nglXHiQZHWGULJgja5pNJCG4m2GIwPrRKoi/exec",
+    solutionDescription:
+      "https://script.google.com/macros/s/AKfycbxFIhGOL2vkADQSwXtpvP9b8V0D_zD05KB2FgYsdx1E6AOfzDUQ1WCK6bBHbE2WyJJZ/exec",
+    market:
+      "https://script.google.com/macros/s/AKfycbwEVQWxuG_zyqvj4c7UA2NpYNnLTkY4PGIgktcpfQA9umAhiBefr7ub0nhD_Z4bsFRm/exec",
+    product:
+      "https://script.google.com/macros/s/AKfycbw1IqsRMig_3mKo4qLKX61OpfHPl2ti_EyOm6fKuc1TWA2xleM2pXffJEq4RiE1UMhW/exec",
+    productScreen:
+      "https://script.google.com/macros/s/AKfycbzJKmGtY5s1K0XVDE2pA1J_zLb95kOulCHuiagYiFVsS2CkOaA2lt-dNnV6qq02XGVAlw/exec",
+    businessModel:
+      "https://script.google.com/macros/s/AKfycbybBHBl4OD_YAjenTskVgKgBf5AyH_ezCPIQj5aEO4DRRpZJqaRDes_TVlCYR7Oy4sW7A/exec",
+    goToMarket:
+      "https://script.google.com/macros/s/AKfycbyCfJFv42JJbx9m6eYeX1-tqv4urPJWcUl98g8B8HiJrCDHBrsOjPXH_crJ-6db0547/exec",
+    trackRecord:
+      "https://script.google.com/macros/s/AKfycbyF-aItv4QPX0_glXXAspZ0g2miKzDRf5etNm9wHAqyPSKT3KazbT-5Laypk3WBlCd7/exec",
+    caseStudies:
+      "https://script.google.com/macros/s/AKfycbwM2cbTz6DDUXB8GPS2jUOsQaTJ6tNxRiMm5QvO0x0HvtaRH7c7gtKTfkuUHbq9NhUZ/exec",
+    testimonials:
+      "https://script.google.com/macros/s/AKfycbwc9z9zRzk6DYcUctk7GSWmS0zKX2TPTBCuU9SLchB9-q9mCq5-mbUGlg7PV-Y0zHC0pg/exec",
+    competitors:
+      "https://script.google.com/macros/s/AKfycbwU8Jtc4QFOI0b8OcNgrYSj3_EAEWDHhW-9TksPPMxNaSF8HtiTIHVzVP5ajgPQCc0KBw/exec",
+    competitiveDiff:
+      "https://script.google.com/macros/s/AKfycbxK5y_hnL3bA16WxRtW2Pacg0wyyom30hForgBd33eV3n9IXJCGsdTXRPIoPcu4dBTYAg/exec",
+    teamMembers:
+      "https://script.google.com/macros/s/AKfycbymDAkI6uE5f8bvW-Ow95DObocM7_3GoKkvLigqEl7y_6d_1cANOVkyPO_PltSr9Abl/exec",
+    financialInfo:
+      "https://script.google.com/macros/s/AKfycbw3-FB1JKjnGfOl37RwcsnCBRZRaRjbHjHKk11Q4Ce3XS0OsB3DmPFiwhMF22_HE4-HZQ/exec",
+    contactInfo:
+      "https://script.google.com/macros/s/AKfycbyY41dgb-ymC-YfhdwHE9SNIJF1rLepn6dXDv1bDmYrwaKIOAaNJixUpZFZuZoQ7gC1/exec",
+  };
+  module.exports = sectionToUrlMap1;
