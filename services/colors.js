@@ -26,7 +26,7 @@ async function getColors(imageUrl) {
     colors.sort((a, b) => b.percentage - a.percentage);
 
     // Ensure at least five colors are returned
-    return fillDefaultColors(colors);
+    return fillDefaultColors(colors).slice(0, 5);
   } catch (error) {
     throw new Error(`Error processing image: ${error.message}`);
   }
