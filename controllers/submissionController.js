@@ -55,7 +55,7 @@ exports.postStoreResponse = async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 };
-
+//main form submission
 exports.postSubmission = async (req, res) => {
   try {
     const { formId, formResponses, generatedPresentationId, section } = req.body;
@@ -84,7 +84,7 @@ exports.postSubmission = async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 };
-
+//shortform submission
 exports.postShortFormSubmission = async (req, res) => {
   try {
     const { formId, formResponses, generatedPresentationId, section } = req.body;
