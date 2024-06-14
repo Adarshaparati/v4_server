@@ -1,8 +1,8 @@
-const { GPT, NestedGPT } = require('../services/gpt');
-const cleanAndSplit = require('../utils/cleanandsplit');
-const separateHeaderDescription = require('../utils/sepreateHeaderDescription');
+const { GPT, NestedGPT } = require('../../services/gpt');
+const cleanAndSplit = require('../../utils/cleanandsplit');
+const separateHeaderDescription = require('../../utils/sepreateHeaderDescription');
 
-async function solutionController(submission, solutionPrompts) {
+async function processSolutionSection(submission, solutionPrompts) {
     const { companyDetails } = submission;
     const { companyOverview } = companyDetails;
 
@@ -70,4 +70,4 @@ async function solutionController(submission, solutionPrompts) {
     return solutionResponse;
 }
 
-module.exports = solutionController;
+module.exports = processSolutionSection;

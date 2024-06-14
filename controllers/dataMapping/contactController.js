@@ -1,5 +1,5 @@
 
-async function contactController(submission){
+async function processContactDetails(submission){
     const {contactInfo} = submission
 
     const contactResponse = {
@@ -11,4 +11,4 @@ async function contactController(submission){
     }
     return contactResponse;
 }
-module.exports = contactController 
+module.exports = processContactDetails 

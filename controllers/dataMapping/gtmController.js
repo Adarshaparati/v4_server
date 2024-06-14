@@ -1,9 +1,9 @@
 // Assuming required modules are already in place.
-const { GPT, NestedGPT } = require('../services/gpt');
-const cleanAndSplit = require('../utils/cleanandsplit');
-const separateHeaderDescription = require('../utils/sepreateHeaderDescription');
+const { GPT, NestedGPT } = require('../../services/gpt');
+const cleanAndSplit = require('../../utils/cleanandsplit');
+const separateHeaderDescription = require('../../utils/sepreateHeaderDescription');
 
-async function gtmController(submission, gtmPrompts) {
+async function processGTMStrategy(submission, gtmPrompts) {
     const { product, companyDetails } = submission;
     const { productOverview } = product;
     const { companyOverview } = companyDetails;
@@ -135,4 +135,4 @@ async function gtmController(submission, gtmPrompts) {
     return gtmResponse;
 }
 
-module.exports = gtmController;
+module.exports = processGTMStrategy;

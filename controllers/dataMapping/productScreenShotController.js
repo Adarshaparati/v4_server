@@ -1,9 +1,9 @@
-const { GPT, NestedGPT } = require('../services/gpt');
-const cleanAndSplit = require('../utils/cleanandsplit');
-const separateHeaderDescription = require('../utils/sepreateHeaderDescription')
+const { GPT, NestedGPT } = require('../../services/gpt');
+const cleanAndSplit = require('../../utils/cleanandsplit');
+const separateHeaderDescription = require('../../utils/sepreateHeaderDescription')
 
 
-async function productScreenShotController(submission,productScreenShotPrompts){
+async function processProductScreenshots(submission,productScreenShotPrompts){
     const {product} = submission;
     const {productOverview} = product;
     const mobileScreenshotsDescription = await GPT(productScreenShotPrompts.mobileScreenshotsDescription.prompt,productOverview)
@@ -21,4 +21,4 @@ async function productScreenShotController(submission,productScreenShotPrompts){
     }
     return productScreenShotResponse;
 }
-module.exports = productScreenShotController
+module.exports = processProductScreenshots

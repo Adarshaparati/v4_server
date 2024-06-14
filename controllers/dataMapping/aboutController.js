@@ -1,11 +1,11 @@
 // Assuming required modules are already in place.
-const { GPT, NestedGPT } = require('../services/gpt');
-const cleanAndSplit = require('../utils/cleanandsplit');
-const hexToRgb = require('../utils/hex_to_rgb');
-const separateHeaderDescription = require('../utils/sepreateHeaderDescription');
-const mixColors = require('../utils/mixcolors');
+const { GPT, NestedGPT } = require('../../services/gpt');
+const cleanAndSplit = require('../../utils/cleanandsplit');
+const hexToRgb = require('../../utils/hex_to_rgb');
+const separateHeaderDescription = require('../../utils/sepreateHeaderDescription');
+const mixColors = require('../../utils/mixcolors');
 
-async function aboutController(submission, aboutPrompts) {
+async function processAbout(submission, aboutPrompts) {
     const { about, companyDetails } = submission;
     const { tagline, primaryColor: primaryColorHex, secondaryColor: secondaryColorHex, companyName, companyLogo } = about;
     const { companyOverview } = companyDetails;
@@ -98,4 +98,4 @@ async function aboutController(submission, aboutPrompts) {
     return aboutResponse;
 }
 
-module.exports = aboutController;
+module.exports = processAbout;

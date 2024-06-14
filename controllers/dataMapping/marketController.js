@@ -1,10 +1,10 @@
 
 
-const { GPT, NestedGPT } = require('../services/gpt');
-const cleanAndSplit = require('../utils/cleanandsplit');
-const calculateSOM = require('../utils/calculateSOM');
+const { GPT, NestedGPT } = require('../../services/gpt');
+const cleanAndSplit = require('../../utils/cleanandsplit');
+const calculateSOM = require('../../utils/calculateSOM');
 
-async function marketController(submission, marketPrompts) {
+async function processMarket(submission, marketPrompts) {
     const { companyDetails, market } = submission;
     const { companyOverview } = companyDetails;
     const { sector } = market;
@@ -113,4 +113,4 @@ const [
     return marketResponse;
 }
 
-module.exports = marketController;
+module.exports = processMarket;

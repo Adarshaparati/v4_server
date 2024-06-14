@@ -3,14 +3,14 @@ const mongoose = require('mongoose');
 const userResponseSchema = new mongoose.Schema({
     userId: {
         type: String,
-        default: ''
+        default: 'userId'
     },
     submissionId: {
         type: String,
-        default: ''
+        default: 'submissionId'
     }
 });
 
-// const User = mongoose.model('User', userSchema);
+
 
 module.exports = userResponseSchema;

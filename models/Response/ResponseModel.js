@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 const aboutSchema = require('./aboutResponseSchema')
 const userSchema = require('./userResponseSchema');
-const companyDetailsSchema = require('./aboutResponseSchema'); //to be changed
 const problemDescriptionSchema = require('./problemResponseSchema');
 const solutionDescriptionSchema = require('./solutionResponseSchema');
 const marketSchema = require('./marketResponseSchema');
@@ -21,7 +20,6 @@ const financialInfoSchema = require('./financialsnapshotResponseSchema');
 const ResponseSchema = new mongoose.Schema({
     user: userSchema,
     about: aboutSchema,
-    companyDetails: companyDetailsSchema,
     problemDescription: problemDescriptionSchema,
     solutionDescription: solutionDescriptionSchema,
     market: marketSchema, 

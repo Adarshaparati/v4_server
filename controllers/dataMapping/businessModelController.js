@@ -1,8 +1,8 @@
-const { GPT, NestedGPT } = require('../services/gpt');
-const cleanAndSplit = require('../utils/cleanandsplit');
-const separateHeaderDescription = require('../utils/sepreateHeaderDescription');
+const { GPT, NestedGPT } = require('../../services/gpt');
+const cleanAndSplit = require('../../utils/cleanandsplit');
+const separateHeaderDescription = require('../../utils/sepreateHeaderDescription');
 
-async function businessModelController(submission, businessModelPrompts) {
+async function processBusinessModel(submission, businessModelPrompts) {
     const { product, companyDetails, businessModel } = submission;
     const { productOverview } = product;
     const { companyOverview } = companyDetails;
@@ -61,4 +61,4 @@ async function businessModelController(submission, businessModelPrompts) {
     return businessModelResponse;
 }
 
-module.exports = businessModelController;
+module.exports = processBusinessModel;
