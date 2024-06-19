@@ -3,7 +3,8 @@ const { GPT, NestedGPT } = require('../../services/gpt');
 const cleanAndSplit = require('../../utils/cleanandsplit');
 const separateHeaderDescription = require('../../utils/sepreateHeaderDescription');
 
-async function processGTMStrategy(submission, gtmPrompts) {
+async function processGTMStrategy(submission, prompts) {
+    const {gtmPrompts} = prompts;
     const { product, companyDetails } = submission;
     const { productOverview } = product;
     const { companyOverview } = companyDetails;
@@ -11,9 +12,10 @@ async function processGTMStrategy(submission, gtmPrompts) {
     const {keyStakeholders} = goToMarket;
 
     // Generate initial stakeholder points
+    
     const stakeholderGPT = await NestedGPT(gtmPrompts.stakeholderGPT.prompt, gtmPrompts.stakeholderGPT.Refine, `${companyOverview} ${productOverview}`);
     const stakeholderPoints = cleanAndSplit(stakeholderGPT);
-
+    const stakeholdersTitle = await GPT(gtmPrompts.stakeholdersTitle.prompt,stakeholderGPT)
     // Resolve headers and descriptions
     const stakeholderHeaderDescriptions = await Promise.all(
         stakeholderPoints.map(async (point) => {
@@ -70,51 +72,51 @@ async function processGTMStrategy(submission, gtmPrompts) {
 
 
     const gtmResponse = {
-        stakeholdersTitle: "test",
+        stakeholdersTitle: stakeholdersTitle,
         stakeholderGPT,
-        stakeholderGPTCleaned: "test",
-        stakeholderGPT1: "test",
-        stakeholderGPT2: "test",
-        stakeholderGPT3: "test",
-        stakeholderGPT4: "test",
-        stakeholder1: stakeholderHeaderDescriptions[0]?.header || "test",
-        stakeholder2: stakeholderHeaderDescriptions[1]?.header || "test",
-        stakeholder3: stakeholderHeaderDescriptions[2]?.header || "test",
-        stakeholder4: stakeholderHeaderDescriptions[3]?.header || "test",
-        benefits1: stakeholderHeaderDescriptions[0]?.description || "test",
-        benefits2: stakeholderHeaderDescriptions[1]?.description || "test",
-        benefits3: stakeholderHeaderDescriptions[2]?.description || "test",
-        benefits4: stakeholderHeaderDescriptions[3]?.description || "test",
-        customerProfileIcon1: "test",
-        customerProfileIcon2: "test",
-        customerProfileIcon3: "test",
-        customerProfileIcon4: "test",
-        customerProfileCoverImage: "test",
+        stakeholderGPTCleaned: "",
+        stakeholderGPT1: "",
+        stakeholderGPT2: "",
+        stakeholderGPT3: "",
+        stakeholderGPT4: "",
+        stakeholder1: stakeholderHeaderDescriptions[0]?.header || "",
+        stakeholder2: stakeholderHeaderDescriptions[1]?.header || "",
+        stakeholder3: stakeholderHeaderDescriptions[2]?.header || "",
+        stakeholder4: stakeholderHeaderDescriptions[3]?.header || "",
+        benefits1: stakeholderHeaderDescriptions[0]?.description || "",
+        benefits2: stakeholderHeaderDescriptions[1]?.description || "",
+        benefits3: stakeholderHeaderDescriptions[2]?.description || "",
+        benefits4: stakeholderHeaderDescriptions[3]?.description || "",
+        customerProfileIcon1: "",
+        customerProfileIcon2: "",
+        customerProfileIcon3: "",
+        customerProfileIcon4: "",
+        customerProfileCoverImage: "",
         persona: persona,
         personaCategoryGPT: personaCategoryGPT,
-        personaCategoryGPTCleaned: "test",
-        personaCategoryGPT1: "test",
-        personaCategoryGPT2: "test",
-        personaCategoryGPT3: "test",
+        personaCategoryGPTCleaned: "",
+        personaCategoryGPT1: "",
+        personaCategoryGPT2: "",
+        personaCategoryGPT3: "",
         personaHeader1: personaHeader1,
         personaHeader2: personaHeader2,
         personaHeader3: personaHeader3,
         personaDescription1: personaHeaderDescriptions[0]?.description || "",
         personaDescription2: personaHeaderDescriptions[1]?.description || "",
         personaDescription3: personaHeaderDescriptions[2]?.description || "",
-        personaIcon1: "test",
-        personaIcon2: "test",
-        personaIcon3: "test",
+        personaIcon1: "",
+        personaIcon2: "",
+        personaIcon3: "",
         gtmTitle: gtmTitle,
         gtmOverview: gtmOverview,
-        gtmCoverImageLandscape: "test",
+        gtmCoverImageLandscape: "",
         gtmGPT: gtmGPT,
-        gtmGPTCleaned: "test",
-        gtmGPT1: "test",
-        gtmGPT2: "test",
-        gtmGPT3: "test",
-        gtmGPT4: "test",
-        gtmGPT5: "test",
+        gtmGPTCleaned: "",
+        gtmGPT1: "",
+        gtmGPT2: "",
+        gtmGPT3: "",
+        gtmGPT4: "",
+        gtmGPT5: "",
         gtmHeader1: gtmHeader1,
         gtmHeader2: gtmHeader2,
         gtmHeader3: gtmHeader3,
@@ -125,13 +127,13 @@ async function processGTMStrategy(submission, gtmPrompts) {
         gtmDescription3: gtmHeaderDescriptions[2]?.description || "",
         gtmDescription4: gtmHeaderDescriptions[3]?.description || "",
         gtmDescription5: gtmHeaderDescriptions[4]?.description || "",
-        gtmIcon1: "test",
-        gtmIcon2: "test",
-        gtmIcon3: "test",
-        gtmIcon4: "test",
-        gtmIcon5: "test"
+        gtmIcon1: "",
+        gtmIcon2: "",
+        gtmIcon3: "",
+        gtmIcon4: "",
+        gtmIcon5: ""
     };
-
+    console.log('gtm....')
     return gtmResponse;
 }
 

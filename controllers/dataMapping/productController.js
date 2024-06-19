@@ -2,7 +2,9 @@ const { GPT, NestedGPT } = require('../../services/gpt');
 const cleanAndSplit = require('../../utils/cleanandsplit');
 const separateHeaderDescription = require('../../utils/sepreateHeaderDescription');
 
-async function processProductDetails(submission, productPrompts) {
+async function processProductDetails(submission, prompts) {
+
+    const {productPrompts} = prompts;
     const { product, companyDetails } = submission;
     const { productOverview } = product;
     const { companyOverview } = companyDetails;
@@ -46,51 +48,51 @@ async function processProductDetails(submission, productPrompts) {
         productTitle,
         productOverview: productOverviewResponse,
         featureGPT,
-        featureGPTCleaned: "test",
-        featureGPT1: "test",
-        featureGPT2: "test",
-        featureGPT3: "test",
-        featureGPT4: "test",
-        featureGPT5: "test",
-        featureGPT6: "test",
-        feature1: featureHeaderDescriptions[0]?.header || "test",
-        feature2: featureHeaderDescriptions[1]?.header || "test",
-        feature3: featureHeaderDescriptions[2]?.header || "test",
-        feature4: featureHeaderDescriptions[3]?.header || "test",
-        feature5: featureHeaderDescriptions[4]?.header || "test",
-        feature6: featureHeaderDescriptions[5]?.header || "test",
-        featureDescription1: featureHeaderDescriptions[0]?.description || "test",
-        featureDescription2: featureHeaderDescriptions[1]?.description || "test",
-        featureDescription3: featureHeaderDescriptions[2]?.description || "test",
-        featureDescription4: featureHeaderDescriptions[3]?.description || "test",
-        featureDescription5: featureHeaderDescriptions[4]?.description || "test",
-        featureDescription6: featureHeaderDescriptions[5]?.description || "test",
-        featureIcon1: "test",
-        featureIcon2: "test",
-        featureIcon3: "test",
-        featureIcon4: "test",
-        featureIcon5: "test",
-        featureIcon6: "test",
+        featureGPTCleaned: "",
+        featureGPT1: "",
+        featureGPT2: "",
+        featureGPT3: "",
+        featureGPT4: "",
+        featureGPT5: "",
+        featureGPT6: "",
+        feature1: featureHeaderDescriptions[0]?.header || "",
+        feature2: featureHeaderDescriptions[1]?.header || "",
+        feature3: featureHeaderDescriptions[2]?.header || "",
+        feature4: featureHeaderDescriptions[3]?.header || "",
+        feature5: featureHeaderDescriptions[4]?.header || "",
+        feature6: featureHeaderDescriptions[5]?.header || "",
+        featureDescription1: featureHeaderDescriptions[0]?.description || "",
+        featureDescription2: featureHeaderDescriptions[1]?.description || "",
+        featureDescription3: featureHeaderDescriptions[2]?.description || "",
+        featureDescription4: featureHeaderDescriptions[3]?.description || "",
+        featureDescription5: featureHeaderDescriptions[4]?.description || "",
+        featureDescription6: featureHeaderDescriptions[5]?.description || "",
+        featureIcon1: "",
+        featureIcon2: "",
+        featureIcon3: "",
+        featureIcon4: "",
+        featureIcon5: "",
+        featureIcon6: "",
         productRoadmapTitle,
         phaseGPT: roadMapPhaseGPT,
-        phaseGPTCleaned: "test",
-        phaseGPT1: "test",
-        phaseGPT2: "test",
-        phaseGPT3: "test",
-        phaseHeader1Name: roadMapPhaseHeaderDescriptions[0]?.header || "test",
-        phaseHeader2Name: roadMapPhaseHeaderDescriptions[1]?.header || "test",
-        phaseHeader3Name: roadMapPhaseHeaderDescriptions[2]?.header || "test",
-        phaseDescription1: roadMapPhaseHeaderDescriptions[0]?.description || "test",
-        phaseDescription2: roadMapPhaseHeaderDescriptions[1]?.description || "test",
-        phaseDescription3: roadMapPhaseHeaderDescriptions[2]?.description || "test",
+        phaseGPTCleaned: "",
+        phaseGPT1: "",
+        phaseGPT2: "",
+        phaseGPT3: "",
+        phaseHeader1Name: roadMapPhaseHeaderDescriptions[0]?.header || "",
+        phaseHeader2Name: roadMapPhaseHeaderDescriptions[1]?.header || "",
+        phaseHeader3Name: roadMapPhaseHeaderDescriptions[2]?.header || "",
+        phaseDescription1: roadMapPhaseHeaderDescriptions[0]?.description || "",
+        phaseDescription2: roadMapPhaseHeaderDescriptions[1]?.description || "",
+        phaseDescription3: roadMapPhaseHeaderDescriptions[2]?.description || "",
         phaseFeatures1: roadMapPhaseFeature1,
         phaseFeatures2: roadMapPhaseFeature2,
         phaseFeatures3: roadMapPhaseFeature3,
-        inputs: "test",
-        technologyPlatform: "test",
-        valueBasedOutput: "test"
+        inputs: "",
+        technologyPlatform: "",
+        valueBasedOutput: ""
     };
-
+    console.log("product...");
     return productResponse;
 }
 

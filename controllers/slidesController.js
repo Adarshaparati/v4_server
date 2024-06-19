@@ -1,5 +1,5 @@
-const { authorize, fetchPresentationURLfromsubmissionID, fetchSlideIDsfromsubmissionID, fetchPresentationURL, getSheetIdFromUrl } = require("../services/spreadsheet");
-
+const {fetchPresentationURLfromsubmissionID, fetchSlideIDsfromsubmissionID, fetchPresentationURL, getSheetIdFromUrl } = require("../services/spreadsheet");
+const {authorize} = require('../services/auth')
 exports.getSlidesURL = async (req, res) => {
   try {
     const formId = req.query.formId;

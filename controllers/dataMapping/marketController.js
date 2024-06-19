@@ -4,18 +4,15 @@ const { GPT, NestedGPT } = require('../../services/gpt');
 const cleanAndSplit = require('../../utils/cleanandsplit');
 const calculateSOM = require('../../utils/calculateSOM');
 
-async function processMarket(submission, marketPrompts) {
+async function processMarket(submission, prompts) {
+    const {marketPrompts} = prompts
     const { companyDetails, market } = submission;
     const { companyOverview } = companyDetails;
     const { sector } = market;
 
-   
-    
     let numTAM = null;
     let numSAM = null;
     
-
-   
 const marketDescription = await NestedGPT(marketPrompts.marketDescription.prompt, marketPrompts.marketDescription.Refine, `${sector} ${companyOverview}`);
 const marketTitleGPTPromise = GPT(marketPrompts.marketTitleGPT.prompt, `${sector} ${marketDescription}`);
 const industryCompetitivenessPromise = GPT(marketPrompts.industryCompetitiveness.prompt, sector);
@@ -91,12 +88,12 @@ const [
         SOM: calculateSOM(industryCompetitiveness, numSAM),
         SOMDescription: SOMDescription,
         growthDriverGPT: growthDriverGPT,
-        growthDriverGPTCleaned: "test",
-        growthDriverGPT1: "test",
-        growthDriverGPT2: "test",
-        growthDriverGPT3: "test",
-        growthDriverGPT4: "test",
-        growthDriverGPT5: "test",
+        growthDriverGPTCleaned: "",
+        growthDriverGPT1: "",
+        growthDriverGPT2: "",
+        growthDriverGPT3: "",
+        growthDriverGPT4: "",
+        growthDriverGPT5: "",
         growthDriver1: growthDrivers[0],
         growthDriver2: growthDrivers[1],
         growthDriver3: growthDrivers[2],
@@ -109,7 +106,7 @@ const [
         SAMGrowthRate: SAMGrowthRate,
         SAMFuture: "test"
     };
-
+    console.log("market...");
     return marketResponse;
 }
 

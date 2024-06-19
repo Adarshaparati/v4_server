@@ -2,7 +2,8 @@ const { GPT, NestedGPT } = require('../../services/gpt');
 const cleanAndSplit = require('../../utils/cleanandsplit');
 const separateHeaderDescription = require('../../utils/sepreateHeaderDescription');
 
-async function processProblemSection(submission, problemPrompts) {
+async function processProblemSection(submission, prompts) {
+    const {problemPrompts} = prompts
     const { companyDetails } = submission;
     const { companyOverview } = companyDetails;
 
@@ -38,33 +39,33 @@ async function processProblemSection(submission, problemPrompts) {
         problemTitle,
         problemStatement,
         problemGPT,
-        problemGPTCleaned: "test",
-        problemGPT1: "test",
-        problemGPT2: "test",
-        problemGPT3: "test",
-        problemGPT4: "test",
-        problemGPT5: "test",
-        problemGPT6: "test",
+        problemGPTCleaned: "",
+        problemGPT1: "",
+        problemGPT2: "",
+        problemGPT3: "",
+        problemGPT4: "",
+        problemGPT5: "",
+        problemGPT6: "",
         problemHeader1: problemHeader1,
         problemHeader2: problemHeader2,
         problemHeader3: problemHeader3,
         problemHeader4: problemHeader4,
         problemHeader5: problemHeader5,
         problemHeader6: problemHeader6,
-        problemDescription1: problemHeaderDescriptions[0]?.description || "test",
-        problemDescription2: problemHeaderDescriptions[1]?.description || "test",
-        problemDescription3: problemHeaderDescriptions[2]?.description || "test",
-        problemDescription4: problemHeaderDescriptions[3]?.description || "test",
-        problemDescription5: problemHeaderDescriptions[4]?.description || "test",
-        problemDescription6: problemHeaderDescriptions[5]?.description || "test",
-        problemIcon1: "test",
-        problemIcon2: "test",
-        problemIcon3: "test",
-        problemIcon4: "test",
-        problemIcon5: "test",
-        problemIcon6: "test"
+        problemDescription1: problemHeaderDescriptions[0]?.description || "",
+        problemDescription2: problemHeaderDescriptions[1]?.description || "",
+        problemDescription3: problemHeaderDescriptions[2]?.description || "",
+        problemDescription4: problemHeaderDescriptions[3]?.description || "",
+        problemDescription5: problemHeaderDescriptions[4]?.description || "",
+        problemDescription6: problemHeaderDescriptions[5]?.description || "",
+        problemIcon1: "",
+        problemIcon2: "",
+        problemIcon3: "",
+        problemIcon4: "",
+        problemIcon5: "",
+        problemIcon6: ""
     };
-
+    console.log("problem...");
     return problemResponse;
 }
 

@@ -2,7 +2,9 @@ const { GPT, NestedGPT } = require('../../services/gpt');
 const cleanAndSplit = require('../../utils/cleanandsplit');
 const separateHeaderDescription = require('../../utils/sepreateHeaderDescription');
 
-async function processBusinessModel(submission, businessModelPrompts) {
+async function processBusinessModel(submission, prompts) {
+
+    const {businessModelPrompts} = prompts
     const { product, companyDetails, businessModel } = submission;
     const { productOverview } = product;
     const { companyOverview } = companyDetails;
@@ -29,35 +31,33 @@ async function processBusinessModel(submission, businessModelPrompts) {
         revenueStreamHeader2,
         revenueStreamHeader3,
         revenueStreamHeader4,
-        revenueStreamHeader5,
-        revenueStreamHeader6
     ] = await Promise.all(
         revenueStreamHeaderDescriptions.map(item => item.header)
     );
 
     const businessModelResponse = {
-        revenueModel,
-        revenueModelImage: "test",
+        revenueModel:revenueModel,
+        revenueModelImage: "",
         revenueStreamGPT,
-        revenueStreamGPTCleaned: "test",
-        revenueStreamGPT1: "test",
-        revenueStreamGPT2: "test",
-        revenueStreamGPT3: "test",
-        revenueStreamGPT4: "test",
+        revenueStreamGPTCleaned: "",
+        revenueStreamGPT1: "",
+        revenueStreamGPT2: "",
+        revenueStreamGPT3: "",
+        revenueStreamGPT4: "",
         stream1: revenueStreamHeader1,
         stream2: revenueStreamHeader2,
         stream3: revenueStreamHeader3,
         stream4: revenueStreamHeader4,
-        streamDescription1: revenueStreamHeaderDescriptions[0]?.description || "test",
-        streamDescription2: revenueStreamHeaderDescriptions[1]?.description || "test",
-        streamDescription3: revenueStreamHeaderDescriptions[2]?.description || "test",
-        streamDescription4: revenueStreamHeaderDescriptions[3]?.description || "test",
-        streamIcon1: "test",
-        streamIcon2: "test",
-        streamIcon3: "test",
-        streamIcon4: "test"
+        streamDescription1: revenueStreamHeaderDescriptions[0]?.description || "",
+        streamDescription2: revenueStreamHeaderDescriptions[1]?.description || "",
+        streamDescription3: revenueStreamHeaderDescriptions[2]?.description || "",
+        streamDescription4: revenueStreamHeaderDescriptions[3]?.description || "",
+        streamIcon1: "",
+        streamIcon2: "",
+        streamIcon3: "",
+        streamIcon4: ""
     };
-
+    console.log("business model...");
     return businessModelResponse;
 }
 

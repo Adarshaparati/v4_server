@@ -2,10 +2,10 @@ const { GPT, NestedGPT } = require('../../services/gpt');
 const cleanAndSplit = require('../../utils/cleanandsplit');
 const separateHeaderDescription = require('../../utils/sepreateHeaderDescription');
 
-async function processSolutionSection(submission, solutionPrompts) {
+async function processSolutionSection(submission, prompts) {
+    const {solutionPrompts} = prompts;
     const { companyDetails } = submission;
     const { companyOverview } = companyDetails;
-
     const solutionTitle = await GPT(solutionPrompts.solutionTitle.prompt, companyOverview);
     const solutionStatement = await GPT(solutionPrompts.solutionStatement.prompt, companyOverview);
     const solutionGPT = await NestedGPT(
@@ -36,37 +36,37 @@ async function processSolutionSection(submission, solutionPrompts) {
     );
 
     const solutionResponse = {
-        iterativeSolution: "test",
+        iterativeSolution: "",
         solutionTitle,
         solutionStatement,
         solutionGPT,
-        solutionGPTCleaned: "test",
-        solutionGPT1: "test",
-        solutionGPT2: "test",
-        solutionGPT3: "test",
-        solutionGPT4: "test",
-        solutionGPT5: "test",
-        solutionGPT6: "test",
+        solutionGPTCleaned: "",
+        solutionGPT1: "",
+        solutionGPT2: "",
+        solutionGPT3: "",
+        solutionGPT4: "",
+        solutionGPT5: "",
+        solutionGPT6: "",
         solutionHeader1: solutionHeader1,
         solutionHeader2: solutionHeader2,
         solutionHeader3: solutionHeader3,
         solutionHeader4: solutionHeader4,
         solutionHeader5: solutionHeader5,
         solutionHeader6: solutionHeader6,
-        solutionDescription1: solutionHeaderDescriptions[0]?.description || "test",
-        solutionDescription2: solutionHeaderDescriptions[1]?.description || "test",
-        solutionDescription3: solutionHeaderDescriptions[2]?.description || "test",
-        solutionDescription4: solutionHeaderDescriptions[3]?.description || "test",
-        solutionDescription5: solutionHeaderDescriptions[4]?.description || "test",
-        solutionDescription6: solutionHeaderDescriptions[5]?.description || "test",
-        solutionIcon1: "test",
-        solutionIcon2: "test",
-        solutionIcon3: "test",
-        solutionIcon4: "test",
-        solutionIcon5: "test",
-        solutionIcon6: "test"
+        solutionDescription1: solutionHeaderDescriptions[0]?.description || "",
+        solutionDescription2: solutionHeaderDescriptions[1]?.description || "",
+        solutionDescription3: solutionHeaderDescriptions[2]?.description || "",
+        solutionDescription4: solutionHeaderDescriptions[3]?.description || "",
+        solutionDescription5: solutionHeaderDescriptions[4]?.description || "",
+        solutionDescription6: solutionHeaderDescriptions[5]?.description || "",
+        solutionIcon1: "",
+        solutionIcon2: "",
+        solutionIcon3: "",
+        solutionIcon4: "",
+        solutionIcon5: "",
+        solutionIcon6: ""
     };
-
+    console.log("solution...");
     return solutionResponse;
 }
 

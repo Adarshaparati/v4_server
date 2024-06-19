@@ -2,23 +2,26 @@ const mongoose = require('mongoose');
 const Submission = require("../models/Submission/formModel");
 const Response = require('../models/Response/ResponseModel');
 
-const user = require('./dataMapping/user')
-const aboutController = require('./dataMapping/aboutController');
-const problemController = require('./dataMapping/problemController');
-const solutionController = require('./dataMapping/solutionController');
-const productScreenShotController = require('./dataMapping/productScreenShotController');
-const productController = require('./dataMapping/productController');
-const businessModelController = require('./dataMapping/businessModelController');
-const gtmController = require('./dataMapping/gtmController');
-const trackRecordProcess = require('./dataMapping/trackRecordProcess')
-const competitorsController = require('./dataMapping/competitorsController');
-const marketController = require('./dataMapping/marketController');
-const contactProcess = require('./dataMapping/contactController');
-const caseStudiesProcess = require('./dataMapping/caseStudyProcess');
-const testimonialProcess = require('./dataMapping/testimonialProcess');
-const competitiveDiff = require('./dataMapping/diffController')
-const financialInfoProcess = require('./dataMapping/testimonialProcess')
-const teamProcess = require('./dataMapping/teamProcess')
+const aboutSchema = require('../models/Response/aboutResponseSchema')
+const problemDescriptionSchema = require('../models/Response/problemResponseSchema');
+const solutionDescriptionSchema = require('../models/Response/solutionResponseSchema');
+const marketSchema = require('../models/Response/marketResponseSchema');
+const productSchema = require('../models/Response/productResponseSchema');
+const productScreenSchema = require('../models/Response/productScreenResponseSchema');
+const businessModelSchema = require('../models/Response/businessModelResponseSechema');
+const goToMarketSchema = require('../models/Response/gtmResponseSchema');
+const trackRecordSchema = require('../models/Response/trackRecordResponseSchema');
+const caseStudySchema = require('../models/Response/caseStudyResponse');
+const testimonialSchema = require('../models/Response/testimonialResponseSchema');
+const competitorSchema = require('../models/Response/competitorsResponseSchema');
+const competitiveDiffSchema = require('../models/Response/differentiationResponseSchema');
+const teamMemberSchema = require('../models/Response/teamResponseSchema');
+const contactInfoSchema = require('../models/Response/contactInfoResponseSchema');
+const financialInfoSchema = require('../models/Response/financialsnapshotResponseSchema');
+
+const user = require('./dataMapping/user');
+const processMapping = require('../utils/sectionToProcessMapping') 
+
 
 exports.postFetchAndProcess = async (req, res) => {
   const { filter, section } = req.body;
@@ -28,7 +31,6 @@ exports.postFetchAndProcess = async (req, res) => {
 
   try {
     const submission = await Submission.findOne(filter);
-
     if (!submission) {
       return res.status(404).send({ error: 'Submission not found' });
     }
@@ -46,55 +48,36 @@ exports.postFetchAndProcess = async (req, res) => {
       return res.status(404).send({ error: 'Prompts not found' });
     }
 
-    try {
-      const [
-        about,
-        problemDescription,
-        solutionDescription,
-        product,
-        productScreen,
-        businessModelResult,
-        gtm,
-        competitors
-      ] = await Promise.all([
-        aboutController(submission, prompts.aboutPrompts),
-        problemController(submission, prompts.problemPrompts),
-        solutionController(submission, prompts.solutionPrompts),
-        productController(submission, prompts.productPrompts),
-        productScreenShotController(submission, prompts.productScreenShotPrompts),
-        businessModelController(submission, prompts.businessModel),
-        gtmController(submission, prompts.gtmPrompts),
-        competitorsController(submission, prompts.competitorsPrompts)
-      ]);
-
-      const marketControllerResult = await marketController(submission, prompts.marketPrompts);
-      console.log(user(submission))
-      const gptResponse = new Response({
+      let response = await Response.findOne(filter);
+      if(!response){
+      response = new Response({
         user:user(submission),
-        about,
-        problemDescription,
-        solutionDescription,
-        market: marketControllerResult,
-        product,
-        productScreen,
-        businessModel: businessModelResult,
-        goToMarket: gtm,
-        trackRecord:trackRecordProcess(submission),
-        caseStudies: caseStudiesProcess(submission),
-        testimonials: testimonialProcess(submission),
-        competitors,
-        competitiveDiff: competitiveDiff(submission),
-        teamMembers: teamProcess(submission), 
-        contactInfo: contactProcess(submission),
-        financialInfo: financialInfoProcess(submission),
+        about: aboutSchema,
+        problemDescription: problemDescriptionSchema,
+        solutionDescription: solutionDescriptionSchema,
+        market: marketSchema, 
+        product: productSchema,
+        productScreen: productScreenSchema,
+        businessModel: businessModelSchema,
+        goToMarket: goToMarketSchema, 
+        trackRecord: trackRecordSchema,
+        caseStudies: caseStudySchema,
+        testimonials: testimonialSchema,
+        competitors: competitorSchema,
+        competitiveDiff: competitiveDiffSchema,
+        teamMembers: teamMemberSchema, 
+        contactInfo: contactInfoSchema,
+        financialInfo: financialInfoSchema,
       });
 
-      await gptResponse.save();
-      res.json(gptResponse);
-    } catch (error) {
-      console.error('Error creating GPT response:', error);
-      res.status(500).json({ error: 'Internal server error' });
+      
     }
+    else{
+      response[section] = await processMapping[section](submission,prompts) 
+    }
+    await response.save();
+    res.json(response);
+    
   } catch (error) {
     console.error('Error processing request:', error);
     res.status(500).json({ error: 'Internal server error' });

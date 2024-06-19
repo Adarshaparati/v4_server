@@ -16,8 +16,28 @@ const teamMemberSchema = require("../models/Submission/teamMemberModel");
 const contactInfoSchema = require("../models/Submission/contactInfoModel");
 const financialInfoSchema = require("../models/Submission/financialInfoModel");
 
+const mongoose = require("mongoose");
+const Response = require("../models/Response/ResponseModel");
 
+const aboutResponseSchema = require("../models/Response/aboutResponseSchema");
+const problemDescriptionResponseSchema = require("../models/Response/problemResponseSchema");
+const solutionDescriptionResponseSchema = require("../models/Response/solutionResponseSchema");
+const marketResponseSchema = require("../models/Response/marketResponseSchema");
+const productResponseSchema = require("../models/Response/productResponseSchema");
+const productScreenResponseSchema = require("../models/Response/productScreenResponseSchema");
+const businessModelResponseSchema = require("../models/Response/businessModelResponseSechema");
+const goToMarketResponseSchema = require("../models/Response/gtmResponseSchema");
+const trackRecordResponseSchema = require("../models/Response/trackRecordResponseSchema");
+const caseStudyResponseSchema = require("../models/Response/caseStudyResponse");
+const testimonialResponseSchema = require("../models/Response/testimonialResponseSchema");
+const competitorResponseSchema = require("../models/Response/competitorsResponseSchema");
+const competitiveDiffResponseSchema = require("../models/Response/differentiationResponseSchema");
+const teamMemberResponseSchema = require("../models/Response/teamResponseSchema");
+const contactInfoResponseSchema = require("../models/Response/contactInfoResponseSchema");
+const financialInfoResponseSchema = require("../models/Response/financialsnapshotResponseSchema");
 
+const user = require("./dataMapping/user");
+const processMapping = require("../utils/sectionToProcessMapping");
 
 const Submission = require("../models/Submission/formModel");
 const ShortForm = require("../models/Submission/shortFormModel");
@@ -25,7 +45,12 @@ const propertyToSchemaMap = require("../utils/propertyToSchemaMap");
 const sectionToUrlMap = require("../utils/sectionToUrlMapping");
 const sectionToUrlMap1 = require("../utils/sectionToUrlMapping1");
 const additionalUrlsMap = require("../utils/additionalSectionToUrlMapping");
-const { authorize, storeUserResponses, updateMatchedRow, findLatestFormIDByEmail } = require("../services/spreadsheet");
+const {
+  authorize,
+  storeUserResponses,
+  updateMatchedRow,
+  findLatestFormIDByEmail,
+} = require("../services/spreadsheet");
 
 exports.getSubmissionID = async (req, res) => {
   try {
@@ -33,7 +58,10 @@ exports.getSubmissionID = async (req, res) => {
     if (!userId) {
       return res.status(400).json({ error: "userId is required" });
     }
-    const auth = await authorize([process.env.SHEET_SCOPES], process.env.SHEET_TOKEN_PATH);
+    const auth = await authorize(
+      [process.env.SHEET_SCOPES],
+      process.env.SHEET_TOKEN_PATH
+    );
     const submissionID = await findLatestFormIDByEmail(auth, userId);
     res.json({ submissionID: submissionID || null });
   } catch (error) {
@@ -48,7 +76,10 @@ exports.postUpdateRow = async (req, res) => {
     return res.status(400).json({ error: "Missing required parameters" });
   }
   try {
-    const auth = await authorize([process.env.SHEET_SCOPES], process.env.SHEET_TOKEN_PATH);
+    const auth = await authorize(
+      [process.env.SHEET_SCOPES],
+      process.env.SHEET_TOKEN_PATH
+    );
     await updateMatchedRow(auth, userID, formID, newColumnValue);
     res.json({ message: "Row updated successfully" });
   } catch (error) {
@@ -64,11 +95,16 @@ exports.postStoreResponse = async (req, res) => {
   }
 
   const processedFormResponses = formResponses.map((response) =>
-    Array.isArray(response) && response.length === 1 && response[0] === "" ? "" : response
+    Array.isArray(response) && response.length === 1 && response[0] === ""
+      ? ""
+      : response
   );
 
   try {
-    const auth = await authorize([process.env.SHEET_SCOPES], process.env.SHEET_TOKEN_PATH);
+    const auth = await authorize(
+      [process.env.SHEET_SCOPES],
+      process.env.SHEET_TOKEN_PATH
+    );
     await storeUserResponses(auth, formId, processedFormResponses);
     res.json({ message: "Response stored successfully" });
   } catch (error) {
@@ -79,8 +115,11 @@ exports.postStoreResponse = async (req, res) => {
 //main form submission
 exports.postSubmission = async (req, res) => {
   try {
-    const { formId, formResponses, generatedPresentationId, section } = req.body;
-    let url = sectionToUrlMap[section] + `?userID=${formResponses.userId}&submissionID=${formId}&generatedPresentationID=${generatedPresentationId}`;
+    const { formId, formResponses, generatedPresentationId, section } =
+      req.body;
+    let url =
+      sectionToUrlMap[section] +
+      `?userID=${formResponses.userId}&submissionID=${formId}&generatedPresentationID=${generatedPresentationId}`;
 
     let submission = await Submission.findOne({ "user.submissionId": formId });
     if (!submission) {
@@ -127,42 +166,32 @@ exports.postSubmission = async (req, res) => {
 //shortform submission
 exports.postShortFormSubmission = async (req, res) => {
   try {
-    const { formId, formResponses, generatedPresentationId, section } = req.body;
+    const { formId, formResponses, generatedPresentationId, section } =
+      req.body;
     const urlsToTrigger = [sectionToUrlMap1[section]];
-
-    // Add additional URLs if any
-    if (additionalUrlsMap[section]) {
-      urlsToTrigger.push(...additionalUrlsMap[section]);
-    }
-
-    const queryParams = `?userID=${formResponses.userId}&submissionID=${formId}&generatedPresentationID=${generatedPresentationId}`;
-    const fetchPromises = urlsToTrigger.map(url => 
-      fetch(`${url}${queryParams}`, { method: "GET" })
-        .then(() => console.log(`URL triggered: ${url}`))
-        .catch(error => console.error(`Error triggering URL: ${url}`, error))
-    );
 
     let submission = await ShortForm.findOne({ "user.submissionId": formId });
     if (!submission) {
       submission = new ShortForm({
         user: { userId: formResponses.userId, submissionId: formId },
-        about: aboutSchema,
-        companyDetails: companyDetailsSchema,
-        problemDescription: problemDescriptionSchema,
-        solutionDescription: solutionDescriptionSchema,
-        market: marketSchema,
-        product: productSchema,
-        productScreen: productScreenSchema,
-        businessModel: businessModelSchema,
-        goToMarket: goToMarketSchema,
-        trackRecord: trackRecordSchema,
-        caseStudies: caseStudySchema,
-        testimonials: testimonialSchema,
-        competitors: competitorSchema,
-        competitiveDiff: competitiveDiffSchema,
-        teamMembers: teamMemberSchema,
-        contactInfo: contactInfoSchema,
-        financialInfo: financialInfoSchema
+        // Add the rest of the fields based on the schemas
+        about: {},
+        companyDetails: {},
+        problemDescription: {},
+        solutionDescription: {},
+        market: {},
+        product: {},
+        productScreen: {},
+        businessModel: {},
+        goToMarket: {},
+        trackRecord: {},
+        caseStudies: {},
+        testimonials: {},
+        competitors: {},
+        competitiveDiff: {},
+        teamMembers: {},
+        contactInfo: {},
+        financialInfo: {},
       });
     }
 
@@ -173,12 +202,92 @@ exports.postShortFormSubmission = async (req, res) => {
       }
     }
 
-    await submission.save();
     res.status(200).json({ message: "Data updated successfully" });
 
+    const db = mongoose.connection.db;
+    const collection = db.collection("Prompts");
+    const prompts = await collection.findOne({});
+
+    if (!prompts) {
+      return res.status(404).send({ error: "Prompts not found" });
+    }
+
+    let response = await Response.findOne({ "user.submissionId": formId });
+    if (!response) {
+      response = new Response({
+        user: { userId: formResponses.userId, submissionId: formId },
+        about: {},
+        problemDescription: {},
+        solutionDescription: {},
+        market: {},
+        product: {},
+        productScreen: {},
+        businessModel: {},
+        goToMarket: {},
+        trackRecord: {},
+        caseStudies: {},
+        testimonials: {},
+        competitors: {},
+        competitiveDiff: {},
+        teamMembers: {},
+        contactInfo: {},
+        financialInfo: {},
+      });
+    }
+    if (section === "companyDetails") {
+      const [about, problemDescription, solutionDescription, competitors] =
+        await Promise.all([
+          processMapping["about"](submission, prompts),
+          processMapping["problemDescription"](submission, prompts),
+          processMapping["solutionDescription"](submission, prompts),
+          processMapping["competitors"](submission, prompts),
+        ]);
+
+      response["about"] = about;
+      response["problemDescription"] = problemDescription;
+      response["solutionDescription"] = solutionDescription;
+      response["competitors"] = competitors;
+    }
+    else if(section === "market"){
+      response["market"] = await  processMapping["market"](submission, prompts);
+    }
+    else if(section === "product"){
+      const [product, goToMarket, businessModel,competitiveDiff] = await Promise.all([
+        processMapping["product"](submission, prompts),
+        processMapping["goToMarket"](submission, prompts),
+        processMapping["businessModel"](submission, prompts),
+        processMapping["competitiveDiff"](submission, prompts)
+      ]);
+      
+      response["product"] = product;
+      response["goToMarket"] = goToMarket;
+      response["businessModel"] = businessModel;
+      response["competitiveDiff"] = competitiveDiff;
+    }
+    else if(section === "contactInfo"){
+      response["contactInfo"] = await  processMapping["contactInfo"](submission, prompts);
+    }
+
+    const data = await response.save();
+    let fetchPromises;
+    if (data) {
+      if (additionalUrlsMap[section]) {
+        urlsToTrigger.push(...additionalUrlsMap[section]);
+      }
+
+      const queryParams = `?userID=${formResponses.userId}&submissionID=${formId}&generatedPresentationID=${generatedPresentationId}`;
+      fetchPromises = urlsToTrigger.map((url) =>
+        fetch(`${url}${queryParams}`, { method: "GET" })
+          .then(() => console.log(`URL triggered: ${url}`))
+          .catch((error) =>
+            console.error(`Error triggering URL: ${url}`, error)
+          )
+      );
+    }
+    await submission.save();
     await Promise.all(fetchPromises);
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "Server error" });
+    console.error("Error processing request:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 };

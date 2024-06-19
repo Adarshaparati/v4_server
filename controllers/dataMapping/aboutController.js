@@ -5,9 +5,10 @@ const hexToRgb = require('../../utils/hex_to_rgb');
 const separateHeaderDescription = require('../../utils/sepreateHeaderDescription');
 const mixColors = require('../../utils/mixcolors');
 
-async function processAbout(submission, aboutPrompts) {
+async function processAbout(submission,prompts) {
+    const {aboutPrompts} = prompts
     const { about, companyDetails } = submission;
-    const { tagline, primaryColor: primaryColorHex, secondaryColor: secondaryColorHex, companyName, companyLogo } = about;
+    const { tagline, primaryColor: primaryColorHex, secondaryColor: secondaryColorHex, companyName, logo} = about;
     const { companyOverview } = companyDetails;
 
     const tagLine = tagline === ""
@@ -17,6 +18,9 @@ async function processAbout(submission, aboutPrompts) {
     const primaryrgb = hexToRgb(primaryColorHex);
     const secondaryrgb = hexToRgb(secondaryColorHex);
 
+    const colorF_S100 = GPT(`Background Color ${secondaryColorHex}`,aboutPrompts.F_SP100.prompt);
+    const colorF_P100 = GPT(`Background Color ${primaryColorHex}`,aboutPrompts.F_SP100.prompt);
+
     const primaryColorCheck = (primaryrgb[0] > 230 && primaryrgb[1] > 230 && primaryrgb[2] > 230) ? 1 : 0;
     const secondaryColorCheck = (secondaryrgb[0] > 230 && secondaryrgb[1] > 230 && secondaryrgb[2] > 230) ? 1 : 0;
 
@@ -24,7 +28,6 @@ async function processAbout(submission, aboutPrompts) {
     const aboutTitle = GPT(aboutPrompts.aboutTitle.prompt, `${companyOverview} ${await aboutVision}`);
     const aboutGPT = NestedGPT(aboutPrompts.aboutGPT.prompt, aboutPrompts.aboutGPT.Refine, `${companyOverview} ${await aboutVision}`);
     const aboutpointsPromise = aboutGPT.then(cleanAndSplit);
-
     const aboutpoints = await aboutpointsPromise;
 
     const aboutHeaderDescriptions = await Promise.all(
@@ -39,6 +42,8 @@ async function processAbout(submission, aboutPrompts) {
         resolvedAboutVision,
         resolvedAboutTitle,
         resolvedAboutGPT,
+        colorF_S100Result,
+        colorF_P100Result,
         resolvedAboutHeader1,
         resolvedAboutHeader2,
         resolvedAboutHeader3,
@@ -48,12 +53,14 @@ async function processAbout(submission, aboutPrompts) {
         aboutVision,
         aboutTitle,
         aboutGPT,
+        colorF_S100,
+        colorF_P100,
         ...aboutHeaderDescriptions.map(item => item.header)
     ]);
 
     const aboutResponse = {
         companyName,
-        companyLogo,
+        companyLogo:logo,
         primaryColorR: primaryrgb[0],
         primaryColorG: primaryrgb[1],
         primaryColorB: primaryrgb[2],
@@ -63,38 +70,38 @@ async function processAbout(submission, aboutPrompts) {
         secondaryColorB: secondaryrgb[2],
         secondaryColorCheck: secondaryColorCheck,
         colorP100: primaryColorHex,
-        colorP75_S25: mixColors(primaryColorHex, secondaryColorHex, 75, 25),
-        colorP50_S50: mixColors(primaryColorHex, secondaryColorHex, 50, 50),
-        colorP25_S75: mixColors(primaryColorHex, secondaryColorHex, 25, 75),
+        colorP75_S25: about.p75s25,
+        colorP50_S50: about.p50s50,
+        colorP25_S75: about.p25s75,
         colorS100: secondaryColorHex,
-        colorF_S100: "test",
-        colorF_P100: "test",
-        SCL: "test",
-        SCD: "test",
+        colorF_S100: colorF_S100Result,
+        colorF_P100: colorF_P100Result,
+        SCL: "#FFFFFF",
+        SCD: "#000000",
         tagLine,
         coverImage: 'freepik',
         aboutTitle: resolvedAboutTitle,
         aboutVision: resolvedAboutVision,
         aboutGPT: resolvedAboutGPT,
-        aboutGPTCleaned: "test",
-        aboutGPT1: "test",
-        aboutGPT2: "test",
-        aboutGPT3: "test",
-        aboutGPT4: "test",
-        aboutGPT5: "test",
+        aboutGPTCleaned: "",
+        aboutGPT1: "",
+        aboutGPT2: "",
+        aboutGPT3: "",
+        aboutGPT4: "",
+        aboutGPT5: "",
         aboutHeader1: resolvedAboutHeader1,
         aboutHeader2: resolvedAboutHeader2,
         aboutHeader3: resolvedAboutHeader3,
         aboutHeader4: resolvedAboutHeader4,
         aboutHeader5: resolvedAboutHeader5,
-        about1: aboutHeaderDescriptions[0]?.description || "test",
-        about2: aboutHeaderDescriptions[1]?.description || "test",
-        about3: aboutHeaderDescriptions[2]?.description || "test",
-        about4: aboutHeaderDescriptions[3]?.description || "test",
-        about5: aboutHeaderDescriptions[4]?.description || "test",
+        about1: aboutHeaderDescriptions[0]?.description || "",
+        about2: aboutHeaderDescriptions[1]?.description || "",
+        about3: aboutHeaderDescriptions[2]?.description || "",
+        about4: aboutHeaderDescriptions[3]?.description || "",
+        about5: aboutHeaderDescriptions[4]?.description || "",
         aboutImageURL: "freepik",
     };
-
+    console.log("about...");
     return aboutResponse;
 }
 

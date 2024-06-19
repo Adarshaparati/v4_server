@@ -229,7 +229,6 @@ const storeUserResponses = async (auth, formId, responses) => {
                 resource: { values: updateValues },
             });
 
-            // console.log('Update response:', updateResponse);
         } else {
             // If the form ID doesn't exist, add a new row
             const updateRange = `A${rows.length + 1}`; // Start from the next row after the last row
@@ -240,7 +239,6 @@ const storeUserResponses = async (auth, formId, responses) => {
                 valueInputOption: 'USER_ENTERED',
                 resource: { values: updateValues },
             });
-            // console.log('Update response:', updateResponse);
         }
 
         return 'User responses stored successfully';

@@ -3,7 +3,8 @@ const cleanAndSplit = require('../../utils/cleanandsplit');
 const separateHeaderDescription = require('../../utils/sepreateHeaderDescription')
 
 
-async function processProductScreenshots(submission,productScreenShotPrompts){
+async function processProductScreenshots(submission,prompts){
+    const {productScreenShotPrompts} = prompts;
     const {product} = submission;
     const {productOverview} = product;
     const mobileScreenshotsDescription = await GPT(productScreenShotPrompts.mobileScreenshotsDescription.prompt,productOverview)
@@ -19,6 +20,7 @@ async function processProductScreenshots(submission,productScreenShotPrompts){
         webScreenshot2: productScreen.webScreenshots[1],
         webScreenshot3: productScreen.webScreenshots[2]
     }
+    console.log("product screen...")
     return productScreenShotResponse;
 }
 module.exports = processProductScreenshots

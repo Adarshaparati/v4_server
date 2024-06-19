@@ -9,6 +9,7 @@ async function processContactDetails(submission){
         companyLinkedin: contactInfo.linkedinLink,
         contactUsCoverImage: "freepik"
     }
+    console.log("contact...");
     return contactResponse;
 }
 module.exports = processContactDetails 
