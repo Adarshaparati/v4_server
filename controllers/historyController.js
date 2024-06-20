@@ -1,5 +1,5 @@
-const { authorize, fetchPresentationHistory, getSheetIdFromUrl } = require("../services/spreadsheet");
-
+const {fetchPresentationHistory, getSheetIdFromUrl } = require("../services/spreadsheet");
+const {authorize} = require('../services/auth')
 exports.getHistory = async (req, res) => {
   const userId = req.headers["x-userid"];
   try {
