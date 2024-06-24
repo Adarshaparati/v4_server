@@ -2,7 +2,7 @@ const sectionToUrlMap1 = require("./sectionToUrlMapping1");
 
 const additionalUrlsMap = {
   companyDetails: [
-    sectionToUrlMap1.about,
+    // sectionToUrlMap1.about,
     sectionToUrlMap1.problemDescription,
     sectionToUrlMap1.solutionDescription,
     sectionToUrlMap1.competitors
