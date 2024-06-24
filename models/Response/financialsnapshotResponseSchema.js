@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 
 const financialSnapshotResponseSchema = new mongoose.Schema({
+  financialTitle:{ type: String, default: '' },
   financialSnapshot: { type: String, default: '' },
   fundingAsk: { type: String, default: '' },
   revenueChart: { type: String, default: '' },

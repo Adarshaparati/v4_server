@@ -1,4 +1,5 @@
-async function team(submission, teamPrompts) {
+async function team(submission, prompts) {
+    
     const teamResponse = {
         teamTitle: "",                 // Title for the team section
         name1: "",                     // Name of the first team member

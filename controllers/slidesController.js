@@ -37,3 +37,7 @@ exports.getSlides = async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 };
+
+exports.getSlides_pageIDs=async(req,res) =>{
+  
+}

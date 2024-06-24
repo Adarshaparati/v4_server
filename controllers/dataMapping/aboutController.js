@@ -37,7 +37,10 @@ async function processAbout(submission,prompts) {
             return { header: finalHeader, description };
         })
     );
-
+    const colorF_P75S25 =await GPT(`Background Color ${about.p75s25}`,aboutPrompts.F_SP100.prompt)
+    const colorF_P50S50 =await GPT(`Background Color ${about.p50s50}`,aboutPrompts.F_SP100.prompt)
+    const colorF_P25S75 =await GPT(`Background Color ${about.p25s75}`,aboutPrompts.F_SP100.prompt)
+    console.log(colorF_P25S75)
     const [
         resolvedAboutVision,
         resolvedAboutTitle,
@@ -76,6 +79,9 @@ async function processAbout(submission,prompts) {
         colorS100: secondaryColorHex,
         colorF_S100: colorF_S100Result,
         colorF_P100: colorF_P100Result,
+        colorF_P75S25: colorF_P75S25,
+        colorF_P50S50: colorF_P50S50,
+        colorF_P25S75: colorF_P25S75,
         SCL: "#FFFFFF",
         SCD: "#000000",
         tagLine,

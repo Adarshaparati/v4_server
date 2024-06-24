@@ -1,0 +1,1 @@
+Developed Bazar Pay - a payment and e-commerce application that combines both functionalities. Our vision is to enable users to "Fly unlimited".

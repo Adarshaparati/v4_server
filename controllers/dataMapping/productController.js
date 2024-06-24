@@ -44,6 +44,13 @@ async function processProductDetails(submission, prompts) {
         roadMapPhaseHeaderDescriptions.map(({ description }) => GPT(productPrompts.phaseFeature.prompt, description))
     );
 
+    const data = GPT(productPrompts.inputs.prompt,`product overview: ${productOverview} company overview: ${companyOverview}`)
+
+    const inputs = await GPT(productPrompts.inputs.Refine,data)
+    const technologyPlatform = await GPT(productPrompts.technologyPlatform.Refine,data)
+    const valueBasedOutput = await GPT(productPrompts.valueBasedOutput.Refine,data)
+
+
     const productResponse = {
         productTitle,
         productOverview: productOverviewResponse,
@@ -88,9 +95,9 @@ async function processProductDetails(submission, prompts) {
         phaseFeatures1: roadMapPhaseFeature1,
         phaseFeatures2: roadMapPhaseFeature2,
         phaseFeatures3: roadMapPhaseFeature3,
-        inputs: "",
-        technologyPlatform: "",
-        valueBasedOutput: ""
+        inputs: inputs,
+        technologyPlatform: technologyPlatform,
+        valueBasedOutput: valueBasedOutput
     };
     console.log("product...");
     return productResponse;
