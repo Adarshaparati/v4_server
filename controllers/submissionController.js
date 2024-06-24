@@ -282,6 +282,11 @@ exports.postShortFormSubmission = async (req, res) => {
     let fetchPromises;
     if (data) {
       if (additionalUrlsMap[section]) {
+        // Ensure sectionToUrlMap1.about is added first when companyDetails is processed
+        if (section === "companyDetails") {
+          urlsToTrigger.add(sectionToUrlMap1.about);
+        }
+
         additionalUrlsMap[section].forEach(url => urlsToTrigger.add(url));
       }
 
@@ -301,4 +306,3 @@ exports.postShortFormSubmission = async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 };
-
