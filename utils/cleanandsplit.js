@@ -6,6 +6,16 @@ function cleanAndSplit(text) {
   // Trim whitespace from the beginning and end of the text
   cleanedText = cleanedText.trim();
 
+// Find the position where the list starts (either with "1." or "-")
+let listStartIndex = cleanedText.search(/(\d+\.\s)|(-\s)/);
+if (listStartIndex === -1) {
+// If no list is found, return the cleaned text as a single element array
+return [cleanedText];
+}
+
+// Trim the text to start from the first list item
+cleanedText = cleanedText.substring(listStartIndex);
+
   // Remove leading numeric patterns like "1. " or "1- " from each line
   cleanedText = cleanedText.replace(/(^|\n|\r)(\d+\.\s*|\d+-\s*)/g, '$1');
 
@@ -25,6 +35,9 @@ function cleanAndSplit(text) {
 }
 
 
+text = `Inputs: - User interactions - Data from external sources - Configuration settings - API requests - Sensors - Commands from other systems`
+console.log(cleanAndSplit(text))
   
 module.exports = cleanAndSplit
+
   

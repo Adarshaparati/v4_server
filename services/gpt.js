@@ -3,8 +3,6 @@ require('dotenv').config();
 
 
 const apiKey = process.env.GPT_API_KEY;
-
-
 async function GPT(prompt1, data) {
   const primaryPrompt = [
     { role: "system", content: "you are a presentation Creator and do not not provide any unnecessary content" },
