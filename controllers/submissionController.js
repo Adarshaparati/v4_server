@@ -293,7 +293,7 @@ exports.postShortFormSubmission = async (req, res) => {
       const queryParams = `?userID=${formResponses.userId}&submissionID=${formId}&generatedPresentationID=${generatedPresentationId}`;
       fetchPromises = Array.from(urlsToTrigger).map(url =>
         fetch(`${url}${queryParams}`, { method: "GET" })
-          .then(() => console.log(`URL triggered: ${url}`))
+          .then(() => console.log(`${section} URL triggered: ${url}`))
           .catch(error =>
             console.error(`Error triggering URL: ${url}`, error)
           )
