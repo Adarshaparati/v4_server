@@ -283,9 +283,10 @@ exports.postShortFormSubmission = async (req, res) => {
             console.error(`Error triggering URL: ${url}`, error)
           )
       );
+      
     }
     await submission.save();
-    await Promise.all(fetchPromises);
+    
   } catch (error) {
     console.error("Error processing request:", error);
     res.status(500).json({ error: "Internal server error" });
