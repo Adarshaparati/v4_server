@@ -33,10 +33,6 @@ cleanedText = cleanedText.substring(listStartIndex);
 
   return finalArray;
 }
-
-
-text = `Inputs: - User interactions - Data from external sources - Configuration settings - API requests - Sensors - Commands from other systems`
-console.log(cleanAndSplit(text))
   
 module.exports = cleanAndSplit
 
