@@ -163,12 +163,25 @@ exports.postSubmission = async (req, res) => {
     res.status(500).json({ error: "Server error" });
   }
 };
-//shortform submission
 exports.postShortFormSubmission = async (req, res) => {
   try {
-    const { formId, formResponses, generatedPresentationId, section } =
-      req.body;
-    const urlsToTrigger = [sectionToUrlMap1[section]];
+    const { formId, formResponses, generatedPresentationId, section } = req.body;
+    let urlsToTrigger = new Set();
+
+    // Function to check if a section is included in additionalUrlsMap
+    const isIncludedInAdditionalUrlsMap = (section) => {
+      for (let key in additionalUrlsMap) {
+        if (additionalUrlsMap[key].includes(sectionToUrlMap1[section])) {
+          return true;
+        }
+      }
+      return false;
+    };
+
+    // Add the URL to the set only if it's not included in additionalUrlsMap
+    if (!isIncludedInAdditionalUrlsMap(section)) {
+      urlsToTrigger.add(sectionToUrlMap1[section]);
+    }
 
     let submission = await ShortForm.findOne({ "user.submissionId": formId });
     if (!submission) {
@@ -234,52 +247,54 @@ exports.postShortFormSubmission = async (req, res) => {
         financialInfo: {},
       });
     }
+
     if (section === "companyDetails") {
-      const [about, problemDescription, solutionDescription, competitors] =
-        await Promise.all([
-          processMapping["about"](submission, prompts),
-          processMapping["problemDescription"](submission, prompts),
-          processMapping["solutionDescription"](submission, prompts),
-          processMapping["competitors"](submission, prompts),
-        ]);
+      const [about, problemDescription, solutionDescription, competitors] = await Promise.all([
+        processMapping["about"](submission, prompts),
+        processMapping["problemDescription"](submission, prompts),
+        processMapping["solutionDescription"](submission, prompts),
+        processMapping["competitors"](submission, prompts),
+      ]);
 
       response["about"] = about;
       response["problemDescription"] = problemDescription;
       response["solutionDescription"] = solutionDescription;
       response["competitors"] = competitors;
-    }
-    else if(section === "market"){
-      response["market"] = await  processMapping["market"](submission, prompts);
-    }
-    else if(section === "product"){
-      const [product, goToMarket, businessModel,competitiveDiff] = await Promise.all([
+    } else if (section === "market") {
+      response["market"] = await processMapping["market"](submission, prompts);
+    } else if (section === "product") {
+      const [product, goToMarket, businessModel, competitiveDiff] = await Promise.all([
         processMapping["product"](submission, prompts),
         processMapping["goToMarket"](submission, prompts),
         processMapping["businessModel"](submission, prompts),
-        processMapping["competitiveDiff"](submission, prompts)
+        processMapping["competitiveDiff"](submission, prompts),
       ]);
-      
+
       response["product"] = product;
       response["goToMarket"] = goToMarket;
       response["businessModel"] = businessModel;
       response["competitiveDiff"] = competitiveDiff;
-    }
-    else if(section === "contactInfo"){
-      response["contactInfo"] = await  processMapping["contactInfo"](submission, prompts);
+    } else if (section === "contactInfo") {
+      response["contactInfo"] = await processMapping["contactInfo"](submission, prompts);
     }
 
     const data = await response.save();
     let fetchPromises;
     if (data) {
       if (additionalUrlsMap[section]) {
-        urlsToTrigger.push(...additionalUrlsMap[section]);
+        // Ensure sectionToUrlMap1.about is added first when companyDetails is processed
+        if (section === "companyDetails") {
+          urlsToTrigger.add(sectionToUrlMap1.about);
+        }
+
+        additionalUrlsMap[section].forEach(url => urlsToTrigger.add(url));
       }
 
       const queryParams = `?userID=${formResponses.userId}&submissionID=${formId}&generatedPresentationID=${generatedPresentationId}`;
-      fetchPromises = urlsToTrigger.map((url) =>
+      fetchPromises = Array.from(urlsToTrigger).map(url =>
         fetch(`${url}${queryParams}`, { method: "GET" })
           .then(() => console.log(`URL triggered: ${url}`))
-          .catch((error) =>
+          .catch(error =>
             console.error(`Error triggering URL: ${url}`, error)
           )
       );
