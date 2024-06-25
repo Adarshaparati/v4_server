@@ -75,6 +75,10 @@ const [
     var currentDate = new Date();
     var currentYear = currentDate.getFullYear();
 
+    console.log(numTAM,TAMGrowthRate)
+    const TAMFuture = Math.round(numTAM*((1+(parseFloat(TAMGrowthRate.replace('%', ''))/100))**5))
+    const SAMFuture = Math.round(numSAM*((1+(parseFloat(SAMGrowthRate.replace('%', ''))/100))**5))
+
     const marketResponse = {
         industry: sector,
         marketTitleGPT: "",
@@ -102,9 +106,9 @@ const [
         year1: currentYear,
         year2: currentYear+5,
         TAMGrowthRate:TAMGrowthRate,
-        TAMFuture: "test",
+        TAMFuture: TAMFuture,
         SAMGrowthRate: SAMGrowthRate,
-        SAMFuture: "test"
+        SAMFuture: SAMFuture
     };
     console.log("market...");
     return marketResponse;
