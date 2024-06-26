@@ -1,6 +1,6 @@
 function separateHeaderDescription(inputString) {
     function removeSymbols(str) {
-        return str.replace(/[^a-zA-Z0-9\s]/g, '');
+        return str.replace(/[^a-zA-Z0-9\s-]/g, '');
     }
 
     inputString = inputString.replace(/^\/\[\]/, '').replace(/\/$/, '');
