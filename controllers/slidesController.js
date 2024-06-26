@@ -62,6 +62,7 @@ exports.getSlideIDbySection = async (req, res) => {
       process.env.SHEET_TOKEN_PATH
     );
     const SlideIDs = await fetchSlideIDsbysection(auth, formId, section);
+    if(SlideIDs.length<1){res.json([]);}
     res.json(SlideIDs);
   } catch (error) {
     console.error("Error fetching slide IDs:", error);
