@@ -33,7 +33,12 @@ cleanedText = cleanedText.substring(listStartIndex);
 
   return finalArray;
 }
-  
+
+text = `1. Partner with academic research institutions and utilize their expertise to accelerate R&D for RNA-powered off-the-shelf cell therapies. Leverage external resources for product development. 2. Establish licensing agreements with pharmaceutical companies to develop combinatorial multi-valent CAR therapies using proprietary synthetic RNA technology. Expand market reach and create additional revenue streams. 3. Form distribution partnerships with medical centers for widespread distribution and administration of universal cell therapies. Ensure accessibility by collaborating with established healthcare providers.`
+
+console.log(cleanAndSplit(text))
+
 module.exports = cleanAndSplit
+
 
   
