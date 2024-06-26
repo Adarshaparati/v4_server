@@ -1,37 +1,37 @@
 const sectionToUrlMap1 = {
   about:
-    "https://script.google.com/macros/s/AKfycby7ui-TrRZpD3FABAHN1A1QJdZjBjK7I3GTiMPkcvr4SQPwofjKP9YnAim0T8uZSfbw/exec",
+    "https://script.google.com/macros/s/AKfycbxs-sTPw9uc0XG2c_ChSUZVAV6kWyeM5txhxnRssr9jzUgJWoOg662yh3UAHndne6nl/exec",
   companyDetails:
-    "https://script.google.com/macros/s/AKfycbyzzWVFbJtOq9gaA7j_m9R3cCLcxSWECUxZjG3HlPaSFrjbbs1KjFvSIgwVpImsnODW/exec",
+    "https://script.google.com/macros/s/AKfycbxnG--d2jnMhdFRi5GvGot0aX8bfXKk8FRgFYRaXKunGFw8mCN_tQ8vfDxjxqPuQk4Y/exec",
   problemDescription:
-    "https://script.google.com/macros/s/AKfycbzJe1jfdFow9shNHn7j61kNXqX49mCOhAojjsfOep4xFhod9obE453R7bl3Wp3LYccW/exec",
+    "https://script.google.com/macros/s/AKfycbzFO8T05oX82HVxCErGWlLyBN_Sy4ILo6a2sYvdqRtRCOdhmGIALEb29yTkbhgnEAX2/exec",
   solutionDescription:
-    "https://script.google.com/macros/s/AKfycbyfZsbIGrO0_0PAZH0dxnThjE8s0YL1Nv9qEnCVDCuV3ydn-Ooqw23upOES-L455KF_/exec",
+    "https://script.google.com/macros/s/AKfycbyyabH_q2KQ3j9Vk8MWhyT9ehifvNWEw2WnCnreKb8rIAH6KRQLIZ5kyT6hlpBRmO38/exec",
   market:
-    "https://script.google.com/macros/s/AKfycbw9tkXNwT9-nE8aBlsfmn9ogmIjfJL7XljD4LEuHHebWkIM8Twf5wp1MLqeT1BWDzKEyQ/exec",
+    "https://script.google.com/macros/s/AKfycbzWxRvwpJlIXgTTdt4pq0dMq3T4xeThLwKsO7uRw5G72hBT35Ss3g-h4XuJeGDSqx5RAQ/exec",
   product:
-    "https://script.google.com/macros/s/AKfycbysa_U1cgjh7xk53QWSPiYBbdjLvAKof4PXg5FdQehFiu8ECjZQPJgFEdg6gVFDjc6qew/exec",
+    "https://script.google.com/macros/s/AKfycbzniY1_wxBYEPxzUpVsbgMADty8HFPFuzsjV7lb1gEXERyDneSLX-25NmVh0yvwYYfhtA/exec",
   productScreen:
-    "https://script.google.com/macros/s/AKfycbyufm-ZrFDs7kDeDxPPqdkqPkyE5df71TJOS6Vnfm5PlR6pYfAfnaQ84916EcF0mR1R/exec",
+    "https://script.google.com/macros/s/AKfycbxHWlI8iPNABHL1RpmWZL1rWkI4PgzdVGE72H1HsIziHRwxl0APV6ZChi_FX4q5v0XF/exec",
   businessModel:
-    "https://script.google.com/macros/s/AKfycbz6IRHxRSuJEP2R5gBa2Qfya_PK6ZSrMJVsiawhgUkw2r1-p0JrHC7bSkd2KTofDw6buw/exec",
+    "https://script.google.com/macros/s/AKfycbwTiBDRDRcwXIM_hyr5xQrfLrkrE57bMM-sGZThdS_uc8r1KnPvvLqDcz3VXfTtU8dFtQ/exec",
   goToMarket:
-    "https://script.google.com/macros/s/AKfycbxPkW82eyRmDuu1a7d9f71C-EKwqrtXENrv7eMJWnI4H7COdEz5Qz3qU_KNuxC_QwKzpQ/exec",
+    "https://script.google.com/macros/s/AKfycbwTvkJeHCIPvor5kToqIlNbNVG6R4CPDkAKvv0cXflaopsuOnbYHFNOUv3ZKcaj4_9kNg/exec",
   trackRecord:
-    "https://script.google.com/macros/s/AKfycbwmuXmfQymd94Epxq6kQbo0ixgsA16dfnsAdcD1_qlw-I0hWaHnWnCzA0CydLP_GIhQEg/exec",
+    "https://script.google.com/macros/s/AKfycbwMRKxI-1nd55dAX2Jw5cEGJvwyrNF-7ATC6eVoKwfwxnEu7WtR-hKzAJ1yV-xuO82Z4Q/exec",
   caseStudies:
-    "https://script.google.com/macros/s/AKfycbx3v2q34YM2A_5tXKLddC96BDnWZ_v7wzFjT5E7Oxj5lqrnsGKKW3dto4a_cZFlxrptJw/exec",
+    "https://script.google.com/macros/s/AKfycbzOZEgZUVLaguo-K11Deu4E05ugD35bwNACXclqCYCqvS7ie3iNrn7b9mymXx9XThcvrw/exec",
   testimonials:
-    "https://script.google.com/macros/s/AKfycbwpRoSVBEbaqDiU9NveQooQQs2bhd5SobeWO68AL2XZn1HuZeIrl4R0NSC__q_N2XKU/exec",
+    "https://script.google.com/macros/s/AKfycbyLcjAZix7oqH8xQzx1qiiuF2y3GFfdCRi0piPZehKw3OLPThJh8IL1NjqNQ7qIssUG/exec",
   competitors:
-    "https://script.google.com/macros/s/AKfycbyfb8cFz1JedZsb7jKriqilDVWdG-nvRew5oktKyopWbJB1k50qOLtj0OpCBzWT16tl_g/exec",
+    "https://script.google.com/macros/s/AKfycbxY9goQyvwizEoEkvCI7aagyCmuFK8r-3p90vWOWGNkmMq2dzxVZkCrd0Bw7010kqDy4Q/exec",
   competitiveDiff:
-    "https://script.google.com/macros/s/AKfycbzhvqu7gNTcmHUgMJETS7Y8rhSAiomfVR9kZ6xlBq6JnKaKPVXBUo0jUxAqIsxaQGHeEA/exec",
+    "https://script.google.com/macros/s/AKfycbyKunOMMwzlb9zmxCjWoo3uNnv1ZomRppqGLbtWhALQw3qxxC5wfUmHOgASVGYiIlzS4g/exec",
   teamMembers:
-    "https://script.google.com/macros/s/AKfycbxlnoagH-9Kl_jbiZnmKyyt1xHCGMXuB-8vPwcsW5RAP3Hz8fGjfXOVmnO3gy9JuOT0hQ/exec",
+    "https://script.google.com/macros/s/AKfycbz68yvPUPfqUzX7k_WYWPC0iPR9QFgWplKUtO_SAbeXYiEUYcP0e5OiJ5xMG3addf80Tw/exec",
   financialInfo:
-    "https://script.google.com/macros/s/AKfycbzQxqjJ35KhBMST7HE1DpvYjII3GqMy9KxlsfJ0QAJ2cjhGSj9E1R2StIBo0uDJDBRzgg/exec",
+    "https://script.google.com/macros/s/AKfycbyKmI_T3gMZ3ESyBBsQJpJc2pKL4NCICSNBf72xJE-a8JZzeRBjCzKnXUMm6J3LIdGBTw/exec",
   contactInfo:
-    "https://script.google.com/macros/s/AKfycbzQ6jMU9RZyuWnCNQsUsZ8z4iyz0iXVjz7QCIvRf5JJ-W-2t2R66HtSo306h78fy53h9g/exec",
+    "https://script.google.com/macros/s/AKfycbxW8u8sJ_8coc2-ZBsdQLTWxidagPmXO4PvlCQTW-FqrHHd7emLcJnYmXkOO9duTeQS-Q/exec",
 };
 module.exports = sectionToUrlMap1;
