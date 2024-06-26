@@ -88,6 +88,35 @@ const fetchSlideIDsfromsubmissionID = async (auth,formID) => {
         }
 };
 
+const fetchSlideIDsbysection = async (auth,formID,section) => {
+    try {
+       
+            // const auth = await authorize(SCOPES);
+            const sheets = google.sheets({ version: 'v4', auth });
+            const spreadsheetId = '1UF07enFFDux_HO2irb-sG1KS2V07iyDZZLvpofHuxjQ';
+            const range = 'Slide-display!A:G';
+            const response = await sheets.spreadsheets.values.get({
+                spreadsheetId,
+                range,
+            });
+    
+            const rows = response.data.values;
+            console.log(section)
+            if (rows.length) {
+                const matchingRows = rows.filter(row => row[1] === formID && row[6] ===section);
+                if (matchingRows.length) {
+                    return matchingRows.map(subarray => [subarray[2],subarray[4],subarray[6]]);
+                }
+            }
+            
+    
+            return 'No matching data found';
+        } catch (error) {
+            console.error('The API returned an error:', error);
+            return 'Error fetching data';
+        }
+};
+
 const fetchPresentationHistory = async (auth,userID) => {
     try {
        
@@ -250,4 +279,4 @@ const storeUserResponses = async (auth, formId, responses) => {
 
 //some change
 
-module.exports = {findLatestFormIDByEmail,getSheetIdFromUrl,fetchPresentationURL,fetchPresentationHistory,updateMatchedRow,fetchPresentationURLfromsubmissionID,fetchSlideIDsfromsubmissionID,storeUserResponses};
+module.exports = {findLatestFormIDByEmail,getSheetIdFromUrl,fetchPresentationURL,fetchPresentationHistory,updateMatchedRow,fetchPresentationURLfromsubmissionID,fetchSlideIDsfromsubmissionID,storeUserResponses,fetchSlideIDsbysection};
