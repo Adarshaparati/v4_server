@@ -2,17 +2,17 @@ const { GPT, NestedGPT } = require('../../services/gpt');
 const cleanAndSplit = require('../../utils/cleanandsplit');
 const separateHeaderDescription = require('../../utils/sepreateHeaderDescription');
 
-async function processSolutionSection(submission, prompts) {
+async function processSolutionSection(problem, prompts) {
     const {solutionPrompts} = prompts;
-    const { companyDetails } = submission;
-    const { companyOverview } = companyDetails;
-    const solutionTitle = await GPT(solutionPrompts.solutionTitle.prompt, companyOverview);
-    const solutionStatement = await GPT(solutionPrompts.solutionStatement.prompt, companyOverview);
+    const { problemGPT } = problem;
+    
+    const solutionStatement = await GPT(solutionPrompts.solutionStatement.prompt, problemGPT);
     const solutionGPT = await NestedGPT(
         solutionPrompts.solutionGPT.prompt,
         solutionPrompts.solutionGPT.Refine,
-        companyOverview
+        problemGPT
     );
+    const solutionTitle = await GPT(solutionPrompts.solutionTitle.prompt, solutionGPT);
 
     const solutionPoints = cleanAndSplit(solutionGPT);
 

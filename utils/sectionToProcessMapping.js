@@ -12,7 +12,7 @@ const contactProcess = require('../controllers/dataMapping/contactController');
 const caseStudiesProcess = require('../controllers/dataMapping/caseStudyProcess');
 const testimonialProcess = require('../controllers/dataMapping/testimonialProcess');
 const competitiveDiff = require('../controllers/dataMapping/diffController')
-const financialInfoProcess = require('../controllers/dataMapping/testimonialProcess')
+const financialInfoProcess = require('../controllers/dataMapping/financialSnapShotProcess')
 const teamProcess = require('../controllers/dataMapping/teamProcess')
 const mapping = {
     about:aboutController,

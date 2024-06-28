@@ -7,13 +7,13 @@ async function processFinancialSnapshot(submission,prompts) {
 
     const {financialInfoPrompts} =prompts;
     const {financialInfo} = submission;
-    const {financialSnapshot} = financialInfo
+    const {financialSnapshot,revenueCost} = financialInfo
 
     const financialTitle = await GPT(financialInfoPrompts.financialTitle.prompt,financialSnapshot);
     const financialSnapshotResult = await GPT(financialInfoPrompts.financialSnapshot.prompt,financialSnapshot);
 
 
-    const revenueCost = {
+    const revenue_Cost = {
         revenue2019: 0,
         revenue2020: 0,
         revenue2021: 0,
@@ -36,16 +36,16 @@ async function processFinancialSnapshot(submission,prompts) {
         cost2028: 0
       };
       
-      data.forEach(item => {
+      revenueCost.forEach(item => {
         const year = item.year;
         const revenueKey = `revenue${year}`;
         const costKey = `cost${year}`;
       
-        if (revenueCost.hasOwnProperty(revenueKey)) {
-          revenueCost[revenueKey] = parseInt(item.revenue, 10);
+        if (revenue_Cost.hasOwnProperty(revenueKey)) {
+          revenue_Cost[revenueKey] = parseInt(item.revenue, 10);
         }
-        if (revenueCost.hasOwnProperty(costKey)) {
-          revenueCost[costKey] = parseInt(item.cost, 10);
+        if (revenue_Cost.hasOwnProperty(costKey)) {
+          revenue_Cost[costKey] = parseInt(item.cost, 10);
         }
       });
       
