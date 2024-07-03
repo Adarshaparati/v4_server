@@ -16,7 +16,8 @@ const competitiveDiffSchema = require('./differentiationResponseSchema');
 const teamMemberSchema = require('./teamResponseSchema');
 const contactInfoSchema = require('./contactInfoResponseSchema');
 const financialInfoSchema = require('./financialsnapshotResponseSchema');
-
+const mobileAppScreenshotsResponseSchema  = require('./mobileAppScreenshotsResponseSchema')
+const webAppScreenshotsResponseSchema = require('./webAppScreenshotsResponseSchema')
 const ResponseSchema = new mongoose.Schema({
     user: userSchema,
     about: aboutSchema,
@@ -25,6 +26,8 @@ const ResponseSchema = new mongoose.Schema({
     market: marketSchema, 
     product: productSchema,
     productScreen: productScreenSchema,
+    mobileAppScreenshots:mobileAppScreenshotsResponseSchema,
+    webAppScreenshots:webAppScreenshotsResponseSchema,
     businessModel: businessModelSchema,
     goToMarket: goToMarketSchema, 
     trackRecord: trackRecordSchema,

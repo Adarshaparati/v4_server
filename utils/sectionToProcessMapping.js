@@ -14,12 +14,16 @@ const testimonialProcess = require('../controllers/dataMapping/testimonialProces
 const competitiveDiff = require('../controllers/dataMapping/diffController')
 const financialInfoProcess = require('../controllers/dataMapping/financialSnapShotProcess')
 const teamProcess = require('../controllers/dataMapping/teamProcess')
+const webAppScreenshotsProcess = require('../controllers/dataMapping/webAppScreenshotsProcess')
+const mobileAppScreenshotsProcess = require('../controllers/dataMapping/mobileAppScreenshotsProcess')
 const mapping = {
     about:aboutController,
     problemDescription:problemController,
     solutionDescription:solutionController,
     market: marketController,
     product:productController,
+    mobileAppScreenshots:webAppScreenshotsProcess,
+    webAppScreenshots:mobileAppScreenshotsProcess,
     productScreen:productScreenShotController,
     businessModel: businessModelController,
     goToMarket: gtmController,
