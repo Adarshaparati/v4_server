@@ -13,6 +13,7 @@ async function processFinancialSnapshot(submission,prompts) {
     const financialSnapshotResult = await GPT(financialInfoPrompts.financialSnapshot.prompt,financialSnapshot);
 
 
+
     const revenue_Cost = {
         revenue2019: 0,
         revenue2020: 0,
@@ -48,40 +49,55 @@ async function processFinancialSnapshot(submission,prompts) {
           revenue_Cost[costKey] = parseInt(item.cost, 10);
         }
       });
-      
 
+
+      let rev_chart = 'No'
+      let cost_chart = 'No'
+      for (const key in revenue_Cost) {
+        if (key.startsWith("revenue") && revenue_Cost[key] > 0) {
+            rev_chart = 'Yes'
+        }
+        if (key.startsWith("cost") && revenue_Cost[key] > 0) {
+          cost_chart = 'Yes'
+      }
+    }
+    let useoffunds_chart = 'No'
+    if( financialInfo.useOfFunds[0]?.percentage || financialInfo.useOfFunds[1]?.percentage || financialInfo.useOfFunds[2]?.percentage || financialInfo.useOfFunds[3]?.percentage || financialInfo.useOfFunds[4]?.percentage){
+        useoffunds_chart = 'Yes'
+    }
+     
     const financialSnapshotResponse = {
         financialTitle:financialTitle,
         financialSnapshot: financialSnapshotResult,        // Overview of the financial snapshot
         fundingAsk: financialInfo.plannedRaise,               // Funding request amount
-        revenueChart:"",             // Revenue chart data or URL
-        costChartValue: "",           // Cost chart data or URL
-        useOfFunds: "",               // Details on the use of funds
-        revenue2019: revenueCost.revenue2019,               // Revenue for the year 2019
-        revenue2020: revenueCost.revenue2020,               // Revenue for the year 2020
-        revenue2021: revenueCost.revenue2021,               // Revenue for the year 2021
-        revenue2022: revenueCost.revenue2022,               // Revenue for the year 2022
-        revenue2023: revenueCost.revenue2023,               // Revenue for the year 2023
-        revenue2024: revenueCost.revenue2024,               // Revenue for the year 2024
-        revenue2025: revenueCost.revenue2025,               // Revenue for the year 2025
-        revenue2026: revenueCost.revenue2026,               // Revenue for the year 2026
-        revenue2027: revenueCost.revenue2027,               // Revenue for the year 2027
-        revenue2028: revenueCost.revenue2028,               // Revenue for the year 2028
-        cost2019: revenueCost.cost2019,                  // Cost for the year 2019
-        cost2020: revenueCost.cost2020,                  // Cost for the year 2020
-        cost2021: revenueCost.cost2021,                  // Cost for the year 2021
-        cost2022: revenueCost.cost2022,                  // Cost for the year 2022
-        cost2023: revenueCost.cost2023,                  // Cost for the year 2023
-        cost2024: revenueCost.cost2024,                  // Cost for the year 2024
-        cost2025: revenueCost.cost2025,                  // Cost for the year 2025
-        cost2026: revenueCost.cost2026,                  // Cost for the year 2026
-        cost2027: revenueCost.cost2027,                  // Cost for the year 2027
-        cost2028: revenueCost.cost2028,                  // Cost for the year 2028
-        productDevelopment: "",       // Budget for product development
-        marketingSales: "",           // Budget for marketing and sales
-        capex: "",                    // Capital expenditures
-        businessOperations: "",       // Business operations budget
-        teamSalaries: ""              // Team salaries
+        revenueChart:rev_chart,             // Revenue chart data or URL
+        costChartValue: cost_chart,           // Cost chart data or URL
+        useOfFunds: useoffunds_chart,               // Details on the use of funds
+        revenue2019: revenue_Cost.revenue2019,               // Revenue for the year 2019
+        revenue2020: revenue_Cost.revenue2020,               // Revenue for the year 2020
+        revenue2021: revenue_Cost.revenue2021,               // Revenue for the year 2021
+        revenue2022: revenue_Cost.revenue2022,               // Revenue for the year 2022
+        revenue2023: revenue_Cost.revenue2023,               // Revenue for the year 2023
+        revenue2024: revenue_Cost.revenue2024,               // Revenue for the year 2024
+        revenue2025: revenue_Cost.revenue2025,               // Revenue for the year 2025
+        revenue2026: revenue_Cost.revenue2026,               // Revenue for the year 2026
+        revenue2027: revenue_Cost.revenue2027,               // Revenue for the year 2027
+        revenue2028: revenue_Cost.revenue2028,               // Revenue for the year 2028
+        cost2019: revenue_Cost.cost2019,                  // Cost for the year 2019
+        cost2020: revenue_Cost.cost2020,                  // Cost for the year 2020
+        cost2021: revenue_Cost.cost2021,                  // Cost for the year 2021
+        cost2022: revenue_Cost.cost2022,                  // Cost for the year 2022
+        cost2023: revenue_Cost.cost2023,                  // Cost for the year 2023
+        cost2024: revenue_Cost.cost2024,                  // Cost for the year 2024
+        cost2025: revenue_Cost.cost2025,                  // Cost for the year 2025
+        cost2026: revenue_Cost.cost2026,                  // Cost for the year 2026
+        cost2027: revenue_Cost.cost2027,                  // Cost for the year 2027
+        cost2028: revenue_Cost.cost2028,                  // Cost for the year 2028
+        productDevelopment: financialInfo.useOfFunds[0].percentage,       // Budget for product development
+        marketingSales: financialInfo.useOfFunds[1].percentage,           // Budget for marketing and sales
+        capex: financialInfo.useOfFunds[3].percentage,                    // Capital expenditures
+        businessOperations: financialInfo.useOfFunds[2].percentage,       // Business operations budget
+        teamSalaries: financialInfo.useOfFunds[4].percentage              // Team salaries
     };
 
     return financialSnapshotResponse;

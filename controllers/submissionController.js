@@ -163,6 +163,8 @@ exports.postSubmission = async (req, res) => {
     res.status(500).json({ error: "Server error" });
   }
 };
+
+//short form
 exports.postShortFormSubmission = async (req, res) => {
   try {
     const { formId, formResponses, generatedPresentationId, section } =
@@ -317,7 +319,6 @@ exports.postSectionSubmission = async (req, res) => {
   try {
     const { formId, formResponses, generatedPresentationId, section } =
       req.body;
-
     let submission = await ShortForm.findOne({ "user.submissionId": formId });
 
     for (const property of Object.keys(formResponses)) {
@@ -336,16 +337,14 @@ exports.postSectionSubmission = async (req, res) => {
     }
 
     let response = await Response.findOne({ "user.submissionId": formId });
-    
     var sec = section==='companyDetails'?'about':section
     const processdata = await processMapping[sec](submission, prompts);
-    
     response[section] = processdata;
     const data = await response.save();
     if (data) {
       url = sectionToUrlMap1[section];
       const queryParams = `?userID=${formResponses.userId}&submissionID=${formId}&generatedPresentationID=${generatedPresentationId}`;
-
+      console.log(`${url}${queryParams}`)
       fetch(`${url}${queryParams}`, { method: "GET" })
         .then(() => console.log(`${section} URL triggered: ${url}`))
         .catch((error) => console.error(`Error triggering URL: ${url}`, error));

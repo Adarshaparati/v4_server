@@ -14,6 +14,7 @@ const slidesRoutes = require('./routes/slidesRoutes');
 const submissionRoutes = require('./routes/submissionRoutes');
 const colorsRoutes = require('./routes/colorsRoutes');
 const processRoutes = require('./routes/processRoutes');
+const appscriptRoutes = require('./routes/appscriptRoutes')
 
 // Middleware
 app.use(bodyParser.json());
@@ -26,6 +27,7 @@ app.use('/slides', slidesRoutes);
 app.use('/submission', submissionRoutes);
 app.use('/get-colors', colorsRoutes);
 app.use('/process', processRoutes);
+app.use('/appscript', appscriptRoutes);
 
 // Test route
 app.get("/test", (req, res) => {
