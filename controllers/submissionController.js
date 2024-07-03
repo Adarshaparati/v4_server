@@ -163,9 +163,12 @@ exports.postSubmission = async (req, res) => {
     res.status(500).json({ error: "Server error" });
   }
 };
+
+//short form
 exports.postShortFormSubmission = async (req, res) => {
   try {
-    const { formId, formResponses, generatedPresentationId, section } = req.body;
+    const { formId, formResponses, generatedPresentationId, section } =
+      req.body;
     let urlsToTrigger = new Set();
 
     // Function to check if a section is included in additionalUrlsMap
@@ -214,9 +217,6 @@ exports.postShortFormSubmission = async (req, res) => {
         submission[schemaKey][property] = formResponses[property] || "";
       }
     }
-
-    res.status(200).json({ message: "Data updated successfully" });
-
     const db = mongoose.connection.db;
     const collection = db.collection("Prompts");
     const prompts = await collection.findOne({});
@@ -247,35 +247,43 @@ exports.postShortFormSubmission = async (req, res) => {
         financialInfo: {},
       });
     }
-
+    res.status(200).json({ message: "Data updated successfully" });
     if (section === "companyDetails") {
-      const [about, problemDescription, solutionDescription, competitors] = await Promise.all([
-        processMapping["about"](submission, prompts),
-        processMapping["problemDescription"](submission, prompts),
-        processMapping["solutionDescription"](submission, prompts),
-        processMapping["competitors"](submission, prompts),
-      ]);
+      const [about, problemDescription, caseStudies, competitors] =
+        await Promise.all([
+          processMapping["about"](submission, prompts),
+          processMapping["problemDescription"](submission, prompts),
+          processMapping["caseStudies"](submission, prompts),
+          processMapping["competitors"](submission, prompts)
+        ]);
 
+
+      const solutionDescription = await processMapping["solutionDescription"](problemDescription, prompts)
       response["about"] = about;
       response["problemDescription"] = problemDescription;
       response["solutionDescription"] = solutionDescription;
+      response["caseStudies"] = caseStudies;
       response["competitors"] = competitors;
     } else if (section === "market") {
       response["market"] = await processMapping["market"](submission, prompts);
     } else if (section === "product") {
-      const [product, goToMarket, businessModel, competitiveDiff] = await Promise.all([
-        processMapping["product"](submission, prompts),
-        processMapping["goToMarket"](submission, prompts),
-        processMapping["businessModel"](submission, prompts),
-        processMapping["competitiveDiff"](submission, prompts),
-      ]);
+      const [product, goToMarket, businessModel, competitiveDiff] =
+        await Promise.all([
+          processMapping["product"](submission, prompts),
+          processMapping["goToMarket"](submission, prompts),
+          processMapping["businessModel"](submission, prompts),
+          processMapping["competitiveDiff"](submission, prompts),
+        ]);
 
       response["product"] = product;
       response["goToMarket"] = goToMarket;
       response["businessModel"] = businessModel;
       response["competitiveDiff"] = competitiveDiff;
     } else if (section === "contactInfo") {
-      response["contactInfo"] = await processMapping["contactInfo"](submission, prompts);
+      response["contactInfo"] = await processMapping["contactInfo"](
+        submission,
+        prompts
+      );
     }
 
     const data = await response.save();
@@ -287,21 +295,62 @@ exports.postShortFormSubmission = async (req, res) => {
           urlsToTrigger.add(sectionToUrlMap1.about);
         }
 
-        additionalUrlsMap[section].forEach(url => urlsToTrigger.add(url));
+        additionalUrlsMap[section].forEach((url) => urlsToTrigger.add(url));
       }
 
       const queryParams = `?userID=${formResponses.userId}&submissionID=${formId}&generatedPresentationID=${generatedPresentationId}`;
-      fetchPromises = Array.from(urlsToTrigger).map(url =>
+      fetchPromises = Array.from(urlsToTrigger).map((url) =>
         fetch(`${url}${queryParams}`, { method: "GET" })
           .then(() => console.log(`${section} URL triggered: ${url}`))
-          .catch(error =>
+          .catch((error) =>
             console.error(`Error triggering URL: ${url}`, error)
           )
       );
-      
     }
     await submission.save();
+  } catch (error) {
+    console.error("Error processing request:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
+  
+//section wise form
+exports.postSectionSubmission = async (req, res) => {
+  try {
+    const { formId, formResponses, generatedPresentationId, section } =
+      req.body;
+    let submission = await ShortForm.findOne({ "user.submissionId": formId });
+
+    for (const property of Object.keys(formResponses)) {
+      const schemaKey = section;
     
+      if (submission[schemaKey][property]!==undefined) {
+        submission[schemaKey][property] = formResponses[property] || "";
+      }
+    }
+    const db = mongoose.connection.db;
+    const collection = db.collection("Prompts");
+    const prompts = await collection.findOne({});
+
+    if (!prompts) {
+      return res.status(404).send({ error: "Prompts not found" });
+    }
+
+    let response = await Response.findOne({ "user.submissionId": formId });
+    var sec = section==='companyDetails'?'about':section
+    const processdata = await processMapping[sec](submission, prompts);
+    response[section] = processdata;
+    const data = await response.save();
+    if (data) {
+      url = sectionToUrlMap1[section];
+      const queryParams = `?userID=${formResponses.userId}&submissionID=${formId}&generatedPresentationID=${generatedPresentationId}`;
+      console.log(`${url}${queryParams}`)
+      fetch(`${url}${queryParams}`, { method: "GET" })
+        .then(() => console.log(`${section} URL triggered: ${url}`))
+        .catch((error) => console.error(`Error triggering URL: ${url}`, error));
+    }
+    await submission.save();
+    res.status(200).json({ message: "Data updated successfully" });
   } catch (error) {
     console.error("Error processing request:", error);
     res.status(500).json({ error: "Internal server error" });

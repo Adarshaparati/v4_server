@@ -3,7 +3,7 @@ const cleanAndSplit = require('../../utils/cleanandsplit');
 const separateHeaderDescription = require('../../utils/sepreateHeaderDescription');
 
 async function processProductDetails(submission, prompts) {
-
+    
     const {productPrompts} = prompts;
     const { product, companyDetails } = submission;
     const { productOverview } = product;

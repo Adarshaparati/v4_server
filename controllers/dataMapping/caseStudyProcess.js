@@ -29,7 +29,7 @@ async function processCaseStudy(submission,prompts) {
         outcome: Refinedoutcome,
         caseStudyCoverImage: ""
     };
-
+    console.log('caseStudy...')
     return caseStudyResponse;
 }
 
