@@ -35,6 +35,8 @@ const competitiveDiffResponseSchema = require("../models/Response/differentiatio
 const teamMemberResponseSchema = require("../models/Response/teamResponseSchema");
 const contactInfoResponseSchema = require("../models/Response/contactInfoResponseSchema");
 const financialInfoResponseSchema = require("../models/Response/financialsnapshotResponseSchema");
+const webAppScreenshotsResponseSchema = require('../models/Response/webAppScreenshotsResponseSchema')
+const mobileAppScreenshotsResponseSchema = require('../models/Response/mobileAppScreenshotsResponseSchema')
 
 const user = require("./dataMapping/user");
 const processMapping = require("../utils/sectionToProcessMapping");
@@ -235,6 +237,8 @@ exports.postShortFormSubmission = async (req, res) => {
         market: {},
         product: {},
         productScreen: {},
+        mobileAppScreenshots:{},
+        webAppScreenshots:{},
         businessModel: {},
         goToMarket: {},
         trackRecord: {},
