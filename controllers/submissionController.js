@@ -199,7 +199,9 @@ exports.postShortFormSubmission = async (req, res) => {
         solutionDescription: {},
         market: {},
         product: {},
-        productScreen: {},
+        // productScreen: {},
+        mobileScreenshots:{},
+        webScreenshots:{},
         businessModel: {},
         goToMarket: {},
         trackRecord: {},
@@ -236,9 +238,8 @@ exports.postShortFormSubmission = async (req, res) => {
         solutionDescription: {},
         market: {},
         product: {},
-        productScreen: {},
-        mobileAppScreenshots:{},
-        webAppScreenshots:{},
+        mobileScreenshots:{},
+        webScreenshots:{},
         businessModel: {},
         goToMarket: {},
         trackRecord: {},
@@ -323,11 +324,10 @@ exports.postSectionSubmission = async (req, res) => {
   try {
     const { formId, formResponses, generatedPresentationId, section } =
       req.body;
+    
     let submission = await ShortForm.findOne({ "user.submissionId": formId });
-
     for (const property of Object.keys(formResponses)) {
       const schemaKey = section;
-    
       if (submission[schemaKey][property]!==undefined) {
         submission[schemaKey][property] = formResponses[property] || "";
       }
@@ -335,7 +335,6 @@ exports.postSectionSubmission = async (req, res) => {
     const db = mongoose.connection.db;
     const collection = db.collection("Prompts");
     const prompts = await collection.findOne({});
-
     if (!prompts) {
       return res.status(404).send({ error: "Prompts not found" });
     }

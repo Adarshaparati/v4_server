@@ -17,6 +17,8 @@ const competitiveDiffSchema = require('./competitiveDiffModel');
 const teamMemberSchema = require('./teamMemberModel');
 const contactInfoSchema = require('./contactInfoModel');
 const financialInfoSchema = require('./financialInfoModel');
+const mobileAppScreenshotsSchema = require('./mobileScreenshotSchema')
+const webAppScreenshotsSchema = require('./webScreenshotSchema')
 
 const submissionSchema = new mongoose.Schema({
     user: userSchema,
@@ -26,6 +28,8 @@ const submissionSchema = new mongoose.Schema({
     solutionDescription: solutionDescriptionSchema,
     market: marketSchema, 
     product: productSchema,
+    mobileAppScreenshots:mobileAppScreenshotsSchema,
+    webAppScreenshots:webAppScreenshotsSchema,
     productScreen: productScreenSchema,
     businessModel: businessModelSchema,
     goToMarket: goToMarketSchema, 
@@ -40,5 +44,6 @@ const submissionSchema = new mongoose.Schema({
 });
 
 const Submission = mongoose.model('Submission', submissionSchema);
+
 
 module.exports = Submission;

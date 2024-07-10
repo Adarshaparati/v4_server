@@ -12,7 +12,7 @@ async function processSolutionSection(problem, prompts) {
         solutionPrompts.solutionGPT.Refine,
         problemGPT
     );
-    const solutionTitle = await GPT(solutionPrompts.solutionTitle.prompt, solutionGPT);
+    const solutionTitle = await GPT(solutionPrompts.solutionTitle.prompt, solutionStatement);
 
     const solutionPoints = cleanAndSplit(solutionGPT);
 

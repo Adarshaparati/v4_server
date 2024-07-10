@@ -16,6 +16,8 @@ const competitiveDiffSchema = require('./competitiveDiffModel');
 const teamMemberSchema = require('./teamMemberModel');
 const contactInfoSchema = require('./contactInfoModel');
 const financialInfoSchema = require('./financialInfoModel');
+const mobileAppScreenshotsSchema = require('./mobileScreenshotSchema')
+const webAppScreenshotsSchema = require('./webScreenshotSchema')
 
 const shortFormSchema = new mongoose.Schema({
   user: {
@@ -29,6 +31,8 @@ const shortFormSchema = new mongoose.Schema({
   market: marketSchema,
   product: productSchema,
   productScreen: productScreenSchema,
+  mobileScreenshots:mobileAppScreenshotsSchema,
+  webScreenshots:webAppScreenshotsSchema,
   businessModel: businessModelSchema,
   goToMarket: goToMarketSchema,
   trackRecord: trackRecordSchema,
