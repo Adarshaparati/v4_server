@@ -5,22 +5,16 @@ const separateHeaderDescription = require('../../utils/sepreateHeaderDescription
 
 async function processWebAppScreenshots(submission,prompts){
     const {productScreenShotPrompts} = prompts;
-    const {product} = submission;
+    const {product,webScreenshots} = submission;
     const {productOverview} = product;
-    const mobileScreenshotsDescription = await GPT(productScreenShotPrompts.mobileScreenshotsDescription.prompt,productOverview)
     const webScreenshotsDescription = await GPT(productScreenShotPrompts.webScreenshotsDescription.prompt,productOverview)
-    const {productScreen} = submission;
-    const productScreenShotResponse = {
-        mobileScreenshotsDescription: mobileScreenshotsDescription,
-        mobileScreenshot1: productScreen.mobileScreenshots[0],
-        mobileScreenshot2: productScreen.mobileScreenshots[1],
-        mobileScreenshot3: productScreen.mobileScreenshots[2],
+    const webScreenShotResponse = {
         webScreenshotsDescription: webScreenshotsDescription,
-        webScreenshot1: productScreen.webScreenshots[0],
-        webScreenshot2: productScreen.webScreenshots[1],
-        webScreenshot3: productScreen.webScreenshots[2]
+        webScreenshot1: webScreenshots.webScreenshots[0],
+        webScreenshot2: webScreenshots.webScreenshots[1],
+        webScreenshot3: webScreenshots.webScreenshots[2]
     }
-    console.log("product screen...")
-    return productScreenShotResponse;
+    console.log("web screen...")
+    return webScreenShotResponse;
 }
 module.exports = processWebAppScreenshots

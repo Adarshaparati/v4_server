@@ -13,9 +13,9 @@ const sectionToUrlMap1 = {
       "https://script.google.com/macros/s/AKfycbxFXAvHmmdLv2F1mjGKULk0hb0DxWnM_BeNxOAnyWYWeG1Hmd8RZKkIdLGk2NQXFjeDIg/exec",
 productRoadmap:"https://script.google.com/macros/s/AKfycbw4Ibo4vGw2gpzSYhC1BEoeIHwK-XHQlvJi-Fc-Xtf_lsyG7riJSV5NsqSuiiAuLT4A/exec",
  systemArchitecture:"https://script.google.com/macros/s/AKfycbziwGwYcNOKWoAJvpDawV1c1vlOundH3LdBA75jlauW-GZh5Iln39ATQOtxRhXlbgCy/exec",
-mobileAppScreenshots: 
+mobileScreenshots: 
     "https://script.google.com/macros/s/AKfycbwS1w9Xg0cTE_idcg0AVCBHPBPNLrZYDRyFZTypC4SxwkaOWrMLpMEzZZv5cFGzeJUv/exec",
- webAppScreenshots:"https://script.google.com/macros/s/AKfycbwOA0O65M-p_CY-n1JPimI2C05MhSdumZHq7zNy4mQv6bpQZAqVcxznybPraPwqLMLDng/exec",
+ webScreenshots:"https://script.google.com/macros/s/AKfycbwOA0O65M-p_CY-n1JPimI2C05MhSdumZHq7zNy4mQv6bpQZAqVcxznybPraPwqLMLDng/exec",
 
   businessModel:
     "https://script.google.com/macros/s/AKfycbwTiBDRDRcwXIM_hyr5xQrfLrkrE57bMM-sGZThdS_uc8r1KnPvvLqDcz3VXfTtU8dFtQ/exec",
@@ -26,7 +26,7 @@ mobileAppScreenshots:
   trackRecord:
     "https://script.google.com/macros/s/AKfycbwMRKxI-1nd55dAX2Jw5cEGJvwyrNF-7ATC6eVoKwfwxnEu7WtR-hKzAJ1yV-xuO82Z4Q/exec",
   caseStudies:
-    "https://script.google.com/macros/s/AKfycbzOZEgZUVLaguo-K11Deu4E05ugD35bwNACXclqCYCqvS7ie3iNrn7b9mymXx9XThcvrw/exec",
+    "https://script.google.com/macros/s/AKfycbyaWwGyCcutIwMwiW0gkiGSahK3aQJJMZvyo0dsTY1hdJm4Q-EyDWqed9362M1Ql0l89w/exec",
   testimonials:
     "https://script.google.com/macros/s/AKfycbyLcjAZix7oqH8xQzx1qiiuF2y3GFfdCRi0piPZehKw3OLPThJh8IL1NjqNQ7qIssUG/exec",
   competitors:
