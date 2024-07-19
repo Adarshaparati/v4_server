@@ -21,7 +21,7 @@ function calculateSOM(competitiveness, value) {
             return "";
     }
 
-    return percentage * value;
+    return Math.round(percentage * value);
 }
 
 module.exports = calculateSOM
