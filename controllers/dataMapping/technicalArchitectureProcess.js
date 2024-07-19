@@ -20,7 +20,7 @@ async function ProcessTechnicalArchitecture(submission, prompts) {
         technologyPlatform: technologyPlatform,
         valueBasedOutput: valueBasedOutput
     };
-    console.log("product...");
+    console.log("technical...");
     return productResponse;
 }
 

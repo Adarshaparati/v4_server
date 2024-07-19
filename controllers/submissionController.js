@@ -323,7 +323,6 @@ exports.postSectionSubmission = async (req, res) => {
     const { formId, formResponses, generatedPresentationId, section } =
       req.body;
     let submission = await ShortForm.findOne({ "user.submissionId": formId });
-    console.log(submission)
     for (const property of Object.keys(formResponses)) {
       const schemaKey = section==="technicalArchitecture"?"product":section;
       if (submission[schemaKey][property]!==undefined) {
@@ -343,7 +342,8 @@ exports.postSectionSubmission = async (req, res) => {
     
 
     const processdata = await processMapping[sec](submission, prompts);
-    response[section] = processdata;
+    var responseSection = section==="technicalArchitecture"?"product":section
+    response[responseSection] = processdata;
     const data = await response.save();
     if (data) {
       url = sectionToUrlMap1[section];
