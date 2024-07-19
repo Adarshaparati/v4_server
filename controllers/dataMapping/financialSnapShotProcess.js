@@ -15,26 +15,26 @@ async function processFinancialSnapshot(submission,prompts) {
 
 
     const revenue_Cost = {
-        revenue2019: 0,
-        revenue2020: 0,
-        revenue2021: 0,
-        revenue2022: 0,
-        revenue2023: 0,
-        revenue2024: 0,
-        revenue2025: 0,
-        revenue2026: 0,
-        revenue2027: 0,
-        revenue2028: 0,
-        cost2019: 0,
-        cost2020: 0,
-        cost2021: 0,
-        cost2022: 0,
-        cost2023: 0,
-        cost2024: 0,
-        cost2025: 0,
-        cost2026: 0,
-        cost2027: 0,
-        cost2028: 0
+        revenue2019: null,
+        revenue2020: null,
+        revenue2021: null,
+        revenue2022: null,
+        revenue2023: null,
+        revenue2024: null,
+        revenue2025: null,
+        revenue2026: null,
+        revenue2027: null,
+        revenue2028: null,
+        cost2019: null,
+        cost2020: null,
+        cost2021: null,
+        cost2022: null,
+        cost2023: null,
+        cost2024: null,
+        cost2025: null,
+        cost2026: null,
+        cost2027: null,
+        cost2028: null
       };
       
       revenueCost.forEach(item => {
