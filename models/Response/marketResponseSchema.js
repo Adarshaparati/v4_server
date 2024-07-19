@@ -1,7 +1,10 @@
 const mongoose = require('mongoose');
 
 const marketResponseSchema = new mongoose.Schema({
+  sector: { type: String, default: '' },
+  otherSector: { type: String, default: '' },
   industry: { type: String, default: '' },
+  otherIndustry: { type: String, default: '' },
   marketTitleGPT: { type: String, default: '' },
   marketTitle: { type: String, default: '' },
   marketDescription: { type: String, default: '' },

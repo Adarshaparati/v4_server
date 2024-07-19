@@ -4,12 +4,12 @@ const separateHeaderDescription = require('../../utils/sepreateHeaderDescription
 const extractNumbers = require('../../utils/extractRatings')
 async function processCompetitors(submission,prompts){
     const {competitorsPrompts} = prompts;
-    const {about} = submission;
+    const {about,competitors} = submission;
     const {companyName} = about;
 
-    const companys = await GPT(competitorsPrompts.companys.prompt,companyName)
-    const companylist = cleanAndSplit(companys)
-
+   
+    const companylist = competitors.competitors
+    const companys = companylist.join(" ")
     const attributeGPT = await GPT(competitorsPrompts.attributeGPT.prompt,companys)
     const attributeList = cleanAndSplit(attributeGPT)
 

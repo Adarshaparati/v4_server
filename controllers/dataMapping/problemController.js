@@ -1,7 +1,7 @@
 const { GPT, NestedGPT } = require('../../services/gpt');
 const cleanAndSplit = require('../../utils/cleanandsplit');
 const separateHeaderDescription = require('../../utils/sepreateHeaderDescription');
-
+const cleanHeader = require('../../utils/cleanHeaders')
 async function processProblemSection(submission, prompts) {
     const {problemPrompts} = prompts
     const { companyDetails } = submission;

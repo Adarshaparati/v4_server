@@ -15,7 +15,8 @@ const competitiveDiff = require('../controllers/dataMapping/diffController')
 const financialInfoProcess = require('../controllers/dataMapping/financialSnapShotProcess')
 const teamProcess = require('../controllers/dataMapping/teamProcess')
 const webAppScreenshotsProcess = require('../controllers/dataMapping/webAppScreenshotsProcess')
-const mobileAppScreenshotsProcess = require('../controllers/dataMapping/mobileAppScreenshotsProcess')
+const mobileAppScreenshotsProcess = require('../controllers/dataMapping/mobileAppScreenshotsProcess');
+const ProcessTechnicalArchitecture = require('../controllers/dataMapping/technicalArchitectureProcess');
 const mapping = {
     about:aboutController,
     problemDescription:problemController,
@@ -35,6 +36,7 @@ const mapping = {
     teamMembers: teamProcess, 
     contactInfo: contactProcess,
     financialInfo: financialInfoProcess,
+    technicalArchitecture:ProcessTechnicalArchitecture
 }
 
 module.exports = mapping
