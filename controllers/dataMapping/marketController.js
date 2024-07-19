@@ -8,7 +8,7 @@ async function processMarket(submission, prompts) {
     const {marketPrompts} = prompts
     const { companyDetails, market } = submission;
     const { companyOverview } = companyDetails;
-    const { sector } = market;
+    const { sector,otherSector,industry,otherIndustry} = market;
 
     let numTAM = null;
     let numSAM = null;
@@ -80,7 +80,10 @@ const [
     const SAMFuture = Math.round(numSAM*((1+(parseFloat(SAMGrowthRate.replace('%', ''))/100))**5))
 
     const marketResponse = {
-        industry: sector,
+        sector: sector,
+        otherSector:otherSector,
+        industry:industry,
+        otherIndustry:otherIndustry,
         marketTitleGPT: "",
         marketTitle: marketTitleGPT,
         marketDescription: marketDescription,

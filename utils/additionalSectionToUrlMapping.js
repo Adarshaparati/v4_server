@@ -9,7 +9,6 @@ const additionalUrlsMap = {
   ],
   product: [
     sectionToUrlMap1.productRoadmap,
-    sectionToUrlMap1.systemArchitecture,
     sectionToUrlMap1.keyStakeholders,
     sectionToUrlMap1.customerPersona,
     sectionToUrlMap1.goToMarket,

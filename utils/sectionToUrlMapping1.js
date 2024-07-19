@@ -12,7 +12,7 @@ const sectionToUrlMap1 = {
     product:
       "https://script.google.com/macros/s/AKfycbxFXAvHmmdLv2F1mjGKULk0hb0DxWnM_BeNxOAnyWYWeG1Hmd8RZKkIdLGk2NQXFjeDIg/exec",
 productRoadmap:"https://script.google.com/macros/s/AKfycbw4Ibo4vGw2gpzSYhC1BEoeIHwK-XHQlvJi-Fc-Xtf_lsyG7riJSV5NsqSuiiAuLT4A/exec",
- systemArchitecture:"https://script.google.com/macros/s/AKfycbziwGwYcNOKWoAJvpDawV1c1vlOundH3LdBA75jlauW-GZh5Iln39ATQOtxRhXlbgCy/exec",
+technicalArchitecture:"https://script.google.com/macros/s/AKfycbziwGwYcNOKWoAJvpDawV1c1vlOundH3LdBA75jlauW-GZh5Iln39ATQOtxRhXlbgCy/exec",
 mobileScreenshots: 
     "https://script.google.com/macros/s/AKfycbwS1w9Xg0cTE_idcg0AVCBHPBPNLrZYDRyFZTypC4SxwkaOWrMLpMEzZZv5cFGzeJUv/exec",
  webScreenshots:"https://script.google.com/macros/s/AKfycbwOA0O65M-p_CY-n1JPimI2C05MhSdumZHq7zNy4mQv6bpQZAqVcxznybPraPwqLMLDng/exec",

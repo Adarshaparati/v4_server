@@ -9,6 +9,14 @@ const marketSchema = new mongoose.Schema({
         type: String,
         default: ''
     },
+    industry: {
+        type: String,
+        default: ''
+    },
+    otherIndustry: {
+        type: String,
+        default: ''
+    },
     marketDescription: {
         type: String,
         default: ''

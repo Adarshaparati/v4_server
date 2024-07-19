@@ -14,6 +14,8 @@ const propertyToSchemaMap = {
     solutionsDescription: 'solutionDescription',
     sector: 'market',
     otherSector: 'market',
+    industry: 'market',
+    otherIndustry: 'market',
     marketDescription: 'market',
     TAM: 'market',
     TAMGrowthRate: 'market',

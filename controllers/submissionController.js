@@ -254,23 +254,21 @@ exports.postShortFormSubmission = async (req, res) => {
     }
     res.status(200).json({ message: "Data updated successfully" });
     if (section === "companyDetails") {
-      const [about, problemDescription, caseStudies, competitors] =
+      const [about, problemDescription,market] =
         await Promise.all([
           processMapping["about"](submission, prompts),
           processMapping["problemDescription"](submission, prompts),
-          processMapping["caseStudies"](submission, prompts),
-          processMapping["competitors"](submission, prompts)
+          processMapping["market"](submission, prompts),
         ]);
 
 
       const solutionDescription = await processMapping["solutionDescription"](problemDescription, prompts)
+
       response["about"] = about;
       response["problemDescription"] = problemDescription;
       response["solutionDescription"] = solutionDescription;
-      response["caseStudies"] = caseStudies;
-      response["competitors"] = competitors;
-    } else if (section === "market") {
-      response["market"] = await processMapping["market"](submission, prompts);
+      response["market"] = market;
+
     } else if (section === "product") {
       const [product, goToMarket, businessModel, competitiveDiff] =
         await Promise.all([
@@ -324,10 +322,10 @@ exports.postSectionSubmission = async (req, res) => {
   try {
     const { formId, formResponses, generatedPresentationId, section } =
       req.body;
-    
     let submission = await ShortForm.findOne({ "user.submissionId": formId });
+    console.log(submission)
     for (const property of Object.keys(formResponses)) {
-      const schemaKey = section;
+      const schemaKey = section==="technicalArchitecture"?"product":section;
       if (submission[schemaKey][property]!==undefined) {
         submission[schemaKey][property] = formResponses[property] || "";
       }
@@ -340,7 +338,10 @@ exports.postSectionSubmission = async (req, res) => {
     }
 
     let response = await Response.findOne({ "user.submissionId": formId });
+
     var sec = section==='companyDetails'?'about':section
+    
+
     const processdata = await processMapping[sec](submission, prompts);
     response[section] = processdata;
     const data = await response.save();
