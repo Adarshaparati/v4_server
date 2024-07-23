@@ -1,6 +1,7 @@
 const { GPT, NestedGPT } = require('../../services/gpt');
 const cleanAndSplit = require('../../utils/cleanandsplit');
 const separateHeaderDescription = require('../../utils/sepreateHeaderDescription');
+const cleanHeader = require('../../utils/cleanHeader')
 
 async function diffController(submission,prompts){
     const {differentiationPrompts} = prompts;
@@ -15,12 +16,12 @@ async function diffController(submission,prompts){
         differentiationPoints.map(async (point) => {
             const { header, description } = separateHeaderDescription(point);
             const finalHeader = header || await GPT(differentiationPrompts.differentiationPointHeader.prompt, description);
-            return { header: finalHeader, description };
+            return { header: cleanHeader(finalHeader), description };
         })
     );
 
     const diffResponse ={
-        differentiationTitle: differentiationTitle,
+        differentiationTitle: cleanHeader(differentiationTitle),
         differentiationGPT: differentiationGPT,
         differentiationGPTCleaned: "",
         differentiationGPT1: "",

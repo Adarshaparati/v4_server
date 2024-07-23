@@ -8,7 +8,7 @@ async function ProcessTechnicalArchitecture(submission, prompts) {
     const { product} = submission;
     const { technicalArchitecture} = product;
 
-    const data = GPT(productPrompts.inputs.prompt,`technical Architecture: ${technicalArchitecture}`)
+    const data = GPT(productPrompts.inputs.prompt,`product: ${product} technical Architecture: ${technicalArchitecture}`)
 
     const inputs = await GPT(productPrompts.inputs.Refine,data)
     const technologyPlatform = await GPT(productPrompts.technologyPlatform.Refine,data)

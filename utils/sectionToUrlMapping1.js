@@ -8,7 +8,7 @@ const sectionToUrlMap1 = {
   solutionDescription:
     "https://script.google.com/macros/s/AKfycby_27Hx4fWpllQYgFzuMQOFJg_ySpW73tnDj2jN9pcfApeBSvFCXwKDw5zVSouD_OB3/exec",
   market:
-    "https://script.google.com/macros/s/AKfycbw5qm7uOm5lChSNqGler-ZpSZsh-1Y1gsPSyecH1gGhgn6C5yHLDc2j52iL5fv4KGL7Tg/exec",
+    "https://script.google.com/macros/s/AKfycbxcam49gbCTAJQPhzdrbGmZu1dMWhXri2bybOJDT_3_XHw4z5N6EG7xfP3jgdAX0-y8YQ/exec",
   product:
     "https://script.google.com/macros/s/AKfycbxwG9OjQSkJrqVyZ8upOg_2MU7DqVhUENBaCWEfG15SOpSX_4jF7wlpfz8DUemu9GHRhA/exec",
   productRoadmap:
