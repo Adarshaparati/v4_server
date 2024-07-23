@@ -1,7 +1,7 @@
 const { GPT, NestedGPT } = require('../../services/gpt');
 const cleanAndSplit = require('../../utils/cleanandsplit');
 const separateHeaderDescription = require('../../utils/sepreateHeaderDescription');
-
+const cleanHeader = require('../../utils/cleanHeader')
 
 async function processFinancialSnapshot(submission,prompts) {
 
@@ -67,7 +67,7 @@ async function processFinancialSnapshot(submission,prompts) {
     }
      
     const financialSnapshotResponse = {
-        financialTitle:financialTitle,
+        financialTitle:cleanHeader(financialTitle),
         financialSnapshot: financialSnapshotResult,        // Overview of the financial snapshot
         fundingAsk: financialInfo.plannedRaise,               // Funding request amount
         revenueChart:rev_chart,             // Revenue chart data or URL

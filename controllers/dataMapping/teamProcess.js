@@ -1,4 +1,5 @@
 const { GPT, NestedGPT } = require('../../services/gpt');
+const cleanHeader = require('../../utils/cleanHeader')
 
 async function team(submission, prompts) {
     const {teamMembers} = submission
@@ -20,7 +21,7 @@ async function team(submission, prompts) {
     const teamTitle = await GPT(teamPrompts.teamTitle.prompt,`${experience1} ${experience2} ${experience3} ${experience4} ${experience5} ${experience6} meet our team `)
     console.log(Array(teamMembers)[0].teamMembers[0].name)
     const teamResponse = {
-        teamTitle: teamTitle,
+        teamTitle: cleanHeader(teamTitle),
         name1: Array(teamMembers)[0]?.teamMembers?.[0]?.name || "",
         designationTitle1: Array(teamMembers)[0]?.teamMembers?.[0]?.title || "",
         experience1: Array(teamMembers)[0]?.teamMembers?.[0]?.experience || "",

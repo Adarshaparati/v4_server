@@ -2,6 +2,7 @@
 const { GPT, NestedGPT } = require('../../services/gpt');
 const cleanAndSplit = require('../../utils/cleanandsplit');
 const separateHeaderDescription = require('../../utils/sepreateHeaderDescription');
+const cleanHeader = require('../../utils/cleanHeader')
 
 async function processGTMStrategy(submission, prompts) {
     const {gtmPrompts} = prompts;
@@ -21,7 +22,7 @@ async function processGTMStrategy(submission, prompts) {
         stakeholderPoints.map(async (point) => {
             const { header, description } = separateHeaderDescription(point);
             const finalHeader = header || await GPT(gtmPrompts.stakeholderPointHeader.prompt, description);
-            return { header: finalHeader, description };
+            return { header: cleanHeader(finalHeader), description };
         })
     );
 
@@ -34,7 +35,7 @@ async function processGTMStrategy(submission, prompts) {
         personaPoints.map(async (point) => {
             const { header, description } = separateHeaderDescription(point);
             const finalHeader = header || await GPT(gtmPrompts.personaPointHeader.prompt, description);
-            return { header: finalHeader, description };
+            return { header: cleanHeader(finalHeader), description };
         })
     );
 
@@ -56,7 +57,7 @@ async function processGTMStrategy(submission, prompts) {
         gtmPoints.map(async (point) => {
             const { header, description } = separateHeaderDescription(point);
             const finalHeader = header || await GPT(gtmPrompts.gtmPointHeader.prompt, description);
-            return { header: finalHeader, description };
+            return { header: cleanHeader(finalHeader), description };
         })
     );
 
@@ -72,7 +73,7 @@ async function processGTMStrategy(submission, prompts) {
 
 
     const gtmResponse = {
-        stakeholdersTitle: stakeholdersTitle,
+        stakeholdersTitle: cleanHeader(stakeholdersTitle),
         stakeholderGPT,
         stakeholderGPTCleaned: "",
         stakeholderGPT1: "",
@@ -92,7 +93,7 @@ async function processGTMStrategy(submission, prompts) {
         customerProfileIcon3: "",
         customerProfileIcon4: "",
         customerProfileCoverImage: "",
-        persona: persona,
+        persona: cleanHeader(persona),
         personaCategoryGPT: personaCategoryGPT,
         personaCategoryGPTCleaned: "",
         personaCategoryGPT1: "",
@@ -107,7 +108,7 @@ async function processGTMStrategy(submission, prompts) {
         personaIcon1: "",
         personaIcon2: "",
         personaIcon3: "",
-        gtmTitle: gtmTitle,
+        gtmTitle: cleanHeader(gtmTitle),
         gtmOverview: gtmOverview,
         gtmCoverImageLandscape: "",
         gtmGPT: gtmGPT,
