@@ -3,5 +3,8 @@ const router = express.Router();
 const appscriptController = require('../controllers/appscriptController')
 
 router.post('/triggerAppScript',appscriptController.getTriggerAppscript)
+// Route to store data in MongoDB
+router.post('/storeDataInMongo', appscriptController.storeDataInMongo);
+
 
 module.exports = router;
