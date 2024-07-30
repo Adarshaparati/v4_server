@@ -4,6 +4,7 @@ const cleanAndSplit = require('../../utils/cleanandsplit');
 const hexToRgb = require('../../utils/hex_to_rgb');
 const separateHeaderDescription = require('../../utils/sepreateHeaderDescription');
 const mixColors = require('../../utils/mixcolors');
+const cleanHeader = require('../../utils/cleanHeader');
 
 async function processAbout(submission,prompts) {
     const {aboutPrompts} = prompts
@@ -34,7 +35,7 @@ async function processAbout(submission,prompts) {
         aboutpoints.map(async (point) => {
             const { header, description } = separateHeaderDescription(point);
             const finalHeader = header || await GPT(aboutPrompts.aboutPointtsHeader.prompt, description);
-            return { header: finalHeader, description };
+            return { header: cleanHeader(finalHeader), description };
         })
     );
     const colorF_P75S25 =await GPT(`Background Color ${about.p75s25}`,aboutPrompts.F_SP100.prompt)
@@ -86,7 +87,7 @@ async function processAbout(submission,prompts) {
         SCD: "#000000",
         tagLine,
         coverImage: 'freepik',
-        aboutTitle: resolvedAboutTitle,
+        aboutTitle: cleanHeader(resolvedAboutTitle),
         aboutVision: resolvedAboutVision,
         aboutGPT: resolvedAboutGPT,
         aboutGPTCleaned: "",

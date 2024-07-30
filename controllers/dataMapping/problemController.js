@@ -1,7 +1,7 @@
 const { GPT, NestedGPT } = require('../../services/gpt');
 const cleanAndSplit = require('../../utils/cleanandsplit');
 const separateHeaderDescription = require('../../utils/sepreateHeaderDescription');
-const cleanHeader = require('../../utils/cleanHeaders')
+const cleanHeader = require('../../utils/cleanHeader')
 async function processProblemSection(submission, prompts) {
     const {problemPrompts} = prompts
     const { companyDetails } = submission;
@@ -20,7 +20,7 @@ async function processProblemSection(submission, prompts) {
         problemPoints.map(async (point) => {
             const { header, description } = separateHeaderDescription(point);
             const finalHeader = header || await GPT(problemPrompts.problemPointHeader.prompt, description);
-            return { header: finalHeader, description };
+            return { header: cleanHeader(finalHeader), description };
         })
     );
 
@@ -36,7 +36,7 @@ async function processProblemSection(submission, prompts) {
     );
 
     const problemResponse = {
-        problemTitle,
+        problemTitle:cleanHeader(problemTitle),
         problemStatement,
         problemGPT,
         problemGPTCleaned: "",

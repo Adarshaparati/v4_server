@@ -1,8 +1,7 @@
-
-
 const { GPT, NestedGPT } = require('../../services/gpt');
 const cleanAndSplit = require('../../utils/cleanandsplit');
 const calculateSOM = require('../../utils/calculateSOM');
+const cleanHeader = require('../../utils/cleanHeader')
 
 async function processMarket(submission, prompts) {
     const {marketPrompts} = prompts
@@ -85,7 +84,7 @@ const [
         industry:industry,
         otherIndustry:otherIndustry,
         marketTitleGPT: "",
-        marketTitle: marketTitleGPT,
+        marketTitle: cleanHeader(marketTitleGPT),
         marketDescription: marketDescription,
         industryCompetitiveness: industryCompetitiveness,
         TAM: Math.round(numTAM),

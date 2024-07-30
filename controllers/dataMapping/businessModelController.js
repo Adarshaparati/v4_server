@@ -1,6 +1,7 @@
 const { GPT, NestedGPT } = require('../../services/gpt');
 const cleanAndSplit = require('../../utils/cleanandsplit');
 const separateHeaderDescription = require('../../utils/sepreateHeaderDescription');
+const cleanHeader = require('../../utils/cleanHeader')
 
 async function processBusinessModel(submission, prompts) {
 
@@ -22,7 +23,7 @@ async function processBusinessModel(submission, prompts) {
         revenueStreamPoints.map(async (point) => {
             const { header, description } = separateHeaderDescription(point);
             const finalHeader = header || await GPT(businessModelPrompts.revenueStreamPointHeader.prompt, description);
-            return { header: finalHeader, description };
+            return { header: cleanHeader(finalHeader), description };
         })
     );
 
@@ -36,7 +37,7 @@ async function processBusinessModel(submission, prompts) {
     );
 
     const businessModelResponse = {
-        revenueModel:revenueModel,
+        revenueModel:cleanHeader(revenueModel),
         revenueModelImage: "",
         revenueStreamGPT,
         revenueStreamGPTCleaned: "",
