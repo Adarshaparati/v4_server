@@ -48,18 +48,4 @@ function separateHeaderDescription(inputString) {
     };
 }
 
-// Example data
-const data = [
-    'Customers: Users benefit from the product/service provided, ensuring satisfaction and meeting their needs.',
-  'Investors: Provide financial support to the project, contributing to its development and growth.', 
-  'Suppliers: Provide necessary materials/resources for the product, ensuring smooth production.',    
-  'Regulators: Government agencies oversee compliance/standards, ensuring adherence to regulations.'
-  ];
-
-// Processing each line
-const results = data.map(line => separateHeaderDescription(line));
-
-// Displaying the results
-results.forEach(result => console.log(result));
-
 module.exports = separateHeaderDescription;

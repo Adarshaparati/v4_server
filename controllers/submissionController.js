@@ -40,6 +40,7 @@ const mobileAppScreenshotsResponseSchema = require('../models/Response/mobileApp
 
 const user = require("./dataMapping/user");
 const processMapping = require("../utils/sectionToProcessMapping");
+const processMappingInApp = require("../utils/sectionToProcessMappingInApp");
 
 const Submission = require("../models/Submission/formModel");
 const ShortForm = require("../models/Submission/shortFormModel");
@@ -349,6 +350,53 @@ exports.postSectionSubmission = async (req, res) => {
       url = sectionToUrlMap1[section];
       const queryParams = `?userID=${formResponses.userId}&submissionID=${formId}&generatedPresentationID=${generatedPresentationId}`;
       console.log(`${url}${queryParams}`)
+      fetch(`${url}${queryParams}`, { method: "GET" })
+        .then(() => console.log(`${section} URL triggered: ${url}`))
+        .catch((error) => console.error(`Error triggering URL: ${url}`, error));
+    }
+    await submission.save();
+    res.status(200).json({ message: "Data updated successfully" });
+  } catch (error) {
+    console.error("Error processing request:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
+
+exports.postInAppSubmission = async (req, res) => {
+  try {
+    const { formId, formResponses, generatedPresentationId, section } =
+      req.body;
+    let submission = await ShortForm.findOne({ "user.submissionId": formId });
+    for (const property of Object.keys(formResponses)) {
+      let schemaKey = section==="technicalArchitecture"?"product":section;
+      schemaKey = section==="productRoadmap"?"product":section;
+      schemaKey = section==="keyStakeholders"?"goToMarket":section;
+      schemaKey = section==="customerPersona"?"goToMarket":section;
+      if (submission[schemaKey][property]!==undefined) {
+        submission[schemaKey][property] = formResponses[property] || "";
+      }
+    }
+    const db = mongoose.connection.db;
+    const collection = db.collection("GPT Static Prompts");
+    const prompts = await collection.findOne({});
+    if (!prompts) {
+      return res.status(404).send({ error: "Prompts not found" });
+    }
+
+    let response = await Response.findOne({ "user.submissionId": formId });
+
+    var sec = section==='companyDetails'?'about':section
+    console.log(sec)
+
+    const processdata = await processMappingInApp[sec](submission, prompts,response);
+    var responseSection = section==="technicalArchitecture"?"product":section
+    response[responseSection] = processdata;
+
+    console.log(response[sec])
+    const data = await response.save();
+    if (data) {
+      url = sectionToUrlMap1[section];
+      const queryParams = `?userID=${formResponses.userId}&submissionID=${formId}&generatedPresentationID=${generatedPresentationId}`;
       fetch(`${url}${queryParams}`, { method: "GET" })
         .then(() => console.log(`${section} URL triggered: ${url}`))
         .catch((error) => console.error(`Error triggering URL: ${url}`, error));

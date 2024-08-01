@@ -1,6 +1,6 @@
 const sectionToUrlMap1 = {
   about:
-    "https://script.google.com/macros/s/AKfycbxByyVgZiofw-sRjkZffGzZJQu_WFlAJ6RodLyjUuU6jRF9o-XNeV7GKmAeGIp4yhb2/exec",
+    "https://script.google.com/macros/s/AKfycbzsNEh9nE6zGufQHHXrF-Fr8R1_voCVRxulXOM6TxfxUbdN9WK7lRSA7JrOOiXmMHcZ/exec",
   companyDetails:
     "https://script.google.com/macros/s/AKfycbyzXZRdqDGV51phPJ8GJFva51qEsM2TsVy1gyTbeJngG3dru7lxZ2eBgzNwEXSGYe0m/exec",
   problemDescription:
@@ -8,7 +8,7 @@ const sectionToUrlMap1 = {
   solutionDescription:
     "https://script.google.com/macros/s/AKfycby_27Hx4fWpllQYgFzuMQOFJg_ySpW73tnDj2jN9pcfApeBSvFCXwKDw5zVSouD_OB3/exec",
   market:
-    "https://script.google.com/macros/s/AKfycbxcam49gbCTAJQPhzdrbGmZu1dMWhXri2bybOJDT_3_XHw4z5N6EG7xfP3jgdAX0-y8YQ/exec",
+    "https://script.google.com/macros/s/AKfycbw5qm7uOm5lChSNqGler-ZpSZsh-1Y1gsPSyecH1gGhgn6C5yHLDc2j52iL5fv4KGL7Tg/exec",
   product:
     "https://script.google.com/macros/s/AKfycbxwG9OjQSkJrqVyZ8upOg_2MU7DqVhUENBaCWEfG15SOpSX_4jF7wlpfz8DUemu9GHRhA/exec",
   productRoadmap:
