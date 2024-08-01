@@ -39,5 +39,5 @@ async function NestedGPT(prompt1, prompt2, data) {
   const refinedData = await GPT(prompt2, primaryData);
   return refinedData;
 }
-
+ 
 module.exports = { GPT, NestedGPT };

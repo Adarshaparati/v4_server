@@ -3,19 +3,17 @@ const cleanAndSplit = require('../../utils/cleanandsplit');
 const separateHeaderDescription = require('../../utils/sepreateHeaderDescription');
 const cleanHeader = require('../../utils/cleanHeader')
 
-async function processBusinessModel(submission, prompts) {
+async function processBusinessModel(submission, prompts,response) {
 
     const {businessModelPrompts} = prompts
-    const { product, companyDetails, businessModel } = submission;
+    const { product, businessModel } = submission;
     const { productOverview } = product;
-    const { companyOverview } = companyDetails;
 
-    const revenueModel = await GPT(businessModelPrompts.revenueModel.prompt, productOverview);
+    const revenueModel = await GPT(businessModelPrompts.revenueModel.prompt, `User Response: ${businessModel.businessModel} Existing Response: ${response.businessModel.revenueModel}`);
 
     const revenueStreamGPT = await NestedGPT(
         businessModelPrompts.revenueStreamGPT.prompt,
-        businessModelPrompts.revenueStreamGPT.Refine,
-        `${productOverview} ${businessModel.businessModel}`
+       `User Response: ${productOverview} ${businessModel.businessModel} Existing Response: ${response.businessModel.revenueModel}`
     );
     const revenueStreamPoints = cleanAndSplit(revenueStreamGPT);
 

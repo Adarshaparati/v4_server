@@ -2,16 +2,16 @@ const { GPT, NestedGPT } = require('../../services/gpt');
 const cleanAndSplit = require('../../utils/cleanandsplit');
 const cleanHeader = require('../../utils/cleanHeader')
 
-async function processCaseStudy(submission,prompts) {
+async function processCaseStudy(submission, prompts,response) {
 
 
     const {caseStudies} = submission;
     const {caseStudiesPrompts} = prompts
 
-    const caseStudyTitle = await GPT(caseStudiesPrompts.caseStudyTitle.prompt,caseStudies.caseStudies)
-    const caseStudy = await GPT(caseStudiesPrompts.caseStudy.prompt,caseStudies.caseStudies)
+    const caseStudyTitle = await GPT(caseStudiesPrompts.caseStudyTitle.prompt,`User Response: ${caseStudies.caseStudies} Existing Response: ${response.caseStudies.caseStudyTitle}`)
+    const caseStudy = await GPT(caseStudiesPrompts.caseStudy.prompt,`User Response: ${caseStudies.caseStudies} Existing Response: ${response.caseStudies.caseStudy}`)
 
-    const challenges = await NestedGPT(caseStudiesPrompts.challenges.prompt,caseStudiesPrompts.challenges.Refine,caseStudies.caseStudies)
+    const challenges = await GPT(caseStudiesPrompts.challenges.prompt,caseStudiesPrompts.challenges.Refine,caseStudies.caseStudies)
     const Refinedchallenges = await GPT(caseStudiesPrompts.challenges.Refine2,challenges)
 
     const solution = await NestedGPT(caseStudiesPrompts.solution.prompt,caseStudiesPrompts.solution.Refine,caseStudies.caseStudies)

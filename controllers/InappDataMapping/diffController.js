@@ -3,13 +3,12 @@ const cleanAndSplit = require('../../utils/cleanandsplit');
 const separateHeaderDescription = require('../../utils/sepreateHeaderDescription');
 const cleanHeader = require('../../utils/cleanHeader')
 
-async function diffController(submission,prompts){
+async function diffController(submission,prompts,response){
     const {differentiationPrompts} = prompts;
-    const {about,product} = submission;
-    const {productOverview} = product;
+    const {about,competitiveDiff} = submission;
 
-    const differentiationGPT = await NestedGPT(differentiationPrompts.differentiationGPT.prompt,differentiationPrompts.differentiationGPT.Refine,productOverview)
-    const differentiationTitle = await GPT(differentiationPrompts.differentiationTitle.prompt,`company name:${about.companyName} Differntiation: ${differentiationGPT}`)
+    const differentiationGPT = await GPT(differentiationPrompts.differentiationGPT.prompt,differentiationPrompts.differentiationGPT.Refine,`User Response:${competitiveDiff.competitiveDiff} Existing Response: ${response.competitiveDiff.differentiationGPT}`)
+    const differentiationTitle = await GPT(differentiationPrompts.differentiationTitle.prompt,`User Response: [company name:${about.companyName} Differntiation: ${differentiationGPT}] Existing Response: ${response.competitiveDiff.differentiationTitle} `)
     
     const differentiationPoints = cleanAndSplit(differentiationGPT);
     const differentiationHeaderDescriptions = await Promise.all(
