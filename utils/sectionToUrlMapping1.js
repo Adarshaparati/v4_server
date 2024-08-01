@@ -2,7 +2,7 @@ const sectionToUrlMap1 = {
   about:
     "https://script.google.com/macros/s/AKfycbzsNEh9nE6zGufQHHXrF-Fr8R1_voCVRxulXOM6TxfxUbdN9WK7lRSA7JrOOiXmMHcZ/exec",
   companyDetails:
-    "https://script.google.com/macros/s/AKfycbycwr_gL0IzrgAfcymF4kPD0U2esr2YykxyL0kO13SLW2aGrVMldwf13qMoM6iLckWn/exec",
+    "https://script.google.com/macros/s/AKfycbyzXZRdqDGV51phPJ8GJFva51qEsM2TsVy1gyTbeJngG3dru7lxZ2eBgzNwEXSGYe0m/exec",
   problemDescription:
     "https://script.google.com/macros/s/AKfycbyZFLdu6aR6uIqtdC5-YUbBorQjVDAAH0Mg444FxxPomAXh-4_UMJwzGPo85RLw9bBW/exec",
   solutionDescription:
