@@ -1,5 +1,6 @@
 
 const sectionToUrlMap1 = require("../utils/sectionToUrlMapping1");
+const Data = require('../models/Data'); // Import the Data model for MongoDB
 exports.getTriggerAppscript =  async (req,res)=>{
     try{
         const {section,userId,formId,generatedPresentationId} = req.body
@@ -15,4 +16,23 @@ exports.getTriggerAppscript =  async (req,res)=>{
     }catch{
 
     }
+}
+exports.storeDataInMongo = async (req, res) => {
+  try {
+      const { UserID, FormID, PresentationURL, pptName, currentTime } = req.body;
+
+      const newData = new Data({
+          UserID,
+          FormID,
+          PresentationURL,
+          pptName,
+          currentTime
+      });
+
+      const savedData = await newData.save();
+      res.status(200).json(savedData);
+  } catch (error) {
+      console.error(error);
+      res.status(500).json({ "message": "Internal server error" });
+  }
 }
