@@ -366,12 +366,23 @@ exports.postInAppSubmission = async (req, res) => {
   try {
     const { formId, formResponses, generatedPresentationId, section } =
       req.body;
+
     let submission = await ShortForm.findOne({ "user.submissionId": formId });
+    console.log(section)
     for (const property of Object.keys(formResponses)) {
-      let schemaKey = section==="technicalArchitecture"?"product":section;
-      schemaKey = section==="productRoadmap"?"product":section;
-      schemaKey = section==="keyStakeholders"?"goToMarket":section;
-      schemaKey = section==="customerPersona"?"goToMarket":section;
+      let schemaKey;
+
+      if (section === "technicalArchitecture") {
+          schemaKey = "product";
+      } else if (section === "productRoadmap") {
+          schemaKey = "product";
+      } else if (section === "keyStakeholders") {
+          schemaKey = "goToMarket";
+      } else if (section === "customerPersona") {
+          schemaKey = "goToMarket";
+      } else {
+          schemaKey = section;
+      }
       if (submission[schemaKey][property]!==undefined) {
         submission[schemaKey][property] = formResponses[property] || "";
       }
