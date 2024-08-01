@@ -2,7 +2,7 @@ const sectionToUrlMap1 = {
   about:
     "https://script.google.com/macros/s/AKfycbzsNEh9nE6zGufQHHXrF-Fr8R1_voCVRxulXOM6TxfxUbdN9WK7lRSA7JrOOiXmMHcZ/exec",
   companyDetails:
-    "https://script.google.com/a/macros/parati.in/s/AKfycbw_TOlHNFinS1Qwy2I_uQsGyPshBRlpUVqtBDeaHggsJMqIg_f2zyAF_l06tUurzfHn/exec",
+    "https://script.google.com/macros/s/AKfycbyzXZRdqDGV51phPJ8GJFva51qEsM2TsVy1gyTbeJngG3dru7lxZ2eBgzNwEXSGYe0m/exec",
   problemDescription:
     "https://script.google.com/macros/s/AKfycbwDUZgpJGCkOFWzVrJX248ooTaMlaQ4e8aXh4FtQVdNEgeRs-A1_HbHMS1Jm11K0Idj/exec",
   solutionDescription:
