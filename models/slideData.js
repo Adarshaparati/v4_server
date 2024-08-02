@@ -7,6 +7,7 @@ const DataSchema = new mongoose.Schema({
   BackupSlideIndex: Number,
   GenSlideID: String,
   SectionTime:String,
+  sectionendTime:String,
   Sectionname: String,
 });
 
