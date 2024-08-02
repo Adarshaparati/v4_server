@@ -6,7 +6,7 @@ const productController = require('../controllers/InappDataMapping/productContro
 const processProductRoadMap = require('../controllers/InappDataMapping/productRoadMapProcess')
 const businessModelController = require('../controllers/InappDataMapping/businessModelController');
 const gtmController = require('../controllers/InappDataMapping/gtmController');
-const Stakeholders = require('../controllers/InappDataMapping/stakeholders');
+// const Stakeholders = require('../controllers/InappDataMapping/stakeholders');
 const CustomerPersona = require('../controllers/InappDataMapping/customerPersona')
 const trackRecordProcess = require('../controllers/InappDataMapping/trackRecordProcess')
 const competitorsController = require('../controllers/InappDataMapping/competitorsController');
@@ -22,18 +22,18 @@ const mobileAppScreenshotsProcess = require('../controllers/dataMapping/mobileAp
 const ProcessTechnicalArchitecture = require('../controllers/dataMapping/technicalArchitectureProcess');
 const processStakeholders = require('../controllers/InappDataMapping/stakeholders');
 const mapping = {
-    // about:aboutController,
+    about:aboutController,
     problemDescription:problemController,
     solutionDescription:solutionController,
     market: marketController,
     product:productController,
     productRoadmap:processProductRoadMap,
-    // webScreenshots:webAppScreenshotsProcess,
-    // mobileScreenshots:mobileAppScreenshotsProcess,
-    // productScreen:productScreenShotController,
+    webScreenshots:webAppScreenshotsProcess,
+    mobileScreenshots:mobileAppScreenshotsProcess,
+    productScreen:productScreenShotController,
     businessModel: businessModelController,
     goToMarket: gtmController,
-    keyStakeholders:Stakeholders,
+    keyStakeholders:processStakeholders,
     customerPersona:CustomerPersona,
     trackRecord:trackRecordProcess,
     caseStudies: caseStudiesProcess,
@@ -41,9 +41,9 @@ const mapping = {
     competitors:competitorsController,
     competitiveDiff: competitiveDiff,
     teamMembers: teamProcess, 
-    // contactInfo: contactProcess,
-    // financialInfo: financialInfoProcess,
-    // technicalArchitecture:ProcessTechnicalArchitecture
+    contactInfo: contactProcess,
+    financialInfo: financialInfoProcess,
+    technicalArchitecture:ProcessTechnicalArchitecture
 }
 
 module.exports = mapping

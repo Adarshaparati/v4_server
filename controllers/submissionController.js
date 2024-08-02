@@ -397,13 +397,24 @@ exports.postInAppSubmission = async (req, res) => {
     let response = await Response.findOne({ "user.submissionId": formId });
 
     var sec = section==='companyDetails'?'about':section
-    console.log(sec)
+
+    console.log("sec: ",sec)
 
     const processdata = await processMappingInApp[sec](submission, prompts,response);
-    var responseSection = section==="technicalArchitecture"?"product":section
+    if (section === "technicalArchitecture") {
+      responseSection = "product";
+    } else if (section === "productRoadmap") {
+      responseSection = "product";
+    } else if (section === "keyStakeholders") {
+      responseSection = "goToMarket";
+    } else if (section === "customerPersona") {
+      responseSection = "goToMarket";
+    } else {
+      responseSection = section;
+    }
     response[responseSection] = processdata;
 
-    console.log(response[sec])
+    console.log(response[responseSection])
     const data = await response.save();
     if (data) {
       url = sectionToUrlMap1[section];
