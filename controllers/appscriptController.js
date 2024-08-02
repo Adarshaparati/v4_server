@@ -40,7 +40,7 @@ exports.storeDataInMongo = async (req, res) => {
 
 exports.storeslideInMongo = async (req, res) => {
     try {
-        const { UserID, FormID, PresentationID,BackupSlideIndex,GenSlideID,SectionTime,Sectionname} = req.body;
+        const { UserID, FormID, PresentationID,BackupSlideIndex,GenSlideID,SectionTime,Sectionname,sectionendTime} = req.body;
   
         const newData = new slide_data({
             UserID,
@@ -49,6 +49,7 @@ exports.storeslideInMongo = async (req, res) => {
             BackupSlideIndex,
             GenSlideID,
             SectionTime,
+            sectionendTime,
             Sectionname
            
         });
