@@ -40,24 +40,43 @@ exports.storeDataInMongo = async (req, res) => {
 
 exports.storeslideInMongo = async (req, res) => {
     try {
-        const { UserID, FormID, PresentationID,BackupSlideIndex,GenSlideID,SectionTime,Sectionname,sectionendTime} = req.body;
+        const { SessionID, UserID, FormID, PresentationID, BackupSlideIndex, GenSlideID, SectionStartTime, SectionName, sectionEndTime } = req.body;
   
-        const newData = new slide_data({
-            UserID,
-            FormID,
-            PresentationID,
-            BackupSlideIndex,
-            GenSlideID,
-            SectionTime,
-            sectionendTime,
-            Sectionname
-           
-        });
+        // Check if the document with the given SessionID already exists
+        let existingData = await slide_data.findOne({ SessionID });
   
-        const savedData = await newData.save();
-        res.status(200).json(savedData);
+        if (existingData) {
+            // Update the existing document
+            if (UserID) existingData.UserID = UserID;
+            if (FormID) existingData.FormID = FormID;
+            if (PresentationID) existingData.PresentationID = PresentationID;
+            if (BackupSlideIndex !== undefined) existingData.BackupSlideIndex = BackupSlideIndex;
+            if (GenSlideID) existingData.GenSlideID = GenSlideID;
+            if (SectionStartTime) existingData.SectionStartTime = SectionStartTime;
+            if (sectionEndTime) existingData.sectionEndTime = sectionEndTime;
+            if (SectionName) existingData.SectionName = SectionName;
+  
+            const updatedData = await existingData.save();
+            return res.status(200).json(updatedData);
+        } else {
+            // Create a new document
+            const newData = new slide_data({
+                SessionID,
+                UserID,
+                FormID,
+                PresentationID,
+                BackupSlideIndex,
+                GenSlideID,
+                SectionStartTime,
+                sectionEndTime,
+                SectionName
+            });
+  
+            const savedData = await newData.save();
+            return res.status(200).json(savedData);
+        }
     } catch (error) {
         console.error(error);
         res.status(500).json({ "message": "Internal server error" });
     }
-  }
+};
