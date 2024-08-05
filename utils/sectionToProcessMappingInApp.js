@@ -1,4 +1,5 @@
-const aboutController = require('../controllers/dataMapping/aboutController');
+const coverProcess = require('../controllers/InappDataMapping/coverProvess');
+const aboutProcess = require('../controllers/InappDataMapping/aboutController')
 const problemController = require('../controllers/InappDataMapping/problemController');
 const solutionController = require('../controllers/InappDataMapping/solutionController');
 const productScreenShotController = require('../controllers/dataMapping/productScreenShotController');
@@ -22,7 +23,8 @@ const mobileAppScreenshotsProcess = require('../controllers/dataMapping/mobileAp
 const ProcessTechnicalArchitecture = require('../controllers/dataMapping/technicalArchitectureProcess');
 const processStakeholders = require('../controllers/InappDataMapping/stakeholders');
 const mapping = {
-    about:aboutController,
+    about:coverProcess,
+    companyDetails:aboutProcess,
     problemDescription:problemController,
     solutionDescription:solutionController,
     market: marketController,
