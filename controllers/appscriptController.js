@@ -37,16 +37,13 @@ exports.storeDataInMongo = async (req, res) => {
       res.status(500).json({ "message": "Internal server error" });
   }
 }
-
 exports.storeslideInMongo = async (req, res) => {
     try {
         const { SessionID, UserID, FormID, PresentationID, BackupSlideIndex, GenSlideID, SectionStartTime, SectionName, sectionEndTime } = req.body;
-  
-        // Check if the document with the given SessionID already exists
+
         let existingData = await slide_data.findOne({ SessionID });
-  
+
         if (existingData) {
-            // Update the existing document
             if (UserID) existingData.UserID = UserID;
             if (FormID) existingData.FormID = FormID;
             if (PresentationID) existingData.PresentationID = PresentationID;
@@ -55,11 +52,10 @@ exports.storeslideInMongo = async (req, res) => {
             if (SectionStartTime) existingData.SectionStartTime = SectionStartTime;
             if (sectionEndTime) existingData.sectionEndTime = sectionEndTime;
             if (SectionName) existingData.SectionName = SectionName;
-  
+
             const updatedData = await existingData.save();
             return res.status(200).json(updatedData);
         } else {
-            // Create a new document
             const newData = new slide_data({
                 SessionID,
                 UserID,
@@ -71,12 +67,46 @@ exports.storeslideInMongo = async (req, res) => {
                 sectionEndTime,
                 SectionName
             });
-  
+
             const savedData = await newData.save();
             return res.status(200).json(savedData);
         }
     } catch (error) {
-        console.error(error);
+        console.error("Error caught during processing:", error);
+
+        // Extract variables from req.body directly in the catch block
+        const { SessionID, BackupSlideIndex, GenSlideID, sectionEndTime } = req.body;
+
+        try {
+            let existingData = await slide_data.findOne({ SessionID });
+
+            if (existingData) {
+                existingData.BackupSlideIndex = -1;
+                existingData.GenSlideID = "error";
+                existingData.sectionEndTime = "error";
+                await existingData.save();
+            } else {
+                const newData = new slide_data({
+                    SessionID,
+                    UserID: req.body.UserID,
+                    FormID: req.body.FormID,
+                    PresentationID: req.body.PresentationID,
+                    BackupSlideIndex: -1,
+                    GenSlideID: "error",
+                    SectionStartTime: req.body.SectionStartTime,
+                    sectionEndTime: "error",
+                    SectionName: req.body.SectionName,
+                    error: {
+                        message: error.message,
+                        time: new Date()
+                    }
+                });
+                await newData.save();
+            }
+        } catch (dbError) {
+            console.error("Failed to store error information:", dbError);
+        }
+
         res.status(500).json({ "message": "Internal server error" });
     }
 };
