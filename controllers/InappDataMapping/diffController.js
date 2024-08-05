@@ -7,7 +7,7 @@ async function diffController(submission,prompts,response){
     const {differentiationPrompts} = prompts;
     const {about,competitiveDiff} = submission;
 
-    const differentiationGPT = await GPT(differentiationPrompts.differentiationGPT.prompt,differentiationPrompts.differentiationGPT.Refine,`User Response:${competitiveDiff.competitiveDiff} Existing Response: ${response.competitiveDiff.differentiationGPT}`)
+    const differentiationGPT = await GPT(differentiationPrompts.differentiationGPT.prompt,`User Response:${competitiveDiff.competitiveDiff} Existing Response: ${response.competitiveDiff.differentiationGPT}`)
     const differentiationTitle = await GPT(differentiationPrompts.differentiationTitle.prompt,`User Response: [company name:${about.companyName} Differntiation: ${differentiationGPT}] Existing Response: ${response.competitiveDiff.differentiationTitle} `)
     
     const differentiationPoints = cleanAndSplit(differentiationGPT);
