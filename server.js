@@ -7,8 +7,9 @@ require('dotenv').config();
 const app = express();
 
 const allowedOrigins = [
-  'https://zynthtestai.web.app',
-  'https://zynth.ai'
+  'http://localhost:3000',  //development
+  'https://zynthtestai.web.app', //testing
+  'https://zynth.ai' //Production
 ];
 
 const corsOptions = {

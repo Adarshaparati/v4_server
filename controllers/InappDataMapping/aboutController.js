@@ -6,19 +6,21 @@ const separateHeaderDescription = require('../../utils/sepreateHeaderDescription
 const mixColors = require('../../utils/mixcolors');
 const cleanHeader = require('../../utils/cleanHeader');
 
-async function processAbout(submission,prompts) {
+async function processAbout(submission,prompts,response) {
     const {aboutPrompts} = prompts
-    const { companyDetails } = submission;
+    const { about, companyDetails } = submission;
     const { companyOverview } = companyDetails;
+    const {tagline} = about
+    
 
     const tagLine = tagline === ""
-        ? await GPT(aboutPrompts.tagline.prompt, companyOverview)
+        ? await GPT(aboutPrompts.tagline.prompt, `Existing Response: ${response.about.tagLine}`)
         : tagline;
 
 
-    const aboutVision = GPT(aboutPrompts.aboutVision.prompt, tagLine);
-    const aboutTitle = GPT(aboutPrompts.aboutTitle.prompt, `${companyOverview} ${await aboutVision}`);
-    const aboutGPT = NestedGPT(aboutPrompts.aboutGPT.prompt, aboutPrompts.aboutGPT.Refine, `${companyOverview} ${await aboutVision}`);
+    const aboutVision = await GPT(aboutPrompts.aboutVision.prompt, `User Response: ${tagLine} Existing Response: ${response.about.aboutVision}`);
+    const aboutTitle = GPT(aboutPrompts.aboutTitle.prompt, `User Response:${companyOverview} ${aboutVision} Existing Response: ${response.about.aboutTitle}`);
+    const aboutGPT = NestedGPT(aboutPrompts.aboutGPT.prompt, aboutPrompts.aboutGPT.Refine, `User Response: ${companyOverview} ${aboutVision} Existing Response: ${response.about.aboutGPT}`);
     const aboutpointsPromise = aboutGPT.then(cleanAndSplit);
     const aboutpoints = await aboutpointsPromise;
 

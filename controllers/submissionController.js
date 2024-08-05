@@ -364,8 +364,7 @@ exports.postSectionSubmission = async (req, res) => {
 
 exports.postInAppSubmission = async (req, res) => {
   try {
-    const { formId, formResponses, generatedPresentationId, section } =
-      req.body;
+    const { formId, formResponses, generatedPresentationId, section } = req.body;
 
     let submission = await ShortForm.findOne({ "user.submissionId": formId });
     console.log(section)
