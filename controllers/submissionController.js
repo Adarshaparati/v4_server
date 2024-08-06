@@ -382,6 +382,7 @@ exports.postInAppSubmission = async (req, res) => {
       } else {
           schemaKey = section;
       }
+      
       if (submission[schemaKey][property]!==undefined) {
         submission[schemaKey][property] = formResponses[property] || "";
       }
@@ -395,10 +396,7 @@ exports.postInAppSubmission = async (req, res) => {
 
     let response = await Response.findOne({ "user.submissionId": formId });
 
-    var sec = section==='companyDetails'?'about':section
-
-    console.log("sec: ",sec)
-
+    var sec = section
     const processdata = await processMappingInApp[sec](submission, prompts,response);
     if (section === "technicalArchitecture") {
       responseSection = "product";

@@ -6,7 +6,7 @@ async function processProblemSection(submission, prompts,response) {
     const {problemPrompts} = prompts
     const { problemDescription} = submission;
 
-    console.log(`user Response: ${problemDescription.problemDescription} Existing Response:${response.problemDescription.problemTitle}`)
+    console.log(`user Response: ${problemDescription.problemDescription} Existing Response:${response.problemDescription.problemGPT}`)
    
     const problemTitle = await GPT(problemPrompts.problemTitle.prompt, `user Response: ${problemDescription.problemDescription} Existing Response:${response.problemDescription.problemTitle}`);
     const problemStatement = await GPT(problemPrompts.problemStatement.prompt, `user Response: ${problemDescription.problemDescription} Existing Response:${response.problemDescription.problemStatement}`);

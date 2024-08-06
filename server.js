@@ -6,24 +6,25 @@ require('dotenv').config();
 
 const app = express();
 
-const allowedOrigins = [
-  'http://localhost:3000',  //development
-  'https://zynthtestai.web.app', //testing
-  'https://zynth.ai' //Production
-];
+// const allowedOrigins = [
+//   'http://localhost:3000',  //development
+//   'https://zynthtestai.web.app', //testing
+//   'https://zynth.ai' //Production
+// ];
 
-const corsOptions = {
-  origin: (origin, callback) => {
-    if (allowedOrigins.includes(origin) || !origin) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
-  methods: 'GET,POST,PUT,DELETE',
-  allowedHeaders: 'Content-Type,Authorization'
-};
-app.use(cors(corsOptions));
+// const corsOptions = {
+//   origin: (origin, callback) => {
+//     if (allowedOrigins.includes(origin) || !origin) {
+//       callback(null, true);
+//     } else {
+//       callback(new Error('Not allowed by CORS'));
+//     }
+//   },
+//   methods: 'GET,POST,PUT,DELETE',
+//   allowedHeaders: 'Content-Type,Authorization'
+// };
+// app.use(cors(corsOptions));
+app.use(cors());
 
 app.use(express.json());
 app.use(bodyParser.json());
