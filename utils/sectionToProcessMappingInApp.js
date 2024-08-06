@@ -16,11 +16,11 @@ const contactProcess = require('../controllers/dataMapping/contactController');
 const caseStudiesProcess = require('../controllers/InappDataMapping/caseStudyProcess');
 const testimonialProcess = require('../controllers/InappDataMapping/testimonialProcess');
 const competitiveDiff = require('../controllers/InappDataMapping/diffController');
-const financialInfoProcess = require('../controllers/dataMapping/financialSnapShotProcess')
+const financialInfoProcess = require('../controllers/InappDataMapping/financialSnapShotProcess')
 const teamProcess = require('../controllers/InappDataMapping/teamProcess');
 const webAppScreenshotsProcess = require('../controllers/dataMapping/webAppScreenshotsProcess')
 const mobileAppScreenshotsProcess = require('../controllers/dataMapping/mobileAppScreenshotsProcess');
-const ProcessTechnicalArchitecture = require('../controllers/dataMapping/technicalArchitectureProcess');
+const ProcessTechnicalArchitecture = require('../controllers/InappDataMapping/technicalArchitectureProcess');
 const processStakeholders = require('../controllers/InappDataMapping/stakeholders');
 const mapping = {
     about:coverProcess,

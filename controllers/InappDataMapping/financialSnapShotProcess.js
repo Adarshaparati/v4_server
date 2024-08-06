@@ -3,14 +3,14 @@ const cleanAndSplit = require('../../utils/cleanandsplit');
 const separateHeaderDescription = require('../../utils/sepreateHeaderDescription');
 const cleanHeader = require('../../utils/cleanHeader')
 
-async function processFinancialSnapshot(submission,prompts) {
+async function processFinancialSnapshot(submission,prompts,response) {
 
     const {financialInfoPrompts} =prompts;
     const {financialInfo} = submission;
     const {financialSnapshot,revenueCost} = financialInfo
 
-    const financialTitle = await GPT(financialInfoPrompts.financialTitle.prompt,financialSnapshot);
-    const financialSnapshotResult = await GPT(financialInfoPrompts.financialSnapshot.prompt,financialSnapshot);
+    const financialTitle = await GPT(financialInfoPrompts.financialTitle.prompt,`Usesr Respone: ${financialSnapshot} Existing Response: ${response.financialInfo.financialTitle}`);
+    const financialSnapshotResult = await GPT(financialInfoPrompts.financialSnapshot.prompt,`Usesr Respone: ${financialSnapshot} Existing Response: ${response.financialInfo.financialSnapshot}`);
 
 
 

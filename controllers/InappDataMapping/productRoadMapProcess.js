@@ -7,10 +7,11 @@ async function processProductRoadMap(submission, prompts,response) {
     
     const {productPrompts} = prompts;
     const { product} = submission;
-    const { productOverview } = product;
+    const { productRoadmapDescription } = product;
 
-    const productRoadmapTitle = await GPT(productPrompts.productRoadmapTitle.prompt, `User Response: ${productOverview} Existing Response: ${response.product.productRoadmapTitle}`);
-    const roadMapPhaseGPT = await GPT(productPrompts.phaseGPT.prompt, `User Response: ${productOverview} Existing Response: ${response.product.phaseGPT}`);
+    console.log()
+    const productRoadmapTitle = await GPT(productPrompts.productRoadmapTitle.prompt, `User Response: ${productRoadmapDescription} Existing Response: ${response.product.productRoadmapTitle}`);
+    const roadMapPhaseGPT = await GPT(productPrompts.phaseGPT.prompt, `User Response: ${productRoadmapDescription} Existing Response: ${response.product.phaseGPT}`);
     const roadMapPhasePoints = cleanAndSplit(roadMapPhaseGPT);
 
     const roadMapPhaseHeaderDescriptions = await Promise.all(
