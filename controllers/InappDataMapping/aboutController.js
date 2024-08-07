@@ -8,17 +8,11 @@ const cleanHeader = require('../../utils/cleanHeader');
 
 async function processAbout(submission,prompts,response) {
     const {aboutPrompts} = prompts
-    const { about, companyDetails } = submission;
+    const {companyDetails } = submission;
     const { companyOverview } = companyDetails;
-    const {tagline} = about
-    
+    console.log(`User Response: ${companyOverview} Existing Response: ${response.about.aboutVision}`)
 
-    const tagLine = tagline === ""
-        ? await GPT(aboutPrompts.tagline.prompt, `Existing Response: ${response.about.tagLine}`)
-        : tagline;
-
-
-    const aboutVision = await GPT(aboutPrompts.aboutVision.prompt, `User Response: ${tagLine} Existing Response: ${response.about.aboutVision}`);
+    const aboutVision = await GPT(aboutPrompts.aboutVision.prompt, `User Response: ${companyOverview} Existing Response: ${response.about.aboutVision}`);
     const aboutTitle = GPT(aboutPrompts.aboutTitle.prompt, `User Response:${companyOverview} ${aboutVision} Existing Response: ${response.about.aboutTitle}`);
     const aboutGPT = NestedGPT(aboutPrompts.aboutGPT.prompt, aboutPrompts.aboutGPT.Refine, `User Response: ${companyOverview} ${aboutVision} Existing Response: ${response.about.aboutGPT}`);
     const aboutpointsPromise = aboutGPT.then(cleanAndSplit);
@@ -49,6 +43,30 @@ async function processAbout(submission,prompts,response) {
     ]);
 
     const aboutResponse = {
+        companyName:response.about.companyName,
+        companyLogo:response.about.companyLogo,
+        primaryColorR: response.about.primaryColorR,
+        primaryColorG: response.about.primaryColorG,
+        primaryColorB: response.about.primaryColorB,
+        primaryColorCheck: response.about.primaryColorCheck,
+        secondaryColorR: response.about.secondaryColorR,
+        secondaryColorG: response.about.secondaryColorG,
+        secondaryColorB: response.about.secondaryColorB,
+        secondaryColorCheck: response.about.secondaryColorCheck,
+        colorP100: response.about.colorP100,
+        colorP75_S25: response.about.colorP75_S25,
+        colorP50_S50: response.about.colorP50_S50,
+        colorP25_S75: response.about.colorP25_S75,
+        colorS100: response.about.colorS100,
+        colorF_S100: response.about.colorF_S100,
+        colorF_P100: response.about.colorF_P100,
+        colorF_P75S25: response.about.colorF_P75S25,
+        colorF_P50S50: response.about.colorF_P50S50,
+        colorF_P25S75: response.about.colorF_P25S75,
+        SCL: "#FFFFFF",
+        SCD: "#000000",
+        tagLine:response.about.tagLine,
+        coverImage: 'freepik',
         aboutTitle: cleanHeader(resolvedAboutTitle),
         aboutVision: resolvedAboutVision,
         aboutGPT: resolvedAboutGPT,
