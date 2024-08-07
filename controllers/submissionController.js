@@ -367,10 +367,9 @@ exports.postInAppSubmission = async (req, res) => {
     const { formId, formResponses, generatedPresentationId, section } = req.body;
 
     let submission = await ShortForm.findOne({ "user.submissionId": formId });
-    console.log(section)
+    // console.log("this is formResponses:",formResponses)
     for (const property of Object.keys(formResponses)) {
       let schemaKey;
-
       if (section === "technicalArchitecture") {
           schemaKey = "product";
       } else if (section === "productRoadmap") {
@@ -387,6 +386,7 @@ exports.postInAppSubmission = async (req, res) => {
         submission[schemaKey][property] = formResponses[property] || "";
       }
     }
+    // console.log(submission[section])
     const db = mongoose.connection.db;
     const collection = db.collection("GPT Static Prompts");
     const prompts = await collection.findOne({});
@@ -398,7 +398,11 @@ exports.postInAppSubmission = async (req, res) => {
 
     var sec = section
     const processdata = await processMappingInApp[sec](submission, prompts,response);
-    if (section === "technicalArchitecture") {
+    
+    if (section === "companyDetails") {
+      responseSection = "about";
+    }
+    else if (section === "technicalArchitecture") {
       responseSection = "product";
     } else if (section === "productRoadmap") {
       responseSection = "product";
@@ -411,7 +415,7 @@ exports.postInAppSubmission = async (req, res) => {
     }
     response[responseSection] = processdata;
 
-    console.log(response[responseSection])
+    // console.log(response[responseSection])
     const data = await response.save();
     if (data) {
       url = sectionToUrlMap1[section];
