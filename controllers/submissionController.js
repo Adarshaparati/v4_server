@@ -386,7 +386,7 @@ exports.postInAppSubmission = async (req, res) => {
         submission[schemaKey][property] = formResponses[property] || "";
       }
     }
-    // console.log(submission[section])
+    
     const db = mongoose.connection.db;
     const collection = db.collection("GPT Static Prompts");
     const prompts = await collection.findOne({});
@@ -415,7 +415,7 @@ exports.postInAppSubmission = async (req, res) => {
     }
     response[responseSection] = processdata;
 
-    // console.log(response[responseSection])
+    
     const data = await response.save();
     if (data) {
       url = sectionToUrlMap1[section];
