@@ -15,9 +15,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // Environment variables
 const MERCHANT_KEY = process.env.MERCHANT_KEY || 'DKg25I';
 const MERCHANT_SALT = process.env.MERCHANT_SALT || 'FCSLoAXe8swrMzEls4GxcSJJSg7l7KH0';
-if (!MERCHANT_KEY || !MERCHANT_SALT) {
-  throw new Error('Merchant key or salt is missing.');
-}
 
 // Import routes
 const userRoutes = require('./routes/userRoutes');
@@ -40,85 +37,49 @@ app.use('/appscript', appscriptRoutes);
 // Test route
 app.get("/test", (req, res) => {
   console.log("API hit");
-  res.json({ message: "API hit" });
+  res.json("API hit");
 });
 
-// Function to construct hash string
-function constructHashString(txnid, amount, productinfo, firstname, email, phone, status) {
-  return `${MERCHANT_KEY}|${txnid}|${amount}|${productinfo}|${firstname}|${email}|${phone}|${status}|||||||||||||${MERCHANT_SALT}`;
-}
-
-// Function to generate hash
-function generateHash(hashString) {
-  return crypto.createHash('sha512').update(hashString).digest('hex');
-}
-
 app.post('/api/generate-payu-hash', (req, res) => {
-  try {
-    const { amount, productinfo, firstname, email, phone } = req.body;
-    if (!amount || !productinfo || !firstname || !email || !phone) {
-      return res.status(400).json({ error: 'Missing required parameters' });
-    }
+  const { amount, productinfo, firstname, email, phone } = req.body;
+  const txnid = `txn${Date.now()}`;
+  const status = 'success'; // Set the status to 'success'
 
-    const txnid = `txn${Date.now()}`;
-    const status = 'success'; // Set the status to 'success'
+  // Construct the hash string with udf1 to udf5 as empty strings
+  const hashString = `${MERCHANT_KEY}|${txnid}|${amount}|${productinfo}|${firstname}|${email}|${phone}|${status}|||||||||||||${MERCHANT_SALT}`;
 
-    const hashString = constructHashString(txnid, amount, productinfo, firstname, email, phone, status);
-    const hash = generateHash(hashString);
+  // Calculate SHA-512 hash
+  const hash = crypto.createHash('sha512').update(hashString).digest('hex');
 
-    console.log('Hash string for generation:', hashString);
-    console.log('Generated hash:', hash);
+  console.log('Hash string for generation:', hashString);
+  console.log('Generated hash:', hash);
 
-    res.json({
-      key: MERCHANT_KEY,
-      txnid: txnid,
-      amount: amount,
-      productinfo: productinfo,
-      firstname: firstname,
-      email: email,
-      phone: phone,
-      surl: 'http://localhost:3000/payment-success',
-      furl: 'http://localhost:3000/payment-failure',
-      hash: hash,
-    });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Internal Server Error' });
-  }
+  res.json({
+    key: MERCHANT_KEY,
+    txnid: txnid,
+    hash: hash,
+  });
 });
 
 app.post('/api/verify-payment', (req, res) => {
-  try {
-    const { status, txnid, amount, productinfo, firstname, email, phone, hash } = req.body;
-    if (!status || !txnid || !amount || !productinfo || !firstname || !email || !phone || !hash) {
-      return res.status(400).json({ error: 'Missing required parameters' });
-    }
+  const { status, txnid, amount, productinfo, firstname, email, phone, hash } = req.body;
 
-    const hashString = constructHashString(txnid, amount, productinfo, firstname, email, phone, status);
-    const generatedHash = generateHash(hashString);
+  // Construct the hash string for verification
+  const hashString = `${MERCHANT_KEY}|${txnid}|${amount}|${productinfo}|${firstname}|${email}|${phone}|${status}|||||||||||||${MERCHANT_SALT}`;
 
-    console.log('Hash string for verification:', hashString);
-    console.log('Received hash:', hash);
-    console.log('Generated hash:', generatedHash);
+  // Calculate SHA-512 hash
+  const generatedHash = crypto.createHash('sha512').update(hashString).digest('hex');
 
-    if (generatedHash === hash) {
-      res.json({ verified: true });
-    } else {
-      console.error('Hash mismatch:', { received: hash, generated: generatedHash });
-      res.status(400).json({ verified: false, error: 'Hash mismatch' });
-    }
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Internal Server Error' });
+  console.log('Hash string for verification:', hashString);
+  console.log('Received hash:', hash);
+  console.log('Generated hash:', generatedHash);
+
+  if (generatedHash === hash) {
+    res.json({ verified: true });
+  } else {
+    console.error('Hash mismatch:', { received: hash, generated: generatedHash });
+    res.json({ verified: false });
   }
-});
-
-app.get('/payment-success', (req, res) => {
-  res.json({ message: 'Payment successful' });
-});
-
-app.get('/payment-failure', (req, res) => {
-  res.json({ message: 'Payment failed' });
 });
 
 module.exports = { app };
