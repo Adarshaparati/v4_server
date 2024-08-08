@@ -1,0 +1,194 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "General",
+    "contact": {},
+    "version": "1.0"
+  },
+  "jsonSchemaDialect": "https://json-schema.org/draft/2020-12/schema",
+  "servers": [
+    {
+      "url": "\thttps://test.payu.in/merchant/",
+      "variables": {}
+    }
+  ],
+  "paths": {
+    "/postservice": {
+      "post": {
+        "tags": [
+          "Misc"
+        ],
+        "summary": "verifypayment",
+        "description": "",
+        "operationId": "verifypayment",
+        "parameters": [
+          {
+            "name": "form",
+            "in": "query",
+            "description": "",
+            "required": true,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "allOf": [
+                {
+                  "title": "form",
+                  "const": 2,
+                  "type": "integer",
+                  "examples": [
+                    2
+                  ]
+                },
+                {
+                  "examples": [
+                    2
+                  ]
+                }
+              ]
+            }
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "description": "",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "allOf": [
+                {
+                  "title": "Content-Type",
+                  "const": "application/x-www-form-urlencoded",
+                  "type": "string",
+                  "examples": [
+                    "application/x-www-form-urlencoded"
+                  ]
+                },
+                {
+                  "examples": [
+                    "application/x-www-form-urlencoded"
+                  ]
+                }
+              ]
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "encoding": {},
+              "schema": {
+                "required": [
+                  "key",
+                  "command",
+                  "var1",
+                  "hash"
+                ],
+                "type": "object",
+                "properties": {
+                  "key": {
+                    "allOf": [
+                      {
+                        "title": "key",
+                        "const": "JPM7Fg",
+                        "type": "string",
+                        "description": "This parameter must contain the merchant key that is provided by PayU.",
+                        "examples": [
+                          "JPM7Fg"
+                        ]
+                      },
+                      {
+                        "description": "This parameter must contain the merchant key that is provided by PayU."
+                      }
+                    ]
+                  },
+                  "command": {
+                    "allOf": [
+                      {
+                        "title": "command",
+                        "const": "verify_payment",
+                        "type": "string",
+                        "description": "This parameter must contain the name of the web service, that is, verify_payment.",
+                        "examples": [
+                          "verify_payment"
+                        ]
+                      },
+                      {
+                        "description": "This parameter must contain the name of the web service, that is, verify_payment."
+                      }
+                    ]
+                  },
+                  "var1": {
+                    "type": "string",
+                    "description": "In this parameter, you can put all the transaction IDs, that is, txnid (your transaction ID/order ID) values separated by pipe or PayU ID.",
+                    "examples": [
+                      "7fa6c4783a363b3da573"
+                    ]
+                  },
+                  "hash": {
+                    "type": "string",
+                    "description": "This parameter must contain the hash value to be calculated by merchant.. The logic to calculate hash is : The string used for calculating the hash is in the following format: sha512(key|command|var1|salt) sha512"
+                  }
+                },
+                "contentMediaType": "application/x-www-form-urlencoded"
+              }
+            }
+          },
+          "required": false
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {},
+            "content": {}
+          }
+        },
+        "deprecated": false
+      },
+      "parameters": []
+    }
+  },
+  "components": {
+    "schemas": {
+      "command": {
+        "title": "command",
+        "const": "verify_payment",
+        "type": "string",
+        "description": "This parameter must contain the name of the web service, that is, verify_payment.",
+        "examples": [
+          "verify_payment"
+        ]
+      },
+      "Content-Type": {
+        "title": "Content-Type",
+        "const": "application/x-www-form-urlencoded",
+        "type": "string",
+        "examples": [
+          "application/x-www-form-urlencoded"
+        ]
+      },
+      "form": {
+        "title": "form",
+        "const": 2,
+        "type": "integer",
+        "examples": [
+          2
+        ]
+      },
+      "key": {
+        "title": "key",
+        "const": "JPM7Fg",
+        "type": "string",
+        "description": "This parameter must contain the merchant key that is provided by PayU.",
+        "examples": [
+          "JPM7Fg"
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Misc",
+      "description": ""
+    }
+  ]
+}
