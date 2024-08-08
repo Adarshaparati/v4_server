@@ -6,6 +6,6 @@ router.post('/triggerAppScript',appscriptController.getTriggerAppscript)
 // Route to store data in MongoDB
 router.post('/storeDataInMongo', appscriptController.storeDataInMongo);
 router.post('/storeslideInMongo', appscriptController.storeslideInMongo);
-
+router.post('/updatePaymentStatus', appscriptController.updatePaymentStatus);
 
 module.exports = router;

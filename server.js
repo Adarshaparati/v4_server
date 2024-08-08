@@ -41,12 +41,12 @@ app.get("/test", (req, res) => {
 });
 
 app.post('/api/generate-payu-hash', (req, res) => {
-  const { amount, productinfo, firstname, email, phone } = req.body;
+  const { amount, productinfo, firstname, email } = req.body;
   const txnid = `txn${Date.now()}`;
-  const status = 'success'; // Set the status to 'success'
+  const status = 'success'; // Status set to 'success'
 
   // Construct the hash string with udf1 to udf5 as empty strings
-  const hashString = `${MERCHANT_KEY}|${txnid}|${amount}|${productinfo}|${firstname}|${email}|${phone}|${status}|||||||||||||${MERCHANT_SALT}`;
+  const hashString = `${MERCHANT_KEY}|${txnid}|${amount}|${productinfo}|${firstname}|${email}|||||||||||${MERCHANT_SALT}`;
 
   // Calculate SHA-512 hash
   const hash = crypto.createHash('sha512').update(hashString).digest('hex');
@@ -61,11 +61,12 @@ app.post('/api/generate-payu-hash', (req, res) => {
   });
 });
 
-app.post('/api/verify-payment', (req, res) => {
-  const { status, txnid, amount, productinfo, firstname, email, phone, hash } = req.body;
+
+app.get('/payment-success', async (req, res) => {
+  const { status, txnid, amount, productinfo, firstname, email, phone, hash } = req.query;
 
   // Construct the hash string for verification
-  const hashString = `${MERCHANT_KEY}|${txnid}|${amount}|${productinfo}|${firstname}|${email}|${phone}|${status}|||||||||||||${MERCHANT_SALT}`;
+  const hashString = `${MERCHANT_KEY}|${txnid}|${amount}|${productinfo}|${firstname}|${email}|||||||||||${MERCHANT_SALT}`;
 
   // Calculate SHA-512 hash
   const generatedHash = crypto.createHash('sha512').update(hashString).digest('hex');
@@ -75,11 +76,15 @@ app.post('/api/verify-payment', (req, res) => {
   console.log('Generated hash:', generatedHash);
 
   if (generatedHash === hash) {
-    res.json({ verified: true });
+    console.log('Payment verification successful.');
+    // Redirect to the success page if verification is successful
+    res.redirect('http://localhost:3000/payment-success');
   } else {
-    console.error('Hash mismatch:', { received: hash, generated: generatedHash });
-    res.json({ verified: false });
+    console.error('Payment verification failed: Hash mismatch.');
+    // Redirect to the failure page if verification fails
+    res.redirect('http://localhost:3000/payment-failure');
   }
 });
+
 
 module.exports = { app };

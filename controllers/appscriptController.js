@@ -110,3 +110,26 @@ exports.storeslideInMongo = async (req, res) => {
         res.status(500).json({ "message": "Internal server error" });
     }
 };
+
+exports.updatePaymentStatus = async (req, res) => {
+    try {
+      const { FormID, paymentStatus } = req.body;
+  
+      // Find the document by FormID and update the paymentStatus field
+      const updatedData = await Data.findOneAndUpdate(
+        { FormID },
+        { paymentStatus },
+        { new: true }
+      );
+  
+      if (!updatedData) {
+        return res.status(404).json({ message: "FormID not found" });
+      }
+  
+      res.status(200).json(updatedData);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: "Internal server error" });
+    }
+  };
+  
