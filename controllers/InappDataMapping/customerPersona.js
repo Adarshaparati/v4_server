@@ -6,9 +6,9 @@ const cleanHeader = require('../../utils/cleanHeader')
 
 async function processCustomerPersona(submission, prompts,response) {
     const {gtmPrompts} = prompts;
-    const {competitiveDiff} = submission;
-    const persona = await GPT(gtmPrompts.persona.prompt,`User Response:${competitiveDiff.competitiveDiff} Existing Response: ${response.competitiveDiff.persona}`)
-    const personaCategoryGPT = await GPT(gtmPrompts.personaCategoryGPT.prompt,`User Response:${competitiveDiff.competitiveDiff} Existing Response: ${response.competitiveDiff.differentiationGPT}`)
+    const {goToMarket} = submission;
+    const persona = await GPT(gtmPrompts.persona.prompt,`User Response:${goToMarket.customerPersona} Existing Response: ${response.goToMarket.persona}`)
+    const personaCategoryGPT = await GPT(gtmPrompts.personaCategoryGPT.prompt,`User Response:${goToMarket.customerPersona} Existing Response: ${response.goToMarket.personaCategoryGPT}`)
     const personaPoints = cleanAndSplit(personaCategoryGPT);
 
     const personaHeaderDescriptions = await Promise.all(

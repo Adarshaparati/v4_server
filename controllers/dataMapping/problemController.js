@@ -8,12 +8,12 @@ async function processProblemSection(submission, prompts) {
     const { companyOverview } = companyDetails;
 
     const problemTitle = await GPT(problemPrompts.problemTitle.prompt, companyOverview);
-    const problemStatement = await GPT(problemPrompts.problemStatement.prompt, companyOverview);
     const problemGPT = await NestedGPT(
         problemPrompts.problemGPT.prompt,
         problemPrompts.problemGPT.Refine,
         companyOverview
     );
+    const problemStatement = await GPT(problemPrompts.problemStatement.prompt, problemGPT);
     const problemPoints = cleanAndSplit(problemGPT);
 
     const problemHeaderDescriptions = await Promise.all(
