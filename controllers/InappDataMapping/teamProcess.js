@@ -1,30 +1,33 @@
 const { GPT, NestedGPT } = require('../../services/gpt');
 const cleanHeader = require('../../utils/cleanHeader')
 
-async function team(submission, prompts) {
+async function team(submission, prompts,response) {
     const {teamMembers} = submission
     const {teamPrompts} = prompts;
+    
+    
+    
 
     const experiencePromises = [
-        GPT(teamPrompts.experience.Refine, teamMembers[0] ? teamMembers[0].experience : ""),
-        GPT(teamPrompts.experience.Refine, teamMembers[1] ? teamMembers[1].experience : ""),
-        GPT(teamPrompts.experience.Refine, teamMembers[2] ? teamMembers[2].experience : ""),
-        GPT(teamPrompts.experience.Refine, teamMembers[3] ? teamMembers[3].experience : ""),
-        GPT(teamPrompts.experience.Refine, teamMembers[4] ? teamMembers[4].experience : ""),
-        GPT(teamPrompts.experience.Refine, teamMembers[5] ? teamMembers[5].experience : "")
+        GPT(teamPrompts.experience.Refine, teamMembers[0] ? `User Response: ${teamMembers[0].experience} Existing Response: ${response.teamMembers.experience1}` : ""),
+        GPT(teamPrompts.experience.Refine, teamMembers[1] ? `User Response: ${teamMembers[1].experience} Existing Response: ${response.teamMembers.experience2}` : ""),
+        GPT(teamPrompts.experience.Refine, teamMembers[2] ? `User Response: ${teamMembers[2].experience} Existing Response: ${response.teamMembers.experience3}` : ""),
+        GPT(teamPrompts.experience.Refine, teamMembers[3] ? `User Response: ${teamMembers[3].experience} Existing Response: ${response.teamMembers.experience4}` : ""),
+        GPT(teamPrompts.experience.Refine, teamMembers[4] ? `User Response: ${teamMembers[4].experience} Existing Response: ${response.teamMembers.experience5}` : ""),
+        GPT(teamPrompts.experience.Refine, teamMembers[5] ? `User Response: ${teamMembers[5].experience} Existing Response: ${response.teamMembers.experience6}` : "")
       ];
       
     const experiences = await Promise.all(experiencePromises);
       
     const [experience1, experience2, experience3, experience4, experience5, experience6] = experiences;
 
-    const teamTitle = await GPT(teamPrompts.teamTitle.prompt,`${experience1} ${experience2} ${experience3} ${experience4} ${experience5} ${experience6} meet our team `)
-    console.log(Array(teamMembers)[0].teamMembers[0].name)
+    const teamTitle = await GPT(teamPrompts.teamTitle.prompt,`User Response: ${experience1} ${experience2} ${experience3} ${experience4} ${experience5} ${experience6} Existing Response: ${response.teamMembers.teamTitle} `)
+    // console.log(Array(teamMembers)[0].teamMembers[0].name)
     const teamResponse = {
         teamTitle: cleanHeader(teamTitle),
         name1: Array(teamMembers)[0]?.teamMembers?.[0]?.name || "",
         designationTitle1: Array(teamMembers)[0]?.teamMembers?.[0]?.title || "",
-        experience1:experience1,
+        experience1: experience1,
         linkedin1: Array(teamMembers)[0]?.teamMembers?.[0]?.linkedin || "",
         image1: Array(teamMembers)[0]?.teamMembers?.[0]?.photoUrl || "",
         name2: Array(teamMembers)[0]?.teamMembers?.[1]?.name || "",
@@ -56,4 +59,5 @@ async function team(submission, prompts) {
     console.log('team...')
     return teamResponse;
 }
+
 module.exports = team;

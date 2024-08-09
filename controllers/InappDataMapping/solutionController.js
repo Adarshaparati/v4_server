@@ -3,16 +3,12 @@ const cleanAndSplit = require('../../utils/cleanandsplit');
 const separateHeaderDescription = require('../../utils/sepreateHeaderDescription');
 const cleanHeader = require('../../utils/cleanHeader')
 
-async function processSolutionSection(problem, prompts) {
+async function processSolutionSection(submission, prompts,response) {
     const {solutionPrompts} = prompts;
-    const { problemGPT } = problem;
+    const {solutionDescription} = submission;
     
-    const solutionStatement = await GPT(solutionPrompts.solutionStatement.prompt, problemGPT);
-    const solutionGPT = await NestedGPT(
-        solutionPrompts.solutionGPT.prompt,
-        solutionPrompts.solutionGPT.Refine,
-        problemGPT
-    );
+    const solutionStatement = await GPT(solutionPrompts.solutionStatement.prompt,`User Response: ${solutionDescription.solutionsDescription} Existing Response: ${response.solutionDescription.solutionStatement}`);
+    const solutionGPT = await GPT(solutionPrompts.solutionGPT.prompt,`User Response: ${solutionDescription.solutionsDescription} Existing Response: ${response.solutionDescription.solutionGPT}`);
     const solutionTitle = await GPT(solutionPrompts.solutionTitle.prompt, solutionStatement);
 
     const solutionPoints = cleanAndSplit(solutionGPT);

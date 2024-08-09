@@ -1,6 +1,7 @@
 const { GPT, NestedGPT } = require('../../services/gpt');
 const cleanAndSplit = require('../../utils/cleanandsplit');
 const separateHeaderDescription = require('../../utils/sepreateHeaderDescription');
+const cleanHeader = require('../../utils/cleanHeader')
 
 async function processProductDetails(submission, prompts) {
     
@@ -22,7 +23,7 @@ async function processProductDetails(submission, prompts) {
         featurePoints.map(async (point) => {
             const { header, description } = separateHeaderDescription(point);
             const finalHeader = header || await GPT(productPrompts.featurePointHeader.prompt, description);
-            return { header: finalHeader, description };
+            return { header: cleanHeader(finalHeader), description };
         })
     );
 
@@ -31,7 +32,7 @@ async function processProductDetails(submission, prompts) {
         roadMapPhasePoints.map(async (point) => {
             const { header, description } = separateHeaderDescription(point);
             const finalHeader = header || await GPT(productPrompts.roadMapPhasePointHeader.prompt, description);
-            return { header: finalHeader, description };
+            return { header: cleanHeader(finalHeader), description };
         })
     );
 
@@ -45,7 +46,7 @@ async function processProductDetails(submission, prompts) {
     );
 
     const productResponse = {
-        productTitle,
+        productTitle:cleanHeader(productTitle),
         productOverview: productOverviewResponse,
         featureGPT,
         featureGPTCleaned: "",
@@ -73,7 +74,7 @@ async function processProductDetails(submission, prompts) {
         featureIcon4: "",
         featureIcon5: "",
         featureIcon6: "",
-        productRoadmapTitle,
+        productRoadmapTitle:cleanHeader(productRoadmapTitle),
         phaseGPT: roadMapPhaseGPT,
         phaseGPTCleaned: "",
         phaseGPT1: "",

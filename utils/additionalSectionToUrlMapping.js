@@ -5,7 +5,7 @@ const additionalUrlsMap = {
     sectionToUrlMap1.about,
     sectionToUrlMap1.problemDescription,
     sectionToUrlMap1.solutionDescription,
-    sectionToUrlMap1.competitors
+    sectionToUrlMap1.market
   ],
   product: [
     sectionToUrlMap1.productRoadmap,

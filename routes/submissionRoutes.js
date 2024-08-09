@@ -8,5 +8,7 @@ router.post('/store-response', submissionController.postStoreResponse);
 router.post('/', submissionController.postSubmission);
 router.post('/short-form', submissionController.postShortFormSubmission);
 router.post('/section-form', submissionController.postSectionSubmission);
+router.post('/inapp-form', submissionController.postInAppSubmission);
+
 
 module.exports = router;

@@ -1,3 +1,4 @@
+const splitOnDash = require('./dashSplit')
 function cleanAndSplit(text) {
   // Remove multiple newlines
   let cleanedText = text.replace(/\n\n/g, '\n')
@@ -19,11 +20,14 @@ cleanedText = cleanedText.substring(listStartIndex);
       // Remove leading digit and ". ", and also handle leading "- "
       return point.replace(/^\d+\.\s*/, '').trim().replace(/^- /, '');
   });
-  // Also split on "- " if it's not preceded by a letter (to handle list items with "- ")
   let finalArray = [];
-  pointsArray.forEach(item => {
-      finalArray.push(...item.split(/(?<![a-zA-Z]) - /));
-  });
-  return finalArray;
+
+  finalArray = pointsArray.length == 1?splitOnDash(pointsArray[0]):pointsArray;
+  // const result = finalArray.length === 1 
+  // ? finalArray[0].split('.').map(sentence => sentence.trim()).filter(sentence => sentence.length > 0) 
+  // : finalArray;
+
+return finalArray;
 }
+
 module.exports = cleanAndSplit

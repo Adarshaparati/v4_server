@@ -2,18 +2,18 @@ const { GPT, NestedGPT } = require('../../services/gpt');
 const cleanAndSplit = require('../../utils/cleanandsplit');
 const separateHeaderDescription = require('../../utils/sepreateHeaderDescription');
 const cleanHeader = require('../../utils/cleanHeader')
-async function processProblemSection(submission, prompts) {
+async function processProblemSection(submission, prompts,response) {
     const {problemPrompts} = prompts
-    const { companyDetails } = submission;
-    const { companyOverview } = companyDetails;
+    const { problemDescription} = submission;
 
-    const problemTitle = await GPT(problemPrompts.problemTitle.prompt, companyOverview);
-    const problemGPT = await NestedGPT(
+    console.log(`user Response: ${problemDescription.problemDescription} Existing Response:${response.problemDescription.problemGPT}`)
+   
+    const problemTitle = await GPT(problemPrompts.problemTitle.prompt, `user Response: ${problemDescription.problemDescription} Existing Response:${response.problemDescription.problemTitle}`);
+    const problemStatement = await GPT(problemPrompts.problemStatement.prompt, `user Response: ${problemDescription.problemDescription} Existing Response:${response.problemDescription.problemStatement}`);
+    const problemGPT = await GPT(
         problemPrompts.problemGPT.prompt,
-        problemPrompts.problemGPT.Refine,
-        companyOverview
+        `user Response: ${problemDescription.problemDescription} Existing Response:${response.problemDescription.problemGPT}`
     );
-    const problemStatement = await GPT(problemPrompts.problemStatement.prompt, problemGPT);
     const problemPoints = cleanAndSplit(problemGPT);
 
     const problemHeaderDescriptions = await Promise.all(
