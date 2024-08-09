@@ -2,6 +2,7 @@
 const sectionToUrlMap1 = require("../utils/sectionToUrlMapping1");
 const Data = require('../models/Data'); // Import the Data model for MongoDB
 const slide_data = require('../models/slideData'); // Import the slideData model for MongoDB
+const SlideDisplay = require('../models/slide_displays');
 exports.getTriggerAppscript =  async (req,res)=>{
     try{
         const {section,userId,formId,generatedPresentationId} = req.body
@@ -133,3 +134,22 @@ exports.updatePaymentStatus = async (req, res) => {
     }
   };
   
+// Fetch rows based on userID, formID, and presentationID
+exports.getSlidesByParams = async (req, res) => {
+    try {
+      const {fid: formID, pid: presentationID } = req.params;
+  
+      const slides = await SlideDisplay.find({
+        FormID: formID,
+        PresentationID: presentationID
+      });
+  
+      if (!slides || slides.length === 0) {
+        return res.status(404).json({ message: 'No slides found for the given parameters.' });
+      }
+  
+      res.status(200).json(slides);
+    } catch (error) {
+      res.status(500).json({ message: 'Error fetching slides', error: error.message });
+    }
+  };

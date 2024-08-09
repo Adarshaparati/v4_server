@@ -36,13 +36,13 @@ const sectionToUrlMap1 = {
   competitors:
     "https://script.google.com/macros/s/AKfycbwLuuP-cWy3b_JhObSP0L99OPLjc5mf1Qv9L5LFC3iozB2F1cCnsNWupI8Sfgoa2_Jiog/exec",
   competitiveDiff:
-    "https://script.google.com/macros/s/AKfycbyKl6GkjRZLbBmfpoyyvAIWZLX_Wl1FQSwISBN4CjPat3UqKMW71gpzlkmir25GEi5s2A/exec",
+    "https://script.google.com/macros/s/AKfycbyF_1ZmkI-AKnzHzos69luPQPvxgS9PkaoWDJp5zU0-r_lNjwoRYExTXY4PxZsGo7r6_w/exec",
   teamMembers:
     "https://script.google.com/macros/s/AKfycbxs_UWdZW1OnOv7XkFcbvxCA41Qyjtm8MqBegv0NDpXzU1-B9ueNJljx6sQQU4Fqhbs3w/exec",
   financialInfo:
     "https://script.google.com/macros/s/AKfycbzqVRvM-dp23RZiu_Z5rpfTx5vUL767IJB6wHsJETwcm580qGbbHxR8u4z2wfpkXx_h4w/exec",
   contactInfo:
-    "https://script.google.com/macros/s/AKfycbyYtPB4J37tFVfpkGW-IHEeB78f-juCM5TjYmwbgROWB35FwqJqFucKUWXLceixC0NyiA/exec",
+    "https://script.google.com/macros/s/AKfycbwnLv4-nXGCqy8ABcKPkgd6MIzicsZOxn2FTmRcwgv8382Oe64v4jxeo145lI4XTwoITg/exec",
 };
 module.exports = sectionToUrlMap1;
 
