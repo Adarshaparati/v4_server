@@ -1,6 +1,6 @@
 const sectionToUrlMap1 = {
   about:   
-  "https://script.google.com/macros/s/AKfycbwqBIaXl7N8jnuhJ_pWcuW5fKgwQZTBBW1oWf8VpPEiYI_AIG9RHwZcg8CwnDF_kSjv/exec",
+  "https://script.google.com/macros/s/AKfycby6NDdfszD0pZo5TUzB8kVq5gPR2NN1eeKP1t3_-sb1sVXIzD7JTkkD2d5D41V1Zxdj/exec",
 companyDetails:
     "https://script.google.com/macros/s/AKfycbzl4dtZPQJO4FGxatmKxqySS8XBdBTHDbhDK9N1D_WqvNlb8_Q8Z4f-1b9HvJqRPlfK/exec",
 problemDescription:
