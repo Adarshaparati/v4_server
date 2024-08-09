@@ -27,7 +27,8 @@ exports.getSlidesURL = async (req, res) => {
       UserID: finalSheet.UserID,
       FormID: finalSheet.FormID,
       PresentationURL: finalSheet.PresentationURL,
-      pptName: finalSheet.pptName
+      pptName: finalSheet.pptName,
+      paymentStatus:finalSheet.paymentStatus
     });
   } catch (error) {
     console.error('Error fetching slides URL:', error);
