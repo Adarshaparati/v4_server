@@ -8,6 +8,6 @@ router.post('/storeDataInMongo', appscriptController.storeDataInMongo);
 router.post('/storeslideInMongo', appscriptController.storeslideInMongo);
 router.post('/updatePaymentStatus', appscriptController.updatePaymentStatus);
 router.get('/ordering_data/:fid/:pid', appscriptController.getSlidesByParams);
-
+// adarsha
 
 module.exports = router;
